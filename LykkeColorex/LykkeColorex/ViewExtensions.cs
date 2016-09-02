@@ -14,5 +14,12 @@ namespace LykkeColorex
         {
             return new Rectangle(v.X + v.TranslationX, v.Y + v.TranslationY, v.Width, v.Height);
         }
+
+        public static void SetRealPosition(this View v, Rectangle rect)
+        {
+            if(v.Bounds != rect) v.Layout(rect);
+            if(v.TranslationX != 0) v.TranslationX = 0;
+            if(v.TranslationY != 0) v.TranslationY = 0;
+        }
     }
 }

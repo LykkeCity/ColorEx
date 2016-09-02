@@ -33,6 +33,7 @@ namespace LykkeColorex.Droid.CustomRenderers
                 JNIEnv.SetField(Control.Handle, mCursorDrawableResProperty, Resource.Drawable.custom_cursor); // replace 0 with a Resource.Drawable.my_cursor*/
                 Typeface font = Typeface.CreateFromAsset(Forms.Context.Assets, $"{entr.FontName}.ttf");
                 Control.Typeface = font;
+                
             }
         }
     }

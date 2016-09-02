@@ -25,7 +25,7 @@ namespace LykkeColorex.Pages
         {
             base.OnAppearing();
 
-            _backArrow.FadeTo(1, 500);
+            //_backArrow.FadeTo(1, 500);
         }
 
         public SignInWLWPage(Rectangle signInWLWButtonBounds, Rectangle signInLabelBounds, Rectangle forgotPasswordLabelBounds, Rectangle emailEntryLineBounds, Rectangle passwordEntryLineBounds, Rectangle infoWLWLabelBounds)
@@ -42,7 +42,7 @@ namespace LykkeColorex.Pages
 
             _backArrow = new BackArrowCx(fake: false)
             {
-                Opacity = 0
+                Opacity = 1
             };
             _backArrow.Clicked += async delegate
             {

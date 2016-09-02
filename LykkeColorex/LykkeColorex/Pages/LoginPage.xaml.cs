@@ -67,76 +67,81 @@ namespace LykkeColorex.Pages
             base.OnAppearing();
             if (CameBackFromSignInPage)
             {
-                var animation1 = _singInButton.LayoutTo(_oldSignInButtonBounds, 400, Easing.CubicOut);
+                var animation1 = _singInButton.TranslateTo(0, 0, 400, Easing.CubicOut);
 
-                var animation2 = _sinInWLWButton.LayoutTo(_oldSignInWLWButtonBounds, 400, Easing.CubicOut);
-                var animation3 = _signUpLabel.LayoutTo(_oldSignUpLabelBounds, 400, Easing.CubicOut);
+                var animation2 = _sinInWLWButton.TranslateTo(0, 0, 400, Easing.CubicOut);
+                var animation3 = _signUpLabel.TranslateTo(0, 0, 400, Easing.CubicOut);
 
-                var animation4 = _infoLabel.LayoutTo(_oldInfoLabelBounds, 400, Easing.CubicOut);
+                var animation4 = _infoLabel.TranslateTo(0, 0, 400, Easing.CubicOut);
                 var animation5 = _infoLabel.FadeTo(1, 400, Easing.CubicOut);
 
-                var animation6 = _logoColorex.LayoutTo(_oldLogoBounds, 400, Easing.CubicOut);
+                var animation6 = _logoColorex.TranslateTo(0, 0, 400, Easing.CubicOut);
                 var animation7 = _logoColorex.FadeTo(1, 400, Easing.CubicOut);
 
 
-                var animation9 = _signInLabel.LayoutTo(_oldSignInLabelBounds, 400, Easing.CubicOut);
+                var animation9 = _signInLabel.TranslateTo(0, 0, 400, Easing.CubicOut);
                 var animation10 = _signInLabel.FadeTo(0, 300);
 
-                var animation11 = _forgotPasswordLabel.LayoutTo(_oldForgotPasswordLabelBounds, 300, Easing.SinIn);
+                var animation11 = _forgotPasswordLabel.TranslateTo(0, 0, 300, Easing.SinIn);
                 var animation12 = _forgotPasswordLabel.FadeTo(0, 300);
                 
 
-                _emailEntryLine.FadeTo(0, 300, Easing.SinIn);
-                _emailEntryLine.LayoutTo(_oldEmailEntryLineBounds, 300, Easing.SinIn);
+                var animation13 = _emailEntryLine.FadeTo(0, 300, Easing.SinIn);
+                var animation14 = _emailEntryLine.TranslateTo(0, 0, 300, Easing.SinIn);
 
-                _passwordEntryLine.FadeTo(0, 300, Easing.SinIn);
-                _passwordEntryLine.LayoutTo(_oldPasswordEntryLineBounds, 300, Easing.SinIn);
+                var animation15 = _passwordEntryLine.FadeTo(0, 300, Easing.SinIn);
+                var animation16 = _passwordEntryLine.TranslateTo(0, 0, 300, Easing.SinIn);
 
                 _emailLabel.Opacity = 0;
-                _emailLabel.Layout(_oldEmailLabelBounds);
+                _emailLabel.TranslationY = 0;
 
                 _passwordLabel.Opacity = 0;
-                _passwordLabel.Layout(_oldPasswordLabelBounds);
+                _passwordLabel.TranslationY = 0;
+
+                //Task.WaitAll(animation1, animation2, animation3, animation4, animation5, animation6, animation7, animation9, animation10, animation11, animation12,
+                //    animation13, animation14, animation15, animation16);
             }
             if (CameBackFromSignInWLWPage)
             {
-                //var animation1 = _singInButton.LayoutTo(_oldSignInButtonBounds, 400, Easing.CubicOut);
-                var animation55 = _singInButton.TranslateTo(0, 0, 400, Easing.CubicOut);
-                var animation111 = _singInButton.FadeTo(1, 400, Easing.CubicOut);
+                var animation1 = _singInButton.TranslateTo(0, 0, 400, Easing.CubicOut);
+                var animation2 = _singInButton.FadeTo(1, 400, Easing.CubicOut);
+                
+                var animation3 = _sinInWLWButton.TranslateTo(0, 0, 400, Easing.CubicOut);
+                var animation4 = _signUpLabel.TranslateTo(0, 0, 400, Easing.CubicOut);
 
-                //var animation2 = _sinInWLWButton.LayoutTo(_oldSignInWLWButtonBounds, 400, Easing.CubicOut);
-                var animation2 = _sinInWLWButton.TranslateTo(0, 0, 400, Easing.CubicOut);
-                var animation3 = _signUpLabel.LayoutTo(_oldSignUpLabelBounds, 400, Easing.CubicOut);
+                var animation5 = _infoLabel.TranslateTo(0, 0, 400, Easing.CubicOut);
+                var animation6 = _infoLabel.FadeTo(1, 400, Easing.CubicOut);
 
-                var animation4 = _infoLabel.LayoutTo(_oldInfoLabelBounds, 400, Easing.CubicOut);
-                var animation5 = _infoLabel.FadeTo(1, 400, Easing.CubicOut);
-
-                var animation6 = _logoColorex.LayoutTo(_oldLogoBounds, 400, Easing.CubicOut);
-                var animation7 = _logoColorex.FadeTo(1, 400, Easing.CubicOut);
+                var animation7 = _logoColorex.TranslateTo(0, 0, 400, Easing.CubicOut);
+                var animation8 = _logoColorex.FadeTo(1, 400, Easing.CubicOut);
 
 
-                var animation9 = _signInLabel.LayoutTo(_oldSignInLabelBounds, 400, Easing.CubicOut);
+                var animation9 = _signInLabel.TranslateTo(0, 0, 400, Easing.CubicOut);
                 var animation10 = _signInLabel.FadeTo(0, 300);
 
-                var animation11 = _forgotPasswordLabel.LayoutTo(_oldForgotPasswordLabelBounds, 300, Easing.SinIn);
+                var animation11 = _forgotPasswordLabel.TranslateTo(0, 0, 300, Easing.SinIn);
                 var animation12 = _forgotPasswordLabel.FadeTo(0, 300);
 
 
-                _emailEntryLine.FadeTo(0, 300, Easing.CubicIn);
-                _emailEntryLine.LayoutTo(_oldEmailEntryLineBounds, 300, Easing.SinIn);
+                var animation13 = _emailEntryLine.FadeTo(0, 300, Easing.CubicIn);
+                var animation14 = _emailEntryLine.TranslateTo(0, 0, 300, Easing.SinIn);
 
-                _passwordEntryLine.FadeTo(0, 300, Easing.SinIn);
-                _passwordEntryLine.LayoutTo(_oldPasswordEntryLineBounds, 300, Easing.SinIn);
+                var animation15 = _passwordEntryLine.FadeTo(0, 300, Easing.SinIn);
+                var animation16 = _passwordEntryLine.TranslateTo(0, 0, 300, Easing.SinIn);
 
-                _infoLabelWLW.FadeTo(0, 200, Easing.CubicIn);
-                _infoLabelWLW.LayoutTo(_oldInfoLabelWLWBounds, 400, Easing.CubicOut);
+                var animation17 = _infoLabelWLW.FadeTo(0, 200, Easing.CubicIn);
+                var animation18 = _infoLabelWLW.TranslateTo(0, 0, 400, Easing.CubicOut);
 
                 _emailLabel.Opacity = 0;
-                _emailLabel.Layout(_oldEmailLabelBounds);
+                _emailLabel.TranslationY = 0;
 
                 _passwordLabel.Opacity = 0;
-                _passwordLabel.Layout(_oldPasswordLabelBounds);
+                _passwordLabel.TranslationY = 0;
+
+                //Task.WaitAll(animation1, animation2, animation3, animation4, animation5, animation6, animation7, animation9, animation10, animation11, animation12,
+                //    animation13, animation14, animation15, animation16, animation17, animation18);
             }
+            
         }
 
         public LoginPage()
@@ -217,9 +222,9 @@ namespace LykkeColorex.Pages
             {
                 await SignInWLWLowerAnimation();
                 await
-                    Navigation.PushAsync(new SignInWLWPage(_sinInWLWButton.GetRealPosition(), _signInLabel.Bounds,
-                        _forgotPasswordLabel.Bounds, _emailEntryLine.Bounds, _passwordEntryLine.Bounds,
-                        _infoLabelWLW.Bounds), false);
+                    Navigation.PushAsync(new SignInWLWPage(_sinInWLWButton.GetRealPosition(), _signInLabel.GetRealPosition(),
+                        _forgotPasswordLabel.GetRealPosition(), _emailEntryLine.GetRealPosition(), _passwordEntryLine.GetRealPosition(),
+                        _infoLabelWLW.GetRealPosition()), false);
             };
 
             // Sign in button positioning
@@ -243,8 +248,8 @@ namespace LykkeColorex.Pages
             _singInButton.Clicked += async delegate
             {
                 await SignInLowerAnimation();
-                await Navigation.PushAsync(new SignInPage(_singInButton.GetRealPosition(), _signInLabel.Bounds, _forgotPasswordLabel.Bounds,
-                    _emailEntryLine.Bounds, _passwordEntryLine.Bounds), false);
+                await Navigation.PushAsync(new SignInPage(_singInButton.GetRealPosition(), _signInLabel.GetRealPosition(), _forgotPasswordLabel.GetRealPosition(),
+                    _emailEntryLine.GetRealPosition(), _passwordEntryLine.GetRealPosition()), false);
             };
 
 
@@ -348,6 +353,10 @@ namespace LykkeColorex.Pages
             };
             _mainLayout.Children.Add(_infoLabelWLW, new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.InfoLabelFromTop, App.Dimensions.Width - 2 * SignInWLWPageLayout.Padding, AbsoluteLayout.AutoSize));
 
+            var _asdf = new BackArrowCx(true);
+
+            _mainLayout.Children.Add(_asdf, new Rectangle(24, Device.OnPlatform(Android: 43 + 5, iOS: 43, WinPhone: 43), 20, 15));
+
             Content = _mainLayout;
         }
 
@@ -363,53 +372,57 @@ namespace LykkeColorex.Pages
             _oldForgotPasswordLabelBounds = new Rectangle(App.Dimensions.Width - SignInPageLayout.Padding - 146, SignInPageLayout.ForgotPasswordFromTop + 100, _forgotPasswordLabel.Width, 17);
             _oldEmailEntryLineBounds = new Rectangle(SignInPageLayout.Padding, SignInPageLayout.EmailEntryLineFromTop + 100, App.Dimensions.Width - SignInPageLayout.Padding * 2, 0.5); ;
             _oldPasswordEntryLineBounds = new Rectangle(SignInPageLayout.Padding, SignInPageLayout.PasswordEntryLineFromTop + 150, App.Dimensions.Width - SignInPageLayout.Padding * 2, 0.5); ;
-            _oldEmailLabelBounds = new Rectangle(5 + 22, 35.5 + 185 + 100 , _emailLabel.Width, _emailLabel.Height); ;
-            _oldPasswordLabelBounds = new Rectangle(5 + 22, 35.5 + 260 + 100, _passwordLabel.Width, _passwordLabel.Height);
+            _oldEmailLabelBounds = new Rectangle(4 + 22, 35.5 + 185 + 100, _emailLabel.Width, _emailLabel.Height); ;
+            _oldPasswordLabelBounds = new Rectangle(4 + 22, 35.5 + 260 + 100, _passwordLabel.Width, _passwordLabel.Height);
             double lower = (App.Dimensions.Height - 24) - (_oldSignInButtonBounds.Height + _oldSignInButtonBounds.Y);
 
-            Rectangle newSignInButtonBounds = new Rectangle(_oldSignInButtonBounds.X, _oldSignInButtonBounds.Y + lower, _oldSignInButtonBounds.Width, _oldSignInButtonBounds.Height);
-            Rectangle newSignInWLWButtonBounds = new Rectangle(_oldSignInWLWButtonBounds.X, _oldSignInWLWButtonBounds.Y + lower + 20, _oldSignInWLWButtonBounds.Width, _oldSignInWLWButtonBounds.Height);
-            Rectangle newSignUpLabelBounds = new Rectangle(_oldSignUpLabelBounds.X, _oldSignUpLabelBounds.Y + lower + 40, _oldSignUpLabelBounds.Width, _oldSignUpLabelBounds.Height);
-            Rectangle newInfoLabelBounds = new Rectangle(_oldInfoLabelBounds.X, _oldInfoLabelBounds.Y - 30, _oldInfoLabelBounds.Width, _oldInfoLabelBounds.Height);
-            Rectangle newLogoBounds = new Rectangle(_oldLogoBounds.X, _oldLogoBounds.Y - 60, _oldLogoBounds.Width, _oldLogoBounds.Height);
-            Rectangle newSignInLabelBounds = new Rectangle(_oldSignInLabelBounds.X, SignInPageLayout.SignInLabelFromTop, _oldSignInLabelBounds.Width, _oldSignInLabelBounds.Height);
-            Rectangle newForgotPasswordLabelBounds = new Rectangle(_oldForgotPasswordLabelBounds.X, SignInPageLayout.ForgotPasswordFromTop, _oldForgotPasswordLabelBounds.Width, _oldForgotPasswordLabelBounds.Height);
-            Rectangle newEmailEntryLineBounds = new Rectangle(_oldEmailEntryLineBounds.X, SignInPageLayout.EmailEntryLineFromTop, _oldEmailEntryLineBounds.Width, _oldEmailEntryLineBounds.Height);
-            Rectangle newPasswordEntryLineBounds = new Rectangle(_oldPasswordEntryLineBounds.X, SignInPageLayout.PasswordEntryLineFromTop, _oldPasswordEntryLineBounds.Width, _oldPasswordEntryLineBounds.Height);
-            Rectangle newEmailLabelBounds = new Rectangle(_oldEmailLabelBounds.X, _oldEmailLabelBounds.Y - 100, _oldEmailLabelBounds.Width, _oldEmailLabelBounds.Height);
-            Rectangle newPasswordLabelBounds = new Rectangle(_oldPasswordLabelBounds.X, _oldPasswordLabelBounds.Y - 100, _oldPasswordLabelBounds.Width, _oldPasswordLabelBounds.Height);
+            _signInLabel.Layout(_oldSignInLabelBounds);
+            _signInLabel.TranslationY = 0;
+            _forgotPasswordLabel.Layout(_oldForgotPasswordLabelBounds);
+            _forgotPasswordLabel.TranslationY = 0;
+            _emailEntryLine.Layout(_oldEmailEntryLineBounds);
+            _emailEntryLine.TranslationY = 0;
+            _passwordEntryLine.Layout(_oldPasswordEntryLineBounds);
+            _passwordEntryLine.TranslationY = 0;
+            _emailLabel.Layout(_oldEmailLabelBounds);
+            _emailLabel.TranslationY = 0;
+            _passwordLabel.Layout(_oldPasswordLabelBounds);
+            _passwordLabel.TranslationY = 0;
+            _infoLabelWLW.Layout(_oldInfoLabelWLWBounds);
+            _infoLabelWLW.TranslationY = 0;
 
-            var animation1 = _singInButton.LayoutTo(newSignInButtonBounds, 400, Easing.CubicOut);
 
-            var animation2 = _sinInWLWButton.LayoutTo(newSignInWLWButtonBounds, 400, Easing.CubicOut);
-            var animation3 = _signUpLabel.LayoutTo(newSignUpLabelBounds, 400, Easing.CubicOut);
+            var animation1 = _singInButton.TranslateTo(0, lower, 400, Easing.CubicOut);
 
-            var animation4 = _infoLabel.LayoutTo(newInfoLabelBounds, 400, Easing.CubicOut);
+            var animation2 = _sinInWLWButton.TranslateTo(0, lower + 20, 400, Easing.CubicOut);
+            var animation3 = _signUpLabel.TranslateTo(0, lower + 40, 400, Easing.CubicOut);
+
+            var animation4 = _infoLabel.TranslateTo(0, -30, 400, Easing.CubicOut);
             var animation5 = _infoLabel.FadeTo(0, 400, Easing.CubicOut);
 
-            var animation6 = _logoColorex.LayoutTo(newLogoBounds, 400, Easing.CubicOut);
+            var animation6 = _logoColorex.TranslateTo(0, -60, 400, Easing.CubicOut);
             var animation7 = _logoColorex.FadeTo(0, 400, Easing.CubicOut);
-
-
-            var animation9 = _signInLabel.LayoutTo(newSignInLabelBounds, 400, Easing.CubicOut);
+            
+            var animation9 = _signInLabel.TranslateTo(0, -90, 400, Easing.CubicOut);
             var animation10 = _signInLabel.FadeTo(1, 300, Easing.CubicOut);
 
-            var animation11 = _forgotPasswordLabel.LayoutTo(newForgotPasswordLabelBounds, 400, Easing.CubicOut);
+            var animation11 = _forgotPasswordLabel.TranslateTo(0, -100, 400, Easing.CubicOut);
             var animation12 = _forgotPasswordLabel.FadeTo(1, 300);
 
-            var animtion13 = _emailEntryLine.FadeTo(1, 400, Easing.CubicOut);
-            var animation14 = _emailEntryLine.LayoutTo(newEmailEntryLineBounds, 400, Easing.CubicOut);
+            var animation13 = _emailEntryLine.FadeTo(1, 400, Easing.CubicOut);
+            var animation14 = _emailEntryLine.TranslateTo(0, -100, 400, Easing.CubicOut);
 
             var animation15 = _passwordEntryLine.FadeTo(1, 400, Easing.CubicOut);
-            var animation16 = _passwordEntryLine.LayoutTo(newPasswordEntryLineBounds, 400, Easing.CubicOut);
+            var animation16 = _passwordEntryLine.TranslateTo(0, -150, 400, Easing.CubicOut);
 
             var animation17 = _emailLabel.FadeTo(1, 400, Easing.CubicOut);
-            var animation18 = _emailLabel.LayoutTo(newEmailLabelBounds, 400, Easing.CubicOut);
+            var animation18 = _emailLabel.TranslateTo(0, -100, 400, Easing.CubicOut);
 
             var animation19 = _passwordLabel.FadeTo(1, 400, Easing.CubicOut);
-            var animation20 = _passwordLabel.LayoutTo(newPasswordLabelBounds, 400, Easing.CubicOut);
+            var animation20 = _passwordLabel.TranslateTo(0, -100, 400, Easing.CubicOut);
 
-            return Task.WhenAll(animation1, animation2, animation3, animation4, animation5, animation6, animation7, animation9, animation10, animation11, animation12);
+            return Task.WhenAll(animation1, animation2, animation3, animation4, animation5, animation6, animation7, animation9, animation10, animation11, animation12, animation13, animation14,
+                animation15, animation16, animation17, animation18, animation19, animation20);
         }
 
         private Task SignInWLWLowerAnimation()
@@ -425,81 +438,61 @@ namespace LykkeColorex.Pages
             _oldForgotPasswordLabelBounds = new Rectangle(App.Dimensions.Width - SignInWLWPageLayout.Padding - 146, SignInWLWPageLayout.ForgotPasswordFromTop + 100, _forgotPasswordLabel.Width, 17);
             _oldEmailEntryLineBounds = new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.EmailEntryLineFromTop + 100, App.Dimensions.Width - SignInWLWPageLayout.Padding * 2, 0.5);
             _oldPasswordEntryLineBounds = new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.PasswordEntryLineFromTop + 150, App.Dimensions.Width - SignInWLWPageLayout.Padding * 2, 0.5);
-            _oldEmailLabelBounds = new Rectangle(5 + 22, 35.5 + 185 + 100 + 60, _emailLabel.Width, _emailLabel.Height);
-            _oldPasswordLabelBounds = new Rectangle(5 + 22, 35.5 + 260 + 100 + 60, _passwordLabel.Width, _passwordLabel.Height);
+            _oldEmailLabelBounds = new Rectangle(4 + 22, 35.5 + 185 + 100 + 60, _emailLabel.Width, _emailLabel.Height);
+            _oldPasswordLabelBounds = new Rectangle(4 + 22, 35.5 + 260 + 100 + 60, _passwordLabel.Width, _passwordLabel.Height);
             _oldInfoLabelWLWBounds = new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.InfoLabelFromTop + 150, App.Dimensions.Width - 2 * SignInWLWPageLayout.Padding, _infoLabelWLW.Height);
 
             double lower = (App.Dimensions.Height - 24) - (_oldSignInWLWButtonBounds.Height + _oldSignInWLWButtonBounds.Y);
 
-            Rectangle newSignButtonInBounds = new Rectangle(_oldSignInButtonBounds.X, _oldSignInButtonBounds.Y - 20, _oldSignInButtonBounds.Width, _oldSignInButtonBounds.Height);
-            Rectangle newSignInWLWButtonBounds = new Rectangle(_oldSignInWLWButtonBounds.X, _oldSignInWLWButtonBounds.Y + lower, _oldSignInWLWButtonBounds.Width, _oldSignInWLWButtonBounds.Height);
-            Rectangle newSignUpLabelBounds = new Rectangle(_oldSignUpLabelBounds.X, _oldSignUpLabelBounds.Y + lower + 30, _oldSignUpLabelBounds.Width, _oldSignUpLabelBounds.Height);
-            Rectangle newInfoLabelBounds = new Rectangle(_oldInfoLabelBounds.X, _oldInfoLabelBounds.Y - 30, _oldInfoLabelBounds.Width, _oldInfoLabelBounds.Height);
-            Rectangle newLogoBounds = new Rectangle(_oldLogoBounds.X, _oldLogoBounds.Y - 60, _oldLogoBounds.Width, _oldLogoBounds.Height);
-            Rectangle newSignInLabelBounds = new Rectangle(_oldSignInLabelBounds.X, SignInWLWPageLayout.SignInLabelFromTop, _oldSignInLabelBounds.Width, _oldSignInLabelBounds.Height);
-            Rectangle newForgotPasswordLabelBounds = new Rectangle(_oldForgotPasswordLabelBounds.X, SignInWLWPageLayout.ForgotPasswordFromTop, _oldForgotPasswordLabelBounds.Width, _oldForgotPasswordLabelBounds.Height);
-            Rectangle newEmailEntryLineBounds = new Rectangle(_oldEmailEntryLineBounds.X, SignInWLWPageLayout.EmailEntryLineFromTop, _oldEmailEntryLineBounds.Width, _oldEmailEntryLineBounds.Height);
-            Rectangle newPasswordEntryLineBounds = new Rectangle(_oldPasswordEntryLineBounds.X, SignInWLWPageLayout.PasswordEntryLineFromTop, _oldPasswordEntryLineBounds.Width, _oldPasswordEntryLineBounds.Height);
-            Rectangle newEmailLabelBounds = new Rectangle(_oldEmailLabelBounds.X, _oldEmailLabelBounds.Y - 100, _oldEmailLabelBounds.Width, _oldEmailLabelBounds.Height);
-            Rectangle newPasswordLabelBounds = new Rectangle(_oldPasswordLabelBounds.X, _oldPasswordLabelBounds.Y - 100, _oldPasswordLabelBounds.Width, _oldPasswordLabelBounds.Height);
-            Rectangle newInfoLabelWLWBounds = new Rectangle(_oldInfoLabelWLWBounds.X, SignInWLWPageLayout.InfoLabelFromTop, _oldInfoLabelWLWBounds.Width, _oldInfoLabelWLWBounds.Height);
+            _signInLabel.SetRealPosition(_oldSignInLabelBounds);
+            _forgotPasswordLabel.SetRealPosition(_oldForgotPasswordLabelBounds);
+            _emailEntryLine.SetRealPosition(_oldEmailEntryLineBounds);
+            _passwordEntryLine.SetRealPosition(_oldPasswordEntryLineBounds);
+            _emailLabel.SetRealPosition(_oldEmailLabelBounds);
+            _passwordLabel.SetRealPosition(_oldPasswordLabelBounds);
+            _infoLabelWLW.SetRealPosition(_oldInfoLabelWLWBounds);
 
-            _signInLabel.Layout(_oldSignInLabelBounds);
-            _forgotPasswordLabel.Layout(_oldForgotPasswordLabelBounds);
-            _emailEntryLine.Layout(_oldEmailEntryLineBounds);
-            _passwordEntryLine.Layout(_oldPasswordEntryLineBounds);
-            _emailLabel.Layout(_oldEmailLabelBounds);
-            _passwordLabel.Layout(_oldPasswordLabelBounds);
-            _infoLabelWLW.Layout(_oldInfoLabelWLWBounds);
-            
-
-            //animation1 = _singInButton.LayoutTo(newSignButtonInBounds, 400, Easing.CubicOut);
-            var animation1Translate = _singInButton.TranslateTo(0, newSignButtonInBounds.Y - _oldSignInButtonBounds.Y, 400, Easing.CubicOut);
+            var animation1 = _singInButton.TranslateTo(0, -20, 400, Easing.CubicOut);
 
             var animation111 = _singInButton.FadeTo(0, 400, Easing.CubicOut);
+            
+            var animation2 = _sinInWLWButton.TranslateTo(0, lower, 400, Easing.CubicOut);
 
-            //var animation2 = _sinInWLWButton.LayoutTo(newSignInWLWButtonBounds, 400, Easing.CubicOut);
-            var animation2Translate = _sinInWLWButton.TranslateTo(0, newSignInWLWButtonBounds.Y - _oldSignInWLWButtonBounds.Y, 400, Easing.CubicOut);
+            var animation3 = _signUpLabel.TranslateTo(0, lower + 30, 400, Easing.CubicOut);
 
-            var animation3 = _signUpLabel.LayoutTo(newSignUpLabelBounds, 400, Easing.CubicOut);
-            //var animation3Translate = _signUpLabel.TranslateTo(newSignUpLabelBounds.X, newSignUpLabelBounds.Y, 400, Easing.CubicOut);
-
-            var animation4 = _infoLabel.LayoutTo(newInfoLabelBounds, 400, Easing.CubicOut);
-            //var animation4Translate = _infoLabel.TranslateTo(newInfoLabelBounds.X, newInfoLabelBounds.Y, 400, Easing.CubicOut);
+            var animation4 = _infoLabel.TranslateTo(0, -30, 400, Easing.CubicOut);
 
             var animation5 = _infoLabel.FadeTo(0, 400, Easing.CubicOut);
 
-            var animation6 = _logoColorex.LayoutTo(newLogoBounds, 400, Easing.CubicOut);
-           // var animation6Translate = _logoColorex.TranslateTo(newLogoBounds.X, newLogoBounds.Y, 400, Easing.CubicOut);
+            var animation6 = _logoColorex.TranslateTo(0, -60, 400, Easing.CubicOut);
 
             var animation7 = _logoColorex.FadeTo(0, 400, Easing.CubicOut);
 
-            var animation9 = _signInLabel.LayoutTo(newSignInLabelBounds, 400, Easing.CubicOut);
-            //var animation9Translate = _signInLabel.TranslateTo(newSignInLabelBounds.X, newSignInLabelBounds.Y, 400, Easing.CubicOut);
+            var animation9 = _signInLabel.TranslateTo(0, -90, 400, Easing.CubicOut);
 
             var animation10 = _signInLabel.FadeTo(1, 300, Easing.CubicOut);
 
-            var animation11 = _forgotPasswordLabel.LayoutTo(newForgotPasswordLabelBounds, 400, Easing.CubicOut);
-            //var animation11Translate = _forgotPasswordLabel.LayoutTo(newForgotPasswordLabelBounds, 400, Easing.CubicOut);
+            var animation11 = _forgotPasswordLabel.TranslateTo(0, -100, 400, Easing.CubicOut);
 
             var animation12 = _forgotPasswordLabel.FadeTo(1, 300);
 
-            var animtion13 = _emailEntryLine.FadeTo(1, 400, Easing.CubicOut);
-            var animation14 = _emailEntryLine.LayoutTo(newEmailEntryLineBounds, 400, Easing.CubicOut);
+            var animation13 = _emailEntryLine.FadeTo(1, 400, Easing.CubicOut);
+            var animation14 = _emailEntryLine.TranslateTo(0, -100, 400, Easing.CubicOut);
 
             var animation15 = _passwordEntryLine.FadeTo(1, 400, Easing.CubicOut);
-            var animation16 = _passwordEntryLine.LayoutTo(newPasswordEntryLineBounds, 400, Easing.CubicOut);
+            var animation16 = _passwordEntryLine.TranslateTo(0, -150, 400, Easing.CubicOut);
 
             var animation17 = _emailLabel.FadeTo(1, 400, Easing.CubicOut);
-            var animation18 = _emailLabel.LayoutTo(newEmailLabelBounds, 400, Easing.CubicOut);
+            var animation18 = _emailLabel.TranslateTo(0, -100, 400, Easing.CubicOut);
 
             var animation19 = _passwordLabel.FadeTo(1, 400, Easing.CubicOut);
-            var animation20 = _passwordLabel.LayoutTo(newPasswordLabelBounds, 400, Easing.CubicOut);
+            var animation20 = _passwordLabel.TranslateTo(0, -100, 400, Easing.CubicOut);
 
             var animation21 = _infoLabelWLW.FadeTo(1, 400, Easing.CubicOut);
-            var animation22 = _infoLabelWLW.LayoutTo(newInfoLabelWLWBounds, 400, Easing.CubicOut);
+            var animation22 = _infoLabelWLW.TranslateTo(0, -150, 400, Easing.CubicOut);
 
-            return Task.WhenAll( animation11, animation3, animation4, animation5, animation6, animation7);
+            return Task.WhenAll(animation1, animation111, animation2, animation3, animation4, animation5, animation6, animation7, animation9, animation10, animation11, animation12, animation13, animation14,
+                animation15, animation16, animation17, animation18, animation19, animation20, animation21, animation22);
         }
 
     }

@@ -135,8 +135,9 @@ namespace LykkeColorex.CustomViews
                     HorizontalOptions = LayoutOptions.Fill,
                     //        BackgroundColor = Color.Lime
                 };
+                _label.AnchorX = 0;
                 al.Children.Add(_entry, new Rectangle(_entryIndent, 0 + 8.5 + _fontSize, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
-                al.Children.Add(_label, new Rectangle(5, 10 + 8.5 + _fontSize, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
+                al.Children.Add(_label, new Rectangle(4, 10 + 8.5 + _fontSize, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
                 Content = al;
             }
             catch (Exception ex)
@@ -158,12 +159,8 @@ namespace LykkeColorex.CustomViews
             _label.TextColor = _labelFocusColor;
             if (!_isRaised)
             {
-                var m = (_label.Width - _label.Width * ((double)_labelUpperFontSize / (double)_fontSize)) / 2;
                 _label.ScaleTo((double)_labelUpperFontSize / (double)_fontSize, 100, Easing.SinInOut);
-                Rectangle oldBounds = _label.Bounds;
-                Rectangle newBounds = new Rectangle(new Point(new Size(5 - m, oldBounds.Y - _spacing - 10 - _fontSize)),
-                    oldBounds.Size);
-                _label.LayoutTo(newBounds, 100, Easing.SinInOut);
+                _label.TranslateTo(0, - (_spacing + 10 + _fontSize), 100, Easing.SinInOut);
                 _isRaised = true;
             }
         }
@@ -173,9 +170,7 @@ namespace LykkeColorex.CustomViews
             if (string.IsNullOrEmpty(_entry.Text))
             {
                 _label.ScaleTo(1, 100, Easing.SinInOut);
-                Rectangle oldBounds = _label.Bounds;
-                Rectangle newBounds = new Rectangle(new Point(new Size(5, oldBounds.Y + _spacing + 10 + _fontSize)), oldBounds.Size);
-                _label.LayoutTo(newBounds, 100, Easing.SinInOut);
+                _label.TranslateTo(0, 0, 100, Easing.SinInOut);
                 _isRaised = false;
             }
         }
