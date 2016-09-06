@@ -12,7 +12,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace LykkeColorex.Droid
 {
-    [Activity(Label = "LykkeColorex", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "LykkeColorex", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, WindowSoftInputMode = SoftInput.AdjustPan)]
     public class MainActivity : FormsApplicationActivity
     {
         protected override void OnCreate(Bundle bundle)
@@ -26,11 +26,6 @@ namespace LykkeColorex.Droid
             App.Dimensions.Width = displayMetrics.WidthPixels / displayMetrics.Density;
 
             LoadApplication(new App());
-
-
-            /*DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();    
-                float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
-                float dpWidth = displayMetrics.widthPixels / displayMetrics.density; */
         }
     }
 }

@@ -90,11 +90,8 @@ namespace LykkeColorex.Pages
                 HorizontalOptions = LayoutOptions.Fill,
                 Keyboard = Keyboard.Email
             };
-            _mainLayout.Children.Add(_emailEntry, new Rectangle(22, 185, App.Dimensions.Width - 24 * 2, 80));
-
-            _emailEntryLine = new BoxView { BackgroundColor = Color.FromRgb(222, 225, 228), Opacity = 1 };
-            _mainLayout.Children.Add(_emailEntryLine, emailEntryLineBounds);
-
+            _mainLayout.Children.Add(_emailEntry, new Rectangle(SignInPageLayout.Padding, 180, App.Dimensions.Width - SignInPageLayout.Padding * 2, 80));
+            
             _passwordEntry = new EntryCx
             {
                 PlaceholderText = "Password",
@@ -106,15 +103,8 @@ namespace LykkeColorex.Pages
                 HorizontalOptions = LayoutOptions.Fill,
                 IsPassword = true
             };
-            _mainLayout.Children.Add(_passwordEntry, new Rectangle(22, 180 + 80, App.Dimensions.Width - 24 * 2, 80));
-
-            _passwordEntryLine = new BoxView
-            {
-                BackgroundColor = Color.FromRgb(222, 225, 228),
-                Opacity = 1
-            };
-            _mainLayout.Children.Add(_passwordEntryLine, passwordEntryLineBounds);
-
+            _mainLayout.Children.Add(_passwordEntry, new Rectangle(SignInPageLayout.Padding, 180 + 80, App.Dimensions.Width - 24 * 2, 80));
+            
             _forgotLabel = new LabelCx
             {
                 FormattedText = new FormattedString

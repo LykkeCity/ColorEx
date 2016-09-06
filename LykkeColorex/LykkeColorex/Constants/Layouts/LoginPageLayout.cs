@@ -25,8 +25,8 @@ namespace LykkeColorex.Constants.Layouts
         public static int SignInLabelFromTop = 127;
         public static int Padding = 24;
         public static int ForgotPasswordFromTop = 363;
-        public static int EmailEntryLineFromTop = 260;
-        public static int PasswordEntryLineFromTop = 340;
+        public static int EmailEntryLineFromTop = 259;
+        public static int PasswordEntryLineFromTop = 339;
     }
 
     public static class SignInWLWPageLayout

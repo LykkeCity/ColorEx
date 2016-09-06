@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LykkeColorex.Constants.Layouts;
 using LykkeColorex.CustomViews;
 using Xamarin.Forms;
 
@@ -25,7 +26,7 @@ namespace LykkeColorex.Pages
         {
             base.OnAppearing();
 
-            //_backArrow.FadeTo(1, 500);
+            _backArrow.FadeTo(1, 500);
         }
 
         public SignInWLWPage(Rectangle signInWLWButtonBounds, Rectangle signInLabelBounds, Rectangle forgotPasswordLabelBounds, Rectangle emailEntryLineBounds, Rectangle passwordEntryLineBounds, Rectangle infoWLWLabelBounds)
@@ -42,7 +43,7 @@ namespace LykkeColorex.Pages
 
             _backArrow = new BackArrowCx(fake: false)
             {
-                Opacity = 1
+                Opacity = 0
             };
             _backArrow.Clicked += async delegate
             {
@@ -125,11 +126,8 @@ namespace LykkeColorex.Pages
                 HorizontalOptions = LayoutOptions.Fill,
                 Keyboard = Keyboard.Email
             };
-            _mainLayout.Children.Add(_emailEntry, new Rectangle(22, 185 + 60, App.Dimensions.Width - 24 * 2, 80));
-
-            _emailEntryLine = new BoxView { BackgroundColor = Color.FromRgb(222, 225, 228), Opacity = 1 };
-            _mainLayout.Children.Add(_emailEntryLine, emailEntryLineBounds);
-
+            _mainLayout.Children.Add(_emailEntry, new Rectangle(SignInWLWPageLayout.Padding, 239, App.Dimensions.Width - SignInWLWPageLayout.Padding * 2, 80));
+            
             _passwordEntry = new EntryCx
             {
                 PlaceholderText = "Password",
@@ -141,15 +139,8 @@ namespace LykkeColorex.Pages
                 HorizontalOptions = LayoutOptions.Fill,
                 IsPassword = true
             };
-            _mainLayout.Children.Add(_passwordEntry, new Rectangle(22, 180 + 80 + 60, App.Dimensions.Width - 24 * 2, 80));
-
-            _passwordEntryLine = new BoxView
-            {
-                BackgroundColor = Color.FromRgb(222, 225, 228),
-                Opacity = 1
-            };
-            _mainLayout.Children.Add(_passwordEntryLine, passwordEntryLineBounds);
-
+            _mainLayout.Children.Add(_passwordEntry, new Rectangle(SignInWLWPageLayout.Padding, 319, App.Dimensions.Width - SignInWLWPageLayout.Padding * 2, 80));
+            
             _forgotLabel = new LabelCx
             {
                 FormattedText = new FormattedString
