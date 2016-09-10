@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="ClassInterface.cs" />
     <Compile Include="Constants\Layouts\LoginPageLayout.cs" />
     <Compile Include="CustomViews\BackArrowCx.cs" />
     <Compile Include="CustomViews\ButtonCx.cs" />
@@ -47,6 +48,7 @@
     <Compile Include="CustomViews\LabelEx.cs" />
     <Compile Include="CustomViews\RegistrationProgressBar.cs" />
     <Compile Include="CustomViews\RoundedBoxView.cs" />
+    <Compile Include="CustomViews\StickyButton.cs" />
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>

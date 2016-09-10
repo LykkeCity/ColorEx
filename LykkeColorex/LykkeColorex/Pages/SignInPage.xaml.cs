@@ -54,7 +54,7 @@ namespace LykkeColorex.Pages
             };
             _mainLayout.Children.Add(
                 _backArrow, 
-                new Rectangle(24, Device.OnPlatform(Android: 43 + 5, iOS:43, WinPhone:43), 20, 15));
+                new Rectangle(24, Device.OnPlatform(Android: 43 + 5 - 25, iOS:43, WinPhone:43), 20, 15));
             
 
             _signInButton = new ButtonCx
@@ -90,7 +90,7 @@ namespace LykkeColorex.Pages
                 HorizontalOptions = LayoutOptions.Fill,
                 Keyboard = Keyboard.Email
             };
-            _mainLayout.Children.Add(_emailEntry, new Rectangle(SignInPageLayout.Padding, 180, App.Dimensions.Width - SignInPageLayout.Padding * 2, 80));
+            _mainLayout.Children.Add(_emailEntry, new Rectangle(SignInPageLayout.Padding, 180 - 25, App.Dimensions.Width - SignInPageLayout.Padding * 2, 80));
             
             _passwordEntry = new EntryCx
             {
@@ -103,7 +103,7 @@ namespace LykkeColorex.Pages
                 HorizontalOptions = LayoutOptions.Fill,
                 IsPassword = true
             };
-            _mainLayout.Children.Add(_passwordEntry, new Rectangle(SignInPageLayout.Padding, 180 + 80, App.Dimensions.Width - 24 * 2, 80));
+            _mainLayout.Children.Add(_passwordEntry, new Rectangle(SignInPageLayout.Padding, 180 + 80 - 25, App.Dimensions.Width - 24 * 2, 80));
             
             _forgotLabel = new LabelCx
             {

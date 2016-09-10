@@ -372,8 +372,8 @@ namespace LykkeColorex.Pages
             _oldForgotPasswordLabelBounds = new Rectangle(App.Dimensions.Width - SignInPageLayout.Padding - 146, SignInPageLayout.ForgotPasswordFromTop + 100, _forgotPasswordLabel.Width, 17);
             _oldEmailEntryLineBounds = new Rectangle(SignInPageLayout.Padding, SignInPageLayout.EmailEntryLineFromTop + 100, App.Dimensions.Width - SignInPageLayout.Padding * 2, 1);
             _oldPasswordEntryLineBounds = new Rectangle(SignInPageLayout.Padding, SignInPageLayout.PasswordEntryLineFromTop + 150, App.Dimensions.Width - SignInPageLayout.Padding * 2, 1);
-            _oldEmailLabelBounds = new Rectangle(4 + 22, 35.5 + 2.5 + 185 + 100, _emailLabel.Width, _emailLabel.Height);
-            _oldPasswordLabelBounds = new Rectangle(4 + 22, 35.5 + 7.5 + 260 + 100, _passwordLabel.Width, _passwordLabel.Height);
+            _oldEmailLabelBounds = new Rectangle(4 + 22, 35.5 + 2.5 + 185 + 100 - 25, _emailLabel.Width, _emailLabel.Height);
+            _oldPasswordLabelBounds = new Rectangle(4 + 22, 35.5 + 7.5 + 260 + 100 - 25, _passwordLabel.Width, _passwordLabel.Height);
             double lower = (App.Dimensions.Height - 24) - (_oldSignInButtonBounds.Height + _oldSignInButtonBounds.Y);
 
             _signInLabel.SetRealPosition(_oldSignInLabelBounds);
@@ -428,10 +428,10 @@ namespace LykkeColorex.Pages
 
             _oldSignInLabelBounds = new Rectangle(SignInWLWPageLayout.Padding - 1, SignInWLWPageLayout.SignInLabelFromTop + 90, 90, 32); ;
             _oldForgotPasswordLabelBounds = new Rectangle(App.Dimensions.Width - SignInWLWPageLayout.Padding - 146, SignInWLWPageLayout.ForgotPasswordFromTop + 100, _forgotPasswordLabel.Width, 17);
-            _oldEmailEntryLineBounds = new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.EmailEntryLineFromTop + 100 -1, App.Dimensions.Width - SignInWLWPageLayout.Padding * 2, 1);
-            _oldPasswordEntryLineBounds = new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.PasswordEntryLineFromTop + 150 -1, App.Dimensions.Width - SignInWLWPageLayout.Padding * 2, 1);
-            _oldEmailLabelBounds = new Rectangle(4 + 22, 35.5 + 1.5 + 185 + 100 + 60, _emailLabel.Width, _emailLabel.Height);
-            _oldPasswordLabelBounds = new Rectangle(4 + 22, 35.5 + 6.5 + 260 + 100 + 60, _passwordLabel.Width, _passwordLabel.Height);
+            _oldEmailEntryLineBounds = new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.EmailEntryLineFromTop + 100 - 1, App.Dimensions.Width - SignInWLWPageLayout.Padding * 2, 1);
+            _oldPasswordEntryLineBounds = new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.PasswordEntryLineFromTop + 150 - 1, App.Dimensions.Width - SignInWLWPageLayout.Padding * 2, 1);
+            _oldEmailLabelBounds = new Rectangle(4 + 22, 35.5 + 1.5 + 185 + 100 + 60 - 25, _emailLabel.Width, _emailLabel.Height);
+            _oldPasswordLabelBounds = new Rectangle(4 + 22, 35.5 + 6.5 + 260 + 100 + 60 - 25, _passwordLabel.Width, _passwordLabel.Height);
             _oldInfoLabelWLWBounds = new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.InfoLabelFromTop + 150, App.Dimensions.Width - 2 * SignInWLWPageLayout.Padding, _infoLabelWLW.Height);
 
             double lower = (App.Dimensions.Height - 24) - (_oldSignInWLWButtonBounds.Height + _oldSignInWLWButtonBounds.Y);

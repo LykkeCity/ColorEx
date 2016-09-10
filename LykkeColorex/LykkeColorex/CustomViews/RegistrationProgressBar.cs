@@ -41,12 +41,12 @@ namespace LykkeColorex.CustomViews
                 {
                     Color = Color.FromRgb(63, 142, 253),
                     CornerRadius = 2,
-
+                    Opacity = 0
                 };
 
-                _al.Children.Add(animatable, new Rectangle(_boxes[_atStep + 1].X, _boxes[_atStep + 1].Y, 0, _boxes[_atStep + 1].Height));
-                await animatable.LayoutTo(_boxes[_atStep + 1].Bounds, 200, Easing.CubicOut);
-
+                _al.Children.Add(animatable, new Rectangle(_boxes[_atStep + 1].X, _boxes[_atStep + 1].Y, _boxes[_atStep + 1].Width, _boxes[_atStep + 1].Height));
+                //await animatable.LayoutTo(_boxes[_atStep + 1].Bounds, 200, Easing.CubicOut);
+                await animatable.FadeTo(1, 200);
                 _boxes[_atStep + 1].Color = Color.FromRgb(63, 142, 253);
                 _al.Children.Remove(animatable);
 
@@ -60,17 +60,20 @@ namespace LykkeColorex.CustomViews
             {
                 var animatable = new RoundedBoxView
                 {
-                    Color = Color.FromRgb(235, 237, 239),
+                    Color = Color.FromRgb(63, 142, 253),
                     CornerRadius = 2,
-
+                    Opacity = 1
                 };
+                
 
-                _al.Children.Add(animatable, new Rectangle(_boxes[_atStep].X + _boxes[_atStep].Width, _boxes[_atStep].Y, 0, _boxes[_atStep].Height));
-                await animatable.LayoutTo(_boxes[_atStep].Bounds, 200, Easing.CubicOut);
-
+                
+                _al.Children.Add(animatable, new Rectangle(_boxes[_atStep].X, _boxes[_atStep].Y, _boxes[_atStep].Width, _boxes[_atStep].Height));
                 _boxes[_atStep].Color = Color.FromRgb(235, 237, 239);
-                _al.Children.Remove(animatable);
+                await animatable.FadeTo(0, 200);
+                //await animatable.LayoutTo(_boxes[_atStep].Bounds, 200, Easing.CubicOut);
 
+                _al.Children.Remove(animatable);
+                
                 _atStep--;
             }
         }

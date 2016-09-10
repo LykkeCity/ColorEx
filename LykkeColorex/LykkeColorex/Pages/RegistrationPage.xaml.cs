@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,34 +12,75 @@ namespace LykkeColorex.Pages
 {
     public partial class RegistrationPage : ContentPage
     {
+        private StickyButton _button;
+        private AbsoluteLayout al;
+        private ClassInterface instance = DependencyService.Get<ClassInterface>();
+
         public RegistrationPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
 
             BackgroundColor = Color.White;
 
-            var al = new AbsoluteLayout() {HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Fill};
+            al = new AbsoluteLayout() { HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Fill };
 
-            var rb = new RegistrationProgressBar((int) (App.Dimensions.Width - 2*LoginPageLayout.Padding), 5);
+            var rb = new RegistrationProgressBar((int)(App.Dimensions.Width - 2 * LoginPageLayout.Padding), 5);
 
-            al.Children.Add(rb, new Rectangle(LoginPageLayout.Padding, 85, AbsoluteLayout.AutoSize, 3));
+            al.Children.Add(rb, new Rectangle(LoginPageLayout.Padding, RegistrationPageLayout.RegistrationProgressBarFromTop, AbsoluteLayout.AutoSize, 3));
 
-            var button = new Button { Text = "asdf" };
-            button.Clicked += (sender, args) =>
+            _button = new StickyButton
             {
-                rb.Next();
+                InputTransparent = false
             };
 
-            var button2 = new Button { Text = "asdf" };
-            button2.Clicked += (sender, args) =>
+            al.Children.Add(_button, new Rectangle(0, App.Dimensions.Height - 64, App.Dimensions.Width + 1, 64));
+            _button.Clicked += (sender, args) =>
             {
-                rb.Previous();
+                var b = (StickyButton)sender;
+                if(b.State == StickyButtonState.Error) b.SetState(StickyButtonState.Loading, true);
+                else if (b.State == StickyButtonState.Loading) b.SetState(StickyButtonState.Next, true);
+                else if (b.State == StickyButtonState.Next) b.SetState(StickyButtonState.Success, true);
+                else if (b.State == StickyButtonState.Success) b.SetState(StickyButtonState.Error, true);
             };
 
-            al.Children.Add(button, new Rectangle(200, 200, 50, 50));
-            al.Children.Add(button2, new Rectangle(100, 200, 50, 50));
+            var entry = new Entry
+            {
+                HorizontalOptions = LayoutOptions.Fill,
+                BackgroundColor = Color.Red
+            };
+
+            al.Children.Add(entry, new Rectangle(100,100, 200, 100));
+
 
             Content = al;
+
+            Content.SizeChanged += ContentOnSizeChanged;
+
+
+            Device.StartTimer(TimeSpan.FromMilliseconds(300), () =>
+            {
+                Debug.WriteLine(Content.Height);
+                return true;
+            });
         }
-    }
+
+        private void ContentOnSizeChanged(object sender, EventArgs eventArgs)
+        {
+            _button.Layout(new Rectangle(_button.Bounds.X, Content.Height - 64, _button.Bounds.Width, _button.Bounds.Height));
+            DependencyService.Get<ClassInterface>().SetRect(_button.Bounds);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            DependencyService.Get<ClassInterface>().SetAdjustResize(true);
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            DependencyService.Get<ClassInterface>().SetRect(null);
+            DependencyService.Get<ClassInterface>().SetAdjustResize(false);
+        }
+    } 
 }

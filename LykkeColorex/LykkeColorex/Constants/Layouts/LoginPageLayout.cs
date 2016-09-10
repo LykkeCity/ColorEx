@@ -22,20 +22,28 @@ namespace LykkeColorex.Constants.Layouts
 
     public static class SignInPageLayout
     {
-        public static int SignInLabelFromTop = 127;
+        public static int SignInLabelFromTop = 127 - 25;
         public static int Padding = 24;
-        public static int ForgotPasswordFromTop = 363;
-        public static int EmailEntryLineFromTop = 259;
-        public static int PasswordEntryLineFromTop = 339;
+        public static int ForgotPasswordFromTop = 363 - 25;
+        public static int EmailEntryLineFromTop = 259 - 25;
+        public static int PasswordEntryLineFromTop = 339 - 25;
     }
 
     public static class SignInWLWPageLayout
     {
-        public static int SignInLabelFromTop = 127;
+        public static int SignInLabelFromTop = 127 - 25;
         public static int Padding = 24;
-        public static int InfoLabelFromTop = 171;
-        public static int ForgotPasswordFromTop = 423;
-        public static int EmailEntryLineFromTop = 319;
-        public static int PasswordEntryLineFromTop = 399;
+        public static int InfoLabelFromTop = 171 - 25;
+        public static int EmailEntryFromTop = 239 - 25;
+        public static int PasswordEntryFromTop = 319 - 25;
+        public static int ForgotPasswordFromTop = 423 - 25;
+        public static int EmailEntryLineFromTop = 319 - 25;
+        public static int PasswordEntryLineFromTop = 399 - 25;
+    }
+
+    public static class RegistrationPageLayout
+    {
+        public static int RegistrationProgressBarFromTop = 85 - 25;
+        //public 
     }
 }
