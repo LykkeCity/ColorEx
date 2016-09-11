@@ -29,6 +29,20 @@ namespace LykkeColorex.Pages
             _backArrow.FadeTo(1, 500);
         }
 
+        public async Task GoBack()
+        {
+            ((LoginPage)Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]).CameBackFromSignInWLWPage =
+                    true;
+            
+            await Navigation.PopAsync(false);
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            ((LoginPage)Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]).CameBackFromSignInWLWPage = true;
+            return base.OnBackButtonPressed();
+        }
+
         public SignInWLWPage(Rectangle signInWLWButtonBounds, Rectangle signInLabelBounds, Rectangle forgotPasswordLabelBounds, Rectangle emailEntryLineBounds, Rectangle passwordEntryLineBounds, Rectangle infoWLWLabelBounds)
         {
             //InitializeComponent();
@@ -47,10 +61,7 @@ namespace LykkeColorex.Pages
             };
             _backArrow.Clicked += async delegate
             {
-                ((LoginPage)Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]).CameBackFromSignInWLWPage =
-                    true;
-
-                await Navigation.PopAsync(false);
+                await GoBack();
             };
             _mainLayout.Children.Add(
                 _backArrow,

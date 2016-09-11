@@ -41,6 +41,8 @@ namespace LykkeColorex.Droid
             Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
             Window.SetStatusBarColor(Color.FromHex("999999").ToAndroid());
 
+            Window.SetSoftInputMode(SoftInput.AdjustPan);
+
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 

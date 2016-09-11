@@ -44,6 +44,9 @@ namespace LykkeColorex.Constants.Layouts
     public static class RegistrationPageLayout
     {
         public static int RegistrationProgressBarFromTop = 85 - 25;
+        public static int InfoLabelFromTop = 127 - 25;
+        public static int Padding = 24;
+        public static int EmailEntryFromTop = 180 - 25;
         //public 
     }
 }

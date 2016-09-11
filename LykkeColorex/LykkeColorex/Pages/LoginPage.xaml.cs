@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -143,12 +144,14 @@ namespace LykkeColorex.Pages
             }
             
         }
-
+        
         public LoginPage()
         {
             //InitializeComponent();
 
-            NavigationPage.SetHasNavigationBar(this, false);
+            Debug.WriteLine("DG!!!!!!!!!!!!!!!________________");
+
+            NavigationPage.SetHasNavigationBar(this, false);        
 
             BackgroundColor = Color.White;
 

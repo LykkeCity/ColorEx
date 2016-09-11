@@ -23,6 +23,7 @@ namespace LykkeColorex.CustomViews
     public class StickyButton : ContentView
     {
         public StickyButtonState State { private set; get; }
+
         private AbsoluteLayout _layout;
         private BoxView _boxView;
         private LabelEx _centralText;

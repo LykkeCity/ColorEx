@@ -127,13 +127,13 @@ namespace LykkeColorex.CustomViews
             {
                 _isRaised = false;
                 var al = new AbsoluteLayout();
-              //  al.BackgroundColor = Color.Red;
+
                 _entry = new EntryEx
                 {
                     HorizontalOptions = LayoutOptions.Fill,
                     FontSize = _fontSize,
                     TextColor = _entryTextColor,
-                    //   BackgroundColor = Color.Blue
+                    Opacity = 0
                 };
                 _entry.Focused += EntryFocused;
                 _entry.Unfocused += EntryUnfocused;
@@ -147,10 +147,10 @@ namespace LykkeColorex.CustomViews
                 };
                 _label.AnchorX = 0;
 
-                _underline = new BoxView {HeightRequest = 1, Color = State == EntryCxState.Normal ? Color.FromRgb(222, 225, 228) : ( State == EntryCxState.Active ? Color.FromRgb(63, 142, 253) : Color.FromRgb(255, 62, 46)), HorizontalOptions = LayoutOptions.Fill};
+                _underline = new BoxView {HeightRequest = 0.5, Color = State == EntryCxState.Normal ? Color.FromRgb(222, 225, 228) : ( State == EntryCxState.Active ? Color.FromRgb(63, 142, 253) : Color.FromRgb(255, 62, 46)), HorizontalOptions = LayoutOptions.Fill};
                 al.Children.Add(_entry, new Rectangle(_entryIndent, 0 + 16 + _fontSize, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
                 al.Children.Add(_label, new Rectangle(2, 10 + 16 + _fontSize, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
-                al.Children.Add(_underline, new Rectangle(0, 80 - 1, 1, 1), AbsoluteLayoutFlags.WidthProportional);
+                al.Children.Add(_underline, new Rectangle(0, 80 - 1, 1, 0.5), AbsoluteLayoutFlags.WidthProportional);
                 Content = al;
             }
             catch (Exception ex)

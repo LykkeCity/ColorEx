@@ -33,4 +33,4 @@ namespace LykkeColorex.Droid
             MainActivityInstance.Instance.Window.SetSoftInputMode(v ? SoftInput.AdjustResize : SoftInput.AdjustPan);
         }
     }
-}
+} 

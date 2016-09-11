@@ -15,6 +15,8 @@ namespace LykkeColorex.Pages
         private StickyButton _button;
         private AbsoluteLayout al;
         private ClassInterface instance = DependencyService.Get<ClassInterface>();
+        private LabelCx _label;
+        private EntryCx _entry;
 
         public RegistrationPage()
         {
@@ -49,7 +51,39 @@ namespace LykkeColorex.Pages
                 BackgroundColor = Color.Red
             };
 
-            al.Children.Add(entry, new Rectangle(100,100, 200, 100));
+            //al.Children.Add(entry, new Rectangle(100,100, 200, 100));
+
+            _label = new LabelCx
+            {
+                TextColor = Color.FromRgb(51, 51, 51),
+                Text = "Okay, enter your email",
+                FontSize = 27
+            };
+            al.Children.Add(_label, new Rectangle(RegistrationPageLayout.Padding, RegistrationPageLayout.InfoLabelFromTop, 290, 32));
+
+            _entry = new EntryCx
+            {
+                PlaceholderUpperSize = 14,
+                FontSize = 17,
+                PlaceholderText = "Email",
+                TextColor = Color.FromRgb(63, 77, 96),
+                HeightRequest = 80,
+                HorizontalOptions = LayoutOptions.Fill,
+                Keyboard = Keyboard.Email
+            };
+            al.Children.Add(_entry, new Rectangle(RegistrationPageLayout.Padding, RegistrationPageLayout.EmailEntryFromTop, App.Dimensions.Width - RegistrationPageLayout.Padding * 2, 80));
+
+            var entry2 = new EntryCx
+            {
+                PlaceholderUpperSize = 14,
+                FontSize = 17,
+                PlaceholderText = "Repeat email",
+                TextColor = Color.FromRgb(63, 77, 96),
+                HeightRequest = 80,
+                HorizontalOptions = LayoutOptions.Fill,
+                Keyboard = Keyboard.Email
+            };
+            al.Children.Add(entry2, new Rectangle(RegistrationPageLayout.Padding, RegistrationPageLayout.EmailEntryFromTop + 80, App.Dimensions.Width - RegistrationPageLayout.Padding * 2, 80));
 
 
             Content = al;
@@ -59,13 +93,30 @@ namespace LykkeColorex.Pages
 
             Device.StartTimer(TimeSpan.FromMilliseconds(300), () =>
             {
-                Debug.WriteLine(Content.Height);
+                //Debug.WriteLine(Content.Height);
                 return true;
             });
         }
 
         private void ContentOnSizeChanged(object sender, EventArgs eventArgs)
         {
+            if (Content.Height < 400)
+            {
+                foreach (var child in al.Children)
+                {
+                    if(child != _button)
+                        child.TranslateTo(0, -40, 100, Easing.CubicOut);
+                }
+            }
+            else
+            {
+
+                foreach (var child in al.Children)
+                {
+                    if (child != _button)
+                        child.TranslateTo(0, 0, 100, Easing.CubicOut);
+                }
+            }
             _button.Layout(new Rectangle(_button.Bounds.X, Content.Height - 64, _button.Bounds.Width, _button.Bounds.Height));
             DependencyService.Get<ClassInterface>().SetRect(_button.Bounds);
         }
