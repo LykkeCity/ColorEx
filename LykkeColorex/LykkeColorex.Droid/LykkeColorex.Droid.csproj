@@ -134,8 +134,10 @@
     <Compile Include="CustomRenderers\EntryExRenderer.cs" />
     <Compile Include="CustomRenderers\LabelCxRenderer.cs" />
     <Compile Include="CustomRenderers\LabelExRenderer.cs" />
+    <Compile Include="CustomRenderers\NonDismissibleEntryRenderer.cs" />
     <Compile Include="CustomRenderers\RoundedBoxViewRenderer.cs" />
     <Compile Include="CustomRenderers\SpanCx.cs" />
+    <Compile Include="CustomViews\NonDismissibleEditText.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -132,8 +132,7 @@ namespace LykkeColorex.CustomViews
                 {
                     HorizontalOptions = LayoutOptions.Fill,
                     FontSize = _fontSize,
-                    TextColor = _entryTextColor,
-                    Opacity = 0
+                    TextColor = _entryTextColor
                 };
                 _entry.Focused += EntryFocused;
                 _entry.Unfocused += EntryUnfocused;

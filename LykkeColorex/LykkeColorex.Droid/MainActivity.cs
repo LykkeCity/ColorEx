@@ -104,7 +104,6 @@ namespace LykkeColorex.Droid
                 return base.CurrentFocus;
             }
         }
-
     }
 
 }
