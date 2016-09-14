@@ -38,6 +38,7 @@
     <Compile Include="App.cs" />
     <Compile Include="ClassInterface.cs" />
     <Compile Include="Constants\Layouts\LoginPageLayout.cs" />
+    <Compile Include="ContentPageEx.cs" />
     <Compile Include="CustomViews\BackArrowCx.cs" />
     <Compile Include="CustomViews\ButtonCx.cs" />
     <Compile Include="CustomViews\ButtonOld.cs" />
@@ -51,6 +52,8 @@
     <Compile Include="CustomViews\RegistrationProgressBar.cs" />
     <Compile Include="CustomViews\RegistrationSteps\EmailStep.cs" />
     <Compile Include="CustomViews\RegistrationSteps\IRegistrationStep.cs" />
+    <Compile Include="CustomViews\RegistrationSteps\PasswordStep.cs" />
+    <Compile Include="CustomViews\RegistrationSteps\Registration.cs" />
     <Compile Include="CustomViews\RegistrationSteps\RegistrationStep.cs" />
     <Compile Include="CustomViews\RoundedBoxView.cs" />
     <Compile Include="CustomViews\StickyButton.cs" />

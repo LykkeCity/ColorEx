@@ -10,5 +10,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
     public abstract class RegistrationStep : ContentView, IRegistrationStep
     {
         public abstract Task<bool> Validate();
+        public abstract void Minify();
+        public abstract void Maximize();
     }
 }

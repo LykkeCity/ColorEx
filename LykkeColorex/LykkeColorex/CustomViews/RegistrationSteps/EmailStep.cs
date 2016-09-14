@@ -97,5 +97,15 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
                 return false;
             }
         }
+
+        public override void Minify()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Maximize()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

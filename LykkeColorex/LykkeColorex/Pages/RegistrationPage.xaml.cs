@@ -16,7 +16,7 @@ namespace LykkeColorex.Pages
     {
         private StickyButton _button;
         private RegistrationProgressBar _registrationBar;
-        private AbsoluteLayout al;
+        private AbsoluteLayout _layout;
         private ClassInterface instance = DependencyService.Get<ClassInterface>();
         private LabelCx _loginSignUpLabel;
         private ButtonOld _loginSignInWLWButton;
@@ -33,11 +33,11 @@ namespace LykkeColorex.Pages
 
                 BackgroundColor = Color.White;
 
-                al = new AbsoluteLayout() { HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Fill };
+                _layout = new AbsoluteLayout() { HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Fill };
 
-                _registrationBar = new RegistrationProgressBar((int)(App.Dimensions.Width - 2 * LoginPageLayout.Padding), 5);
+                _registrationBar = new RegistrationProgressBar((int)(App.Dimensions.Width - 2 * LoginPageLayout.Padding), Registration.Steps.Length, 0);
 
-                al.Children.Add(_registrationBar,
+                _layout.Children.Add(_registrationBar,
                     new Rectangle(LoginPageLayout.Padding, RegistrationPageLayout.RegistrationProgressBarFromTop,
                         AbsoluteLayout.AutoSize, 3));
                 _registrationBar.TranslationY = App.Dimensions.Height;
@@ -47,7 +47,6 @@ namespace LykkeColorex.Pages
                     InputTransparent = false
                 };
                  _button.SetState(StickyButtonState.Next, false);
-                al.Children.Add(_button, new Rectangle(0, App.Dimensions.Height - 64, App.Dimensions.Width + 1, 64));
                 _button.TranslationY = App.Dimensions.Height;
 
                 var entry = new Entry
@@ -56,10 +55,10 @@ namespace LykkeColorex.Pages
                     BackgroundColor = Color.Red
                 };
 
-                //al.Children.Add(entry, new Rectangle(100,100, 200, 100));
+                //_layout.Children.Add(entry, new Rectangle(100,100, 200, 100));
 
-                _currentRegStep = new EmailStep(_button);
-                al.Children.Add(_currentRegStep, new Rectangle(23, 127 -25, App.Dimensions.Width - 2*23, AbsoluteLayout.AutoSize));
+                _currentRegStep = new PasswordStep(_button);
+                _layout.Children.Add(_currentRegStep, new Rectangle(23, 127 -25, App.Dimensions.Width - 2*23, AbsoluteLayout.AutoSize));
                 _currentRegStep.TranslationY = App.Dimensions.Height;
 
 
@@ -68,7 +67,7 @@ namespace LykkeColorex.Pages
                     Source = ImageSource.FromFile("logoColorex.png"),
                     Aspect = Aspect.AspectFit
                 };
-                al.Children.Add(_loginLogoColorex, new Rectangle(logoBounds.X, logoBounds.Y - App.Dimensions.Height, logoBounds.Width, logoBounds.Height));
+                _layout.Children.Add(_loginLogoColorex, new Rectangle(logoBounds.X, logoBounds.Y - App.Dimensions.Height, logoBounds.Width, logoBounds.Height));
                 _loginLogoColorex.TranslationY = App.Dimensions.Height;
 
 
@@ -89,7 +88,7 @@ namespace LykkeColorex.Pages
                     FontSize = 16,
                     ClickableSpanIndex = 1
                 };
-                al.Children.Add(_loginSignUpLabel, new Rectangle(signUpLabelBounds.X, signUpLabelBounds.Y - App.Dimensions.Height, signUpLabelBounds.Width, signUpLabelBounds.Height));
+                _layout.Children.Add(_loginSignUpLabel, new Rectangle(signUpLabelBounds.X, signUpLabelBounds.Y - App.Dimensions.Height, signUpLabelBounds.Width, signUpLabelBounds.Height));
                 _loginSignUpLabel.TranslationY = App.Dimensions.Height;
 
                 _loginSignInWLWButton = new ButtonOld
@@ -100,7 +99,7 @@ namespace LykkeColorex.Pages
                     HeightRequest = LoginPageLayout.SignInWLWButtonHeight,
                     FontSize = 17
                 };
-                al.Children.Add(
+                _layout.Children.Add(
                     _loginSignInWLWButton, new Rectangle(signInWLWButtonBounds.X, signInWLWButtonBounds.Y - App.Dimensions.Height, signInWLWButtonBounds.Width, signInWLWButtonBounds.Height));
                 _loginSignInWLWButton.TranslationY = App.Dimensions.Height;
                 // Sign in button positioning
@@ -113,11 +112,14 @@ namespace LykkeColorex.Pages
                     HeightRequest = LoginPageLayout.SignInButtonHeight,
                     FontSize = 17
                 };
-                al.Children.Add(_loginSignInButton, new Rectangle(signInButtonBounds.X, signInButtonBounds.Y - App.Dimensions.Height, signInButtonBounds.Width, signInButtonBounds.Height));
+                _layout.Children.Add(_loginSignInButton, new Rectangle(signInButtonBounds.X, signInButtonBounds.Y - App.Dimensions.Height, signInButtonBounds.Width, signInButtonBounds.Height));
                 _loginSignInButton.TranslationY = App.Dimensions.Height;
 
 
-                Content = al;
+
+                _layout.Children.Add(_button, new Rectangle(0, App.Dimensions.Height - 64, App.Dimensions.Width + 1, 64));
+
+                Content = _layout;
 
                 Content.SizeChanged += ContentOnSizeChanged;
 
@@ -138,20 +140,22 @@ namespace LykkeColorex.Pages
         {
             if (Content.Height < 400)
             {
-                foreach (var child in al.Children)
+                foreach (var child in _layout.Children)
                 {
                     if (child != _button)
                         child.TranslateTo(0, -40, 100, Easing.CubicOut);
                 }
+                _currentRegStep.Minify();
             }
             else
             {
 
-                foreach (var child in al.Children)
+                foreach (var child in _layout.Children)
                 {
                     if (child != _button)
                         child.TranslateTo(0, 0, 100, Easing.CubicOut);
                 }
+                _currentRegStep.Maximize();
             }
             _button.Layout(new Rectangle(_button.Bounds.X, Content.Height - 64, _button.Bounds.Width, _button.Bounds.Height));
             DependencyService.Get<ClassInterface>().SetRect(_button.Bounds);

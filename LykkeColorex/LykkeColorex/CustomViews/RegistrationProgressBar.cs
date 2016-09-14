@@ -19,9 +19,9 @@ namespace LykkeColorex.CustomViews
         private RoundedBoxView[] _boxes;
         private object lockable = new object();
 
-        public RegistrationProgressBar(int width, int atStep = 0)
+        public RegistrationProgressBar(int width, int steps, int atStep = 0)
         {
-            _steps = 8;
+            _steps = steps;
             _spacing = 8;
             _width = width;
             _atStep = atStep;

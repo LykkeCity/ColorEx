@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace LykkeColorex.CustomViews.RegistrationSteps
 {
-    public interface IRegistrationStep
+    public class Registration
     {
-        Task<bool> Validate();
-
-        void Minify();
-
-        void Maximize();
+        public static readonly Type[] Steps = {typeof(EmailStep), typeof(PasswordStep)};
     }
 }
