@@ -22,6 +22,7 @@ namespace LykkeColorex.CustomViews
         private int _labelUpperFontSize;
         private bool _isRaised;
         private Color _labelNormalColor = Color.FromHex("#8C94A0");
+        private Color _underlineErrorColor = Color.FromRgb(255, 62, 46);
         private Color _labelFocusColor = Color.FromHex("#3F8EFD");
         private Color _entryTextColor = Color.FromHex("#3F4D60");
 
@@ -43,6 +44,12 @@ namespace LykkeColorex.CustomViews
                     Redraw();
                 }
             }
+        }
+
+        public void SetError()
+        {
+            _underline.Color = _underlineErrorColor;
+            _underline.Layout(new Rectangle(_underline.Bounds.X, _underline.Bounds.Y, _underline.Bounds.Width, 2));
         }
 
         public Keyboard Keyboard
@@ -120,6 +127,8 @@ namespace LykkeColorex.CustomViews
         }
 
         public int ItemHeight { set; get; }
+        
+        public EntryEx Entry { get { return _entry; } }
 
         private void Redraw()
         {

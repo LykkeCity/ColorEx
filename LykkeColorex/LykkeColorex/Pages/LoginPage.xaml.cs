@@ -147,9 +147,6 @@ namespace LykkeColorex.Pages
         
         public LoginPage()
         {
-            //InitializeComponent();
-
-            Debug.WriteLine("DG!!!!!!!!!!!!!!!________________");
 
             NavigationPage.SetHasNavigationBar(this, false);        
 
@@ -198,7 +195,7 @@ namespace LykkeColorex.Pages
             };
             _signUpLabel.SpanClicked += async (sender, args) =>
             {
-                await Navigation.PushAsync(new RegistrationPage(), false);
+                await Navigation.PushAsync(new RegistrationPage(_logoColorex.Bounds, _singInButton.Bounds, _sinInWLWButton.Bounds, _signUpLabel.Bounds), false);
             };
             _mainLayout.Children.Add(
                 _signUpLabel,

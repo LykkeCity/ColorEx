@@ -56,7 +56,8 @@ namespace LykkeColorex.Droid.CustomRenderers
             if (actionId == ImeAction.Done || (actionId == ImeAction.ImeNull && e.KeyCode == Keycode.Enter))
             {
                 Control.ClearFocus();
-
+                InputMethodManager imm = (InputMethodManager)Context.GetSystemService(Context.InputMethodService);
+                imm.HideSoftInputFromWindow(WindowToken, 0);
                 ((IEntryController)Element).SendCompleted();
             }
 

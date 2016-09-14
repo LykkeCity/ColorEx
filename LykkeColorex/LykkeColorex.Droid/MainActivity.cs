@@ -32,27 +32,34 @@ namespace LykkeColorex.Droid
 
         protected override void OnCreate(Bundle bundle)
         {
-            MainActivityInstance.Instance = this;
+            try
+            {
+                MainActivityInstance.Instance = this;
 
-            base.OnCreate(bundle);
+                base.OnCreate(bundle);
 
-            Window.ClearFlags(WindowManagerFlags.TranslucentStatus);
+                Window.ClearFlags(WindowManagerFlags.TranslucentStatus);
 
-            Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
-            Window.SetStatusBarColor(Color.FromHex("999999").ToAndroid());
+                Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
+                Window.SetStatusBarColor(Color.FromHex("999999").ToAndroid());
 
-            Window.SetSoftInputMode(SoftInput.AdjustPan);
+                Window.SetSoftInputMode(SoftInput.AdjustPan);
 
 
-            global::Xamarin.Forms.Forms.Init(this, bundle);
+                global::Xamarin.Forms.Forms.Init(this, bundle);
 
-            DisplayMetrics displayMetrics = Resources.DisplayMetrics;
-            App.Dimensions.Height = displayMetrics.HeightPixels / displayMetrics.Density - 25;
-            App.Dimensions.Width = displayMetrics.WidthPixels / displayMetrics.Density;
+                DisplayMetrics displayMetrics = Resources.DisplayMetrics;
+                App.Dimensions.Height = displayMetrics.HeightPixels/displayMetrics.Density - 25;
+                App.Dimensions.Width = displayMetrics.WidthPixels/displayMetrics.Density;
 
-            LoadApplication(new App());
+                LoadApplication(new App());
 
-            CreepySolution = false;
+                CreepySolution = false;
+            }
+            catch (Exception ex)
+            {
+                var a = 234;
+            }
         }
 
         public List<Rectangle> Areas { set; get; }
@@ -84,7 +91,7 @@ namespace LykkeColorex.Droid
         public override bool DispatchTouchEvent(MotionEvent ev)
         {
             var focused = CurrentFocus;
-            bool customEntryRendererFocused = focused != null && focused.Parent is EntryRenderer && ClickInsideRect(ev.GetX(), ev.GetY(), InsensitiveArea);
+            bool customEntryRendererFocused = focused != null && (focused.Parent is EntryRenderer || focused.Parent is NonDismissibleEntryRenderer) && ClickInsideRect(ev.GetX(), ev.GetY(), InsensitiveArea);
 
             _lieAboutCurrentFocus = customEntryRendererFocused;
             var result = base.DispatchTouchEvent(ev);

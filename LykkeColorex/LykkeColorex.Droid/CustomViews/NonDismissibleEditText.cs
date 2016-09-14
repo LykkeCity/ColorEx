@@ -10,6 +10,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Util;
 using Android.Views;
+using Android.Views.InputMethods;
 using Android.Widget;
 using Xamarin.Forms;
 
@@ -23,6 +24,7 @@ namespace LykkeColorex.Droid.CustomViews
 
         public NonDismissibleEditText(Context context) : base(context)
         {
+
         }
 
         public NonDismissibleEditText(Context context, IAttributeSet attrs) : base(context, attrs)

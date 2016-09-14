@@ -106,6 +106,8 @@ namespace LykkeColorex.CustomViews
                 _al.Children.Add(_entry, new Rectangle(_entryIndent, 0 + 16 + _fontSize, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
                 _al.Children.Add(_underline, new Rectangle(0, 80 - 1, 1, 0.5), AbsoluteLayoutFlags.WidthProportional);
                 Content = _al;
+
+                
             }
             catch (Exception ex)
             {
