@@ -132,7 +132,14 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             }
         }
 
-        public override void Minify()
+        public override void Cleanup()
+        {
+            _button.Clicked -= ButtonOnClicked;
+        }
+
+        public override bool IsDismissible { get { return true; } set { throw new NotImplementedException(); } }
+
+        public override void Minimize()
         {
             _labelSecondary.TranslateTo(0, -(32 + 53), 150, Easing.CubicOut);
             _labelSecondary.FadeTo(0, 150, Easing.CubicOut);

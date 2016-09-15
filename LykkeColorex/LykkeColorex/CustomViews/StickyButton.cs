@@ -173,12 +173,12 @@ namespace LykkeColorex.CustomViews
 
         public Task Hide()
         {
-            return _layout.TranslateTo(0, 100, 200, Easing.CubicOut);
+            return _layout.TranslateTo(0, 100, 300, Easing.CubicOut);
         }
 
         public Task Show()
         {
-            return _layout.TranslateTo(0, 0, 200, Easing.CubicOut);
+            return _layout.TranslateTo(0, 0, 300, Easing.CubicOut);
         }
     }
 }

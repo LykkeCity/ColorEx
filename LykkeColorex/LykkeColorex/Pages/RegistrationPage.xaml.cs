@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LykkeColorex.Constants.Layouts;
 using LykkeColorex.CustomViews;
 using LykkeColorex.CustomViews.RegistrationSteps;
@@ -48,16 +43,9 @@ namespace LykkeColorex.Pages
                 };
                  _button.SetState(StickyButtonState.Next, false);
                 _button.TranslationY = App.Dimensions.Height;
+                
 
-                var entry = new Entry
-                {
-                    HorizontalOptions = LayoutOptions.Fill,
-                    BackgroundColor = Color.Red
-                };
-
-                //_layout.Children.Add(entry, new Rectangle(100,100, 200, 100));
-
-                _currentRegStep = new PasswordStep(_button);
+                _currentRegStep = new EmailConfirmStep(_button);
                 _layout.Children.Add(_currentRegStep, new Rectangle(23, 127 -25, App.Dimensions.Width - 2*23, AbsoluteLayout.AutoSize));
                 _currentRegStep.TranslationY = App.Dimensions.Height;
 
@@ -126,6 +114,7 @@ namespace LykkeColorex.Pages
 
                 Device.StartTimer(TimeSpan.FromMilliseconds(300), () =>
                 {
+                    //Debug.WriteLine(_button.Bounds.Y + " " + _button.TranslationY);
                     Debug.WriteLine(Content.Height);
                     return true;
                 });
@@ -145,7 +134,7 @@ namespace LykkeColorex.Pages
                     if (child != _button)
                         child.TranslateTo(0, -40, 100, Easing.CubicOut);
                 }
-                _currentRegStep.Minify();
+                _currentRegStep.Minimize();
             }
             else
             {
@@ -158,7 +147,10 @@ namespace LykkeColorex.Pages
                 _currentRegStep.Maximize();
             }
             _button.Layout(new Rectangle(_button.Bounds.X, Content.Height - 64, _button.Bounds.Width, _button.Bounds.Height));
-            DependencyService.Get<ClassInterface>().SetRect(_button.Bounds);
+            if(_currentRegStep.IsDismissible)
+                DependencyService.Get<ClassInterface>().SetRect(_button.Bounds);
+            else
+                DependencyService.Get<ClassInterface>().SetRect(new Rectangle(0,0,Content.Width, Content.Height));
         }
 
         protected override void OnAppearing()

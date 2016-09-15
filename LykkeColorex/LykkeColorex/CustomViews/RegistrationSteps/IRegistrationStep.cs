@@ -11,7 +11,9 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
     {
         Task<bool> Validate();
 
-        void Minify();
+        void Cleanup();
+
+        void Minimize();
 
         void Maximize();
     }

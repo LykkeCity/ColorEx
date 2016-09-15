@@ -13,9 +13,11 @@ using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
 using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
 
 namespace LykkeColorex.Droid.CustomViews
 {
+
     public class NonDismissibleEditText : EditText
     {
         public NonDismissibleEditText(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
@@ -38,7 +40,7 @@ namespace LykkeColorex.Droid.CustomViews
         public NonDismissibleEditText(Context context, IAttributeSet attrs, int defStyleAttr, int defStyleRes) : base(context, attrs, defStyleAttr, defStyleRes)
         {
         }
-
+        
         public override bool OnKeyPreIme(Keycode keyCode, KeyEvent e)
         {
             if (e.KeyCode == Keycode.Back)
@@ -49,5 +51,6 @@ namespace LykkeColorex.Droid.CustomViews
             return base.OnKeyPreIme(keyCode, e);
         }
         
+
     }
 }

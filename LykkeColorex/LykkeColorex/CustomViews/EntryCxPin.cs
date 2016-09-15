@@ -17,7 +17,7 @@ namespace LykkeColorex.CustomViews
         private Color _labelNormalColor = Color.FromHex("#8C94A0");
         private Color _labelFocusColor = Color.FromHex("#3F8EFD");
         private Color _entryTextColor = Color.FromHex("#3F4D60");
-        
+
         private EntryCxState State { set; get; }
 
         public NonDismissibleEntry Entry { get { return _entry; } }
@@ -48,20 +48,6 @@ namespace LykkeColorex.CustomViews
         {
             get { return _entry.HorizontalTextAlignment; }
             set { _entry.HorizontalTextAlignment = value; }
-        }
-
-        /*
-        public int PlaceholderNormalSize
-        {
-            get { return _labelNormalFontSize; }
-            set { _labelNormalFontSize = value; Redraw(); }
-        }
-        */
-
-        public string Text
-        {
-            get { return _entry.Text; }
-            set { _entry.Text = value; }
         }
 
         public Color TextColor
@@ -107,11 +93,24 @@ namespace LykkeColorex.CustomViews
                 _al.Children.Add(_underline, new Rectangle(0, 80 - 1, 1, 0.5), AbsoluteLayoutFlags.WidthProportional);
                 Content = _al;
 
-                
+
             }
             catch (Exception ex)
             {
                 var a = 234;
+            }
+        }
+
+        public string Text
+        {
+            get
+            {
+                var r = new StringBuilder();
+                foreach (var l in _labels)
+                {
+                    r.Append(l.Text);
+                }
+                return r.ToString();
             }
         }
 
@@ -133,8 +132,12 @@ namespace LykkeColorex.CustomViews
                         TextColor = Color.FromRgb(63, 77, 96)
                     };
                     _labels.Add(label);
-                    _al.Children.Add(label, new Rectangle(5 + _numSymbols*32, 30, 32, 25));
+                    _al.Children.Add(label, new Rectangle(5 + _numSymbols * 32, 30, 32, 25));
                     _numSymbols++;
+                    if (_numSymbols == _size)
+                    {
+                        OnCompleted();
+                    }
                 }
             }
             else
@@ -148,6 +151,8 @@ namespace LykkeColorex.CustomViews
                 }
             }
         }
+
+        public event EventHandler Completed;
 
         private List<RoundedBoxView> _dots;
         private List<LabelEx> _labels;
@@ -165,6 +170,11 @@ namespace LykkeColorex.CustomViews
             ItemHeight = 80;
             State = EntryCxState.Normal;
             Redraw();
+        }
+
+        protected virtual void OnCompleted()
+        {
+            Completed?.Invoke(this, EventArgs.Empty);
         }
     }
 }

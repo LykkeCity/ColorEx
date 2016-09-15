@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace LykkeColorex.CustomViews.RegistrationSteps
 {
-    public class EmailStep : RegistrationStep
+    public class NameStep : RegistrationStep
     {
         private AbsoluteLayout _layout;
-        private LabelEx _label;
-        private EntryCx _entry;
+        private LabelEx _labelPrimary;
+        private EntryCx _entryName;
+        private EntryCx _entrySurname;
         private StickyButton _button;
 
 
-        public EmailStep(StickyButton button)
+        public NameStep(StickyButton button)
         {
             _button = button;
             _button.SetState(StickyButtonState.Next, true);
@@ -25,29 +25,39 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
 
             _layout = new AbsoluteLayout();
 
-            _entry = new EntryCx
+            _labelPrimary = new LabelEx
+            {
+                TextColor = Color.FromRgb(51, 51, 51),
+                Text = "Complete your profile",
+                FontSize = 27,
+                HorizontalOptions = LayoutOptions.Fill,
+                //        BackgroundColor = Color.Lime
+            };
+
+            _entryName = new EntryCx
             {
                 HorizontalOptions = LayoutOptions.Fill,
                 FontSize = 17,
                 TextColor = Color.FromRgb(63, 77, 96),
                 PlaceholderUpperSize = 14,
-                PlaceholderText = "Email"
+                PlaceholderText = "Name",
+                IsPassword = true
             };
 
-            _entry.Entry.TextChanged += EntryOnTextChanged;
-
-            _label = new LabelEx
+            _entrySurname = new EntryCx
             {
-                TextColor = Color.FromRgb(51, 51, 51),
-                Text = "Okay, enter your email",
-                FontSize = 27,
                 HorizontalOptions = LayoutOptions.Fill,
-                //        BackgroundColor = Color.Lime
+                FontSize = 17,
+                TextColor = Color.FromRgb(63, 77, 96),
+                PlaceholderUpperSize = 14,
+                PlaceholderText = "Surname",
+                IsPassword = true
             };
-            _label.AnchorX = 0;
 
-            _layout.Children.Add(_label, new Rectangle(0, 0, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
-            _layout.Children.Add(_entry, new Rectangle(0, 32 + 21, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
+
+            _layout.Children.Add(_labelPrimary, new Rectangle(0, 0, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
+            _layout.Children.Add(_entryName, new Rectangle(0, 32 + 21, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
+            _layout.Children.Add(_entrySurname, new Rectangle(0, 32 + 21 + 80, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
             Content = _layout;
         }
 
@@ -83,7 +93,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
 
         public override async Task<bool> Validate()
         {
-            if (_entry.Text != null && _entry.Text.Length > 5)
+            if (_entryName.Text != null && _entryName.Text.Length > 5)
             {
                 _button.SetState(StickyButtonState.Loading, true);
                 await Task.Delay(1500);
@@ -93,7 +103,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             {
                 _button.SetState(StickyButtonState.Loading, true);
                 await Task.Delay(1500);
-                _entry.SetError();
+                _entryName.SetError();
                 return false;
             }
         }
@@ -103,7 +113,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             _button.Clicked -= ButtonOnClicked;
         }
 
-        public override bool IsDismissible { get { return true; } set {throw new NotImplementedException();} }
+        public override bool IsDismissible { get { return true; } set { throw new NotImplementedException(); } }
 
         public override void Minimize()
         {
