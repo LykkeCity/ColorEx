@@ -6,6 +6,7 @@ using System.Text;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
+using Android.Media;
 using Android.OS;
 using Android.Runtime;
 using Android.Util;
@@ -26,7 +27,6 @@ namespace LykkeColorex.Droid.CustomViews
 
         public NonDismissibleEditText(Context context) : base(context)
         {
-
         }
 
         public NonDismissibleEditText(Context context, IAttributeSet attrs) : base(context, attrs)

@@ -127,7 +127,7 @@ namespace LykkeColorex.Pages
 
         private void ContentOnSizeChanged(object sender, EventArgs eventArgs)
         {
-            if (Content.Height < 400)
+            if (Content.Height < 340)
             {
                 foreach (var child in _layout.Children)
                 {
@@ -167,6 +167,8 @@ namespace LykkeColorex.Pages
                 _button.TranslateTo(0, 0, 500, Easing.CubicOut);
                 _currentRegStep.TranslateTo(0, 0, 500, Easing.CubicOut);
                 _registrationBar.TranslateTo(0, 0, 500, Easing.CubicOut);
+
+                
             }
             catch (Exception ex)
             {

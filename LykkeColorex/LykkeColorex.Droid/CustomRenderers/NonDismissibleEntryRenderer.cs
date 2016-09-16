@@ -78,6 +78,8 @@ namespace LykkeColorex.Droid.CustomRenderers
                 {
                     _textView.SetCursorVisible(false);
                     _textView.SetRawInputType(InputTypes.ClassNumber | InputTypes.NumberVariationPassword);
+                    _textView.ImeOptions = ImeAction.ImeMaskAction;
+                    _textView.ImeOptions = ImeAction.None;
                 }
                 //_textView.OnKeyboardBackPressed += (sender, args) => _textView.ClearFocus();
                 SetNativeControl(_textView);

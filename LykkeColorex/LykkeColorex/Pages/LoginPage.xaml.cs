@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace LykkeColorex.Pages
 {
-    public partial class LoginPage : ContentPage
+    public partial class LoginPage : ContentPageEx
     {
         private AbsoluteLayout _mainLayout;
         private Image _logoColorex;
@@ -222,13 +222,16 @@ namespace LykkeColorex.Pages
                               App.Dimensions.Width - 2 * LoginPageLayout.Padding,
                               AbsoluteLayout.AutoSize),
                 AbsoluteLayoutFlags.XProportional);
-            _sinInWLWButton.Clicked +=  async delegate
+            _sinInWLWButton.Clicked +=   delegate
             {
+                ShowPopup();
+                /*
                 await SignInWLWLowerAnimation();
                 await
                     Navigation.PushAsync(new SignInWLWPage(_sinInWLWButton.GetRealPosition(), _signInLabel.GetRealPosition(),
                         _forgotPasswordLabel.GetRealPosition(), _emailEntryLine.GetRealPosition(), _passwordEntryLine.GetRealPosition(),
                         _infoLabelWLW.GetRealPosition()), false);
+                        */
             };
 
             // Sign in button positioning
