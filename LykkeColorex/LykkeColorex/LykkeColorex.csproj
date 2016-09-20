@@ -38,7 +38,8 @@
     <Compile Include="App.cs" />
     <Compile Include="ClassInterface.cs" />
     <Compile Include="Constants\Layouts\LoginPageLayout.cs" />
-    <Compile Include="ContentPageEx.cs" />
+    <Compile Include="CustomPages\ContentPageEx.cs" />
+    <Compile Include="CustomPages\IPopupPage.cs" />
     <Compile Include="CustomViews\BackArrowCx.cs" />
     <Compile Include="CustomViews\ButtonCx.cs" />
     <Compile Include="CustomViews\ButtonOld.cs" />
@@ -53,6 +54,8 @@
     <Compile Include="CustomViews\Popup\PopupCx.cs" />
     <Compile Include="CustomViews\Popup\PopupDataTemplateSelector.cs" />
     <Compile Include="CustomViews\Popup\PopupDataType.cs" />
+    <Compile Include="CustomViews\Popup\PopupOrderSummary.cs" />
+    <Compile Include="CustomViews\Popup\SingleItemSelectViewCell.cs" />
     <Compile Include="CustomViews\RegistrationProgressBar.cs" />
     <Compile Include="CustomViews\RegistrationSteps\EmailConfirmStep.cs" />
     <Compile Include="CustomViews\RegistrationSteps\EmailStep.cs" />

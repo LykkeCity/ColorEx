@@ -9,7 +9,7 @@ namespace LykkeColorex.CustomViews
 {
     public class LabelEx : Label
     {
-        public static readonly BindableProperty FontNameProperty = BindableProperty.Create("FontName", typeof(string), typeof(LabelEx), "Karla-Regular");
+        public static readonly BindableProperty FontNameProperty = BindableProperty.Create(nameof(FontName), typeof(string), typeof(LabelEx), "Karla-Regular");
         public string FontName
         {
             get { return (string)GetValue(FontNameProperty); }

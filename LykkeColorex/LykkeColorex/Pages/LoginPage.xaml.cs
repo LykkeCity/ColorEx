@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LykkeColorex.Constants.Layouts;
+using LykkeColorex.CustomPages;
 using LykkeColorex.CustomViews;
 using Xamarin.Forms;
 
@@ -63,7 +64,7 @@ namespace LykkeColorex.Pages
         private Rectangle _oldPasswordLabelBounds;
         private Rectangle _oldInfoLabelWLWBounds;
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
             if (CameBackFromSignInPage)
@@ -85,10 +86,9 @@ namespace LykkeColorex.Pages
 
                 var animation11 = _forgotPasswordLabel.TranslateTo(0, 0, 300, Easing.SinIn);
                 var animation12 = _forgotPasswordLabel.FadeTo(0, 300);
-                
 
                 var animation13 = _emailEntryLine.FadeTo(0, 300, Easing.SinIn);
-                var animation14 = _emailEntryLine.TranslateTo(0, 0, 300, Easing.SinIn);
+
 
                 var animation15 = _passwordEntryLine.FadeTo(0, 300, Easing.SinIn);
                 var animation16 = _passwordEntryLine.TranslateTo(0, 0, 300, Easing.SinIn);
@@ -99,8 +99,10 @@ namespace LykkeColorex.Pages
                 _passwordLabel.Opacity = 0;
                 _passwordLabel.TranslationY = 0;
 
-                //Task.WaitAll(animation1, animation2, animation3, animation4, animation5, animation6, animation7, animation9, animation10, animation11, animation12,
-                //    animation13, animation14, animation15, animation16);
+                await Task.WhenAll(animation1, animation2, animation3, animation4, animation5, animation6, animation7, animation9, animation10, animation11, animation12,
+                    animation13, animation15, animation16);
+                
+
             }
             if (CameBackFromSignInWLWPage)
             {
@@ -123,7 +125,6 @@ namespace LykkeColorex.Pages
                 var animation11 = _forgotPasswordLabel.TranslateTo(0, 0, 300, Easing.SinIn);
                 var animation12 = _forgotPasswordLabel.FadeTo(0, 300);
 
-
                 var animation13 = _emailEntryLine.FadeTo(0, 300, Easing.CubicIn);
                 var animation14 = _emailEntryLine.TranslateTo(0, 0, 300, Easing.SinIn);
 
@@ -139,8 +140,9 @@ namespace LykkeColorex.Pages
                 _passwordLabel.Opacity = 0;
                 _passwordLabel.TranslationY = 0;
 
-                //Task.WaitAll(animation1, animation2, animation3, animation4, animation5, animation6, animation7, animation9, animation10, animation11, animation12,
-                //    animation13, animation14, animation15, animation16, animation17, animation18);
+                await Task.WhenAll(animation1, animation2, animation3, animation4, animation5, animation6, animation7, animation8, animation9, animation10, animation11, animation12,
+                    animation13, animation14, animation15, animation16, animation17, animation18);
+                
             }
             
         }
@@ -222,16 +224,18 @@ namespace LykkeColorex.Pages
                               App.Dimensions.Width - 2 * LoginPageLayout.Padding,
                               AbsoluteLayout.AutoSize),
                 AbsoluteLayoutFlags.XProportional);
-            _sinInWLWButton.Clicked +=   delegate
+            _sinInWLWButton.Clicked += async delegate
             {
-                ShowPopup();
+                var selected = await PopupSelect(new List<Tuple<int, string>> {Tuple.Create(456, "Dog"), Tuple.Create(78, "Cat")}, s => s.Item2, false);
+                Debug.WriteLine(selected.Item2);
                 /*
+                _forgotPasswordLabel.IsVisible = true;
                 await SignInWLWLowerAnimation();
                 await
                     Navigation.PushAsync(new SignInWLWPage(_sinInWLWButton.GetRealPosition(), _signInLabel.GetRealPosition(),
                         _forgotPasswordLabel.GetRealPosition(), _emailEntryLine.GetRealPosition(), _passwordEntryLine.GetRealPosition(),
                         _infoLabelWLW.GetRealPosition()), false);
-                        */
+                    */
             };
 
             // Sign in button positioning
@@ -254,6 +258,7 @@ namespace LykkeColorex.Pages
 
             _singInButton.Clicked += async delegate
             {
+                _forgotPasswordLabel.IsVisible = true;
                 await SignInLowerAnimation();
                 await Navigation.PushAsync(new SignInPage(_singInButton.GetRealPosition(), _signInLabel.GetRealPosition(), _forgotPasswordLabel.GetRealPosition(),
                     _emailEntryLine.GetRealPosition(), _passwordEntryLine.GetRealPosition()), false);
@@ -298,26 +303,28 @@ namespace LykkeColorex.Pages
                         new Span
                         {
                             Text = "Forgot your password?",
-                            ForegroundColor = Color.FromRgb(63, 142, 253)
+                            ForegroundColor = Color.Black//Color.FromRgb(63, 142, 253)
                         }
                     }
                 },
                 ClickableSpanIndex = 0,
                 FontSize = 14,
-
-                Opacity = 0
+                //BackgroundColor = Color.Red,
+                Opacity = 0,
+                IsVisible = false
             };
             _mainLayout.Children.Add(_forgotPasswordLabel, new Rectangle(App.Dimensions.Width - SignInPageLayout.Padding - 146, SignInPageLayout.ForgotPasswordFromTop + 100, AbsoluteLayout.AutoSize, 17));
 
             _emailLabel = new LabelEx { Text = "Email", FontSize = 17, TextColor = Color.FromHex("#8C94A0"), Opacity = 0 };
             _mainLayout.Children.Add(_emailLabel, new Rectangle(5 + 22, 35.5 + 185 + 100, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
-
+            
             _emailEntryLine = new BoxView
             {
                 BackgroundColor = Color.FromRgb(222, 225, 228),
-                Opacity = 0
+                Opacity = 0,
+                InputTransparent = true
             };
-            _mainLayout.Children.Add(_emailEntryLine, new Rectangle(SignInPageLayout.Padding, SignInPageLayout.EmailEntryLineFromTop + 100, App.Dimensions.Width - SignInPageLayout.Padding * 2, 0.5));
+            _mainLayout.Children.Add(_emailEntryLine, new Rectangle(SignInPageLayout.Padding, SignInPageLayout.EmailEntryLineFromTop + 100, App.Dimensions.Width - SignInPageLayout.Padding * 2, 5));
 
             _passwordLabel = new LabelEx { Text = "Password", FontSize = 17, TextColor = Color.FromHex("#8C94A0"), Opacity = 0 };
             _mainLayout.Children.Add(_passwordLabel, new Rectangle(5 + 22, 35.5 + 260 + 100, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
@@ -325,11 +332,12 @@ namespace LykkeColorex.Pages
             _passwordEntryLine = new BoxView
             {
                 BackgroundColor = Color.FromRgb(222, 225, 228),
-                Opacity = 0
+                Opacity = 0,
+                InputTransparent = true
             };
-            _mainLayout.Children.Add(_passwordEntryLine, new Rectangle(SignInPageLayout.Padding, SignInPageLayout.PasswordEntryLineFromTop + 150, App.Dimensions.Width - SignInPageLayout.Padding * 2, 0.5));
+            _mainLayout.Children.Add(_passwordEntryLine, new Rectangle(SignInPageLayout.Padding, SignInPageLayout.PasswordEntryLineFromTop + 150, App.Dimensions.Width - SignInPageLayout.Padding * 2, 5));
 
-            _infoLabelWLW= new LabelCx
+            _infoLabelWLW = new LabelCx
             {
                 FormattedText = new FormattedString
                 {
@@ -373,8 +381,8 @@ namespace LykkeColorex.Pages
 
             _oldSignInLabelBounds = new Rectangle(SignInPageLayout.Padding - 1, SignInPageLayout.SignInLabelFromTop + 90, 90, 32);
             _oldForgotPasswordLabelBounds = new Rectangle(App.Dimensions.Width - SignInPageLayout.Padding - 146, SignInPageLayout.ForgotPasswordFromTop + 100, _forgotPasswordLabel.Width, 17);
-            _oldEmailEntryLineBounds = new Rectangle(SignInPageLayout.Padding, SignInPageLayout.EmailEntryLineFromTop + 100, App.Dimensions.Width - SignInPageLayout.Padding * 2, 1);
-            _oldPasswordEntryLineBounds = new Rectangle(SignInPageLayout.Padding, SignInPageLayout.PasswordEntryLineFromTop + 150, App.Dimensions.Width - SignInPageLayout.Padding * 2, 1);
+            _oldEmailEntryLineBounds = new Rectangle(SignInPageLayout.Padding, SignInPageLayout.EmailEntryLineFromTop + 100, App.Dimensions.Width - SignInPageLayout.Padding * 2, 0.5);
+            _oldPasswordEntryLineBounds = new Rectangle(SignInPageLayout.Padding, SignInPageLayout.PasswordEntryLineFromTop + 150, App.Dimensions.Width - SignInPageLayout.Padding * 2, 0.5);
             _oldEmailLabelBounds = new Rectangle(4 + 22, 35.5 + 2.5 + 185 + 100 - 25, _emailLabel.Width, _emailLabel.Height);
             _oldPasswordLabelBounds = new Rectangle(4 + 22, 35.5 + 7.5 + 260 + 100 - 25, _passwordLabel.Width, _passwordLabel.Height);
             double lower = (App.Dimensions.Height - 24) - (_oldSignInButtonBounds.Height + _oldSignInButtonBounds.Y);
@@ -431,8 +439,8 @@ namespace LykkeColorex.Pages
 
             _oldSignInLabelBounds = new Rectangle(SignInWLWPageLayout.Padding - 1, SignInWLWPageLayout.SignInLabelFromTop + 90, 90, 32); ;
             _oldForgotPasswordLabelBounds = new Rectangle(App.Dimensions.Width - SignInWLWPageLayout.Padding - 146, SignInWLWPageLayout.ForgotPasswordFromTop + 100, _forgotPasswordLabel.Width, 17);
-            _oldEmailEntryLineBounds = new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.EmailEntryLineFromTop + 100 - 1, App.Dimensions.Width - SignInWLWPageLayout.Padding * 2, 1);
-            _oldPasswordEntryLineBounds = new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.PasswordEntryLineFromTop + 150 - 1, App.Dimensions.Width - SignInWLWPageLayout.Padding * 2, 1);
+            _oldEmailEntryLineBounds = new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.EmailEntryLineFromTop + 100 - 1, App.Dimensions.Width - SignInWLWPageLayout.Padding * 2, 0.5);
+            _oldPasswordEntryLineBounds = new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.PasswordEntryLineFromTop + 150 - 1, App.Dimensions.Width - SignInWLWPageLayout.Padding * 2, 0.5);
             _oldEmailLabelBounds = new Rectangle(4 + 22, 35.5 + 1.5 + 185 + 100 + 60 - 25, _emailLabel.Width, _emailLabel.Height);
             _oldPasswordLabelBounds = new Rectangle(4 + 22, 35.5 + 6.5 + 260 + 100 + 60 - 25, _passwordLabel.Width, _passwordLabel.Height);
             _oldInfoLabelWLWBounds = new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.InfoLabelFromTop + 150, App.Dimensions.Width - 2 * SignInWLWPageLayout.Padding, _infoLabelWLW.Height);
@@ -466,9 +474,8 @@ namespace LykkeColorex.Pages
             var animation9 = _signInLabel.TranslateTo(0, -90, 400, Easing.CubicOut);
 
             var animation10 = _signInLabel.FadeTo(1, 300, Easing.CubicOut);
-
+            
             var animation11 = _forgotPasswordLabel.TranslateTo(0, -100, 400, Easing.CubicOut);
-
             var animation12 = _forgotPasswordLabel.FadeTo(1, 300);
 
             var animation13 = _emailEntryLine.FadeTo(1, 400, Easing.CubicOut);

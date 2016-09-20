@@ -23,11 +23,13 @@ using LykkeColorex.Droid.CustomRenderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Color = Android.Graphics.Color;
+using ListView = Xamarin.Forms.ListView;
 using View = Android.Views.View;
 
 [assembly: ExportRenderer(typeof(LabelCx), typeof(LabelCxRenderer))]
 namespace LykkeColorex.Droid.CustomRenderers
 {
+
     public class WordSpan : ClickableSpan
     {
         public Action<View> Click;
@@ -128,6 +130,8 @@ namespace LykkeColorex.Droid.CustomRenderers
                         Control.TextSize = (float)label.FontSize;
                     }
                 }
+
+
             }
         }
 
@@ -139,6 +143,10 @@ namespace LykkeColorex.Droid.CustomRenderers
             {
                 Typeface font = Typeface.CreateFromAsset(Forms.Context.Assets, $"{label.FontName}.ttf");
                 Control.Typeface = font;
+            }
+            if (e.PropertyName == "InputTransparent")
+            {
+                
             }
         }
     }

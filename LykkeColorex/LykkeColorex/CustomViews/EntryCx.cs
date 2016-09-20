@@ -18,6 +18,7 @@ namespace LykkeColorex.CustomViews
         private EntryEx _entry;
         private LabelEx _label;
         private BoxView _underline;
+        private BoxView _underlineBlue;
         private int _fontSize;
         private int _labelUpperFontSize;
         private bool _isRaised;
@@ -70,18 +71,12 @@ namespace LykkeColorex.CustomViews
             set { _entry.HorizontalTextAlignment = value; }
         }
 
-        /*
-        public int PlaceholderNormalSize
-        {
-            get { return _labelNormalFontSize; }
-            set { _labelNormalFontSize = value; Redraw(); }
-        }
-        */
         public int PlaceholderUpperSize
         {
             get { return _labelUpperFontSize; }
             set { _labelUpperFontSize = value; }
         }
+
         public string PlaceholderText
         {
             get { return _label.Text; }
@@ -155,10 +150,12 @@ namespace LykkeColorex.CustomViews
                 };
                 _label.AnchorX = 0;
 
+                _underlineBlue = new BoxView {HeightRequest = 2, Color = Color.FromRgb(63, 142, 253) };
                 _underline = new BoxView {HeightRequest = 0.5, Color = State == EntryCxState.Normal ? Color.FromRgb(222, 225, 228) : ( State == EntryCxState.Active ? Color.FromRgb(63, 142, 253) : Color.FromRgb(255, 62, 46)), HorizontalOptions = LayoutOptions.Fill};
                 al.Children.Add(_entry, new Rectangle(_entryIndent, 0 + 16 + _fontSize, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
                 al.Children.Add(_label, new Rectangle(2, 10 + 16 + _fontSize, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
                 al.Children.Add(_underline, new Rectangle(0, 80 - 1, 1, 0.5), AbsoluteLayoutFlags.WidthProportional);
+                al.Children.Add(_underlineBlue, new Rectangle(0, 80 - 1, 0, 1.5));
                 Content = al;
             }
             catch (Exception ex)
@@ -180,10 +177,11 @@ namespace LykkeColorex.CustomViews
         private void EntryFocused(object sender, FocusEventArgs e)
         {
             _label.TextColor = _labelFocusColor;
-            _underline.Color = Color.FromRgb(63, 142, 253);
+            //_underline.Color = Color.FromRgb(63, 142, 253);
             if (!_isRaised)
             {
-                _underline.Layout(new Rectangle(_underline.Bounds.X, _underline.Bounds.Y - 1, _underline.Bounds.Width, 2));
+                //_underline.Layout(new Rectangle(_underline.Bounds.X, _underline.Bounds.Y - 1, _underline.Bounds.Width, 2));
+                _underlineBlue.LayoutTo(new Rectangle(_underlineBlue.X, _underlineBlue.Y, _underline.Width, 2), 100, Easing.CubicOut);
                 _label.ScaleTo((double)_labelUpperFontSize / (double)_fontSize, 100, Easing.SinInOut);
                 _label.TranslateTo(0, - (_spacing + 10 + _fontSize), 100, Easing.SinInOut);
                 _isRaised = true;
@@ -195,7 +193,8 @@ namespace LykkeColorex.CustomViews
             _underline.Color = Color.FromRgb(222, 225, 228);
             if (string.IsNullOrEmpty(_entry.Text))
             {
-                _underline.Layout(new Rectangle(_underline.Bounds.X, _underline.Bounds.Y + 1, _underline.Bounds.Width, 1));
+                //_underline.Layout(new Rectangle(_underline.Bounds.X, _underline.Bounds.Y + 1, _underline.Bounds.Width, 2));
+                _underlineBlue.LayoutTo(new Rectangle(_underlineBlue.X, _underlineBlue.Y, 0, 2), 100, Easing.CubicOut);
                 _underline.HeightRequest = 2;
                 _label.ScaleTo(1, 100, Easing.SinInOut);
                 _label.TranslateTo(0, 0, 100, Easing.SinInOut);
