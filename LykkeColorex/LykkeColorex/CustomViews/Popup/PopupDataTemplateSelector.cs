@@ -9,6 +9,7 @@ namespace LykkeColorex.CustomViews.Popup
 {
     public class PopupDataTemplateSelector : DataTemplateSelector
     {
+
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
             return new DataTemplate(() => new ViewCell());

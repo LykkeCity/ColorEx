@@ -226,8 +226,24 @@ namespace LykkeColorex.Pages
                 AbsoluteLayoutFlags.XProportional);
             _sinInWLWButton.Clicked += async delegate
             {
-                var selected = await PopupSelect(new List<Tuple<int, string>> {Tuple.Create(456, "Dog"), Tuple.Create(78, "Cat")}, s => s.Item2, false);
-                Debug.WriteLine(selected.Item2);
+                var list = new List<Tuple<string, string>>()
+                {
+                    Tuple.Create("asdf", "Dog"),
+                    Tuple.Create("a", "Cat"),
+                    Tuple.Create("d", "Mouse"),
+                    Tuple.Create("e", "Rat"),
+                    Tuple.Create("r", "Hamster"),
+                    Tuple.Create("2", "Elephant"),
+                    Tuple.Create("344", "Lion"),
+                    Tuple.Create("ascv", "Tiger"),
+                    Tuple.Create("vv", "Buffalo"),
+                };
+                var selected = await PopupSelect("Select a pet", list, s => Tuple.Create(s.Item1, s.Item2), true, list[5]);
+
+                if(selected == null)
+                    Debug.WriteLine("Sorry, no value was selected");
+                else
+                    Debug.WriteLine(selected.Item2);
                 /*
                 _forgotPasswordLabel.IsVisible = true;
                 await SignInWLWLowerAnimation();

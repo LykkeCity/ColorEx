@@ -35,6 +35,7 @@ namespace LykkeColorex.CustomViews.Popup
             {
                 FontSize = 15,
                 TextColor = Color.FromRgb(63, 77, 96),
+                VerticalTextAlignment = TextAlignment.Center
 
             };
             layout.Children.Add(_title, new Rectangle(36, 0.5, 150, 24), AbsoluteLayoutFlags.YProportional);
@@ -48,7 +49,7 @@ namespace LykkeColorex.CustomViews.Popup
             _selectedImage.SetBinding(Image.IsVisibleProperty, new Binding("IsSelected"));
             _title.SetBinding(Label.TextProperty, new Binding("Title"));
 
-            layout.HeightRequest = 100;
+            //layout.HeightRequest = 100;
 
             var tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += delegate
@@ -56,10 +57,16 @@ namespace LykkeColorex.CustomViews.Popup
                 //IsSelected = !IsSelected;
                 _selectedImage.IsVisible = !_selectedImage.IsVisible;
             };
-            layout.GestureRecognizers.Add(tapGestureRecognizer);
+            //layout.GestureRecognizers.Add(tapGestureRecognizer);
 
             View = layout;
         }
 
+        protected override async void OnTapped()
+        {
+            base.OnTapped();
+            _selectedImage.IsVisible = !_selectedImage.IsVisible;
+            //var a = 234;
+        }
     }
 }

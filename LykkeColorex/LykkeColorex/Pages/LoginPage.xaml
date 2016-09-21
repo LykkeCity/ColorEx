@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<lykkeColorex:ContentPageEx xmlns="http://xamarin.com/schemas/2014/forms"
+<customPages:ContentPageEx xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:cv="clr-namespace:LykkeColorex.CustomViews;assembly=LykkeColorex"
              xmlns:lykkeColorex="clr-namespace:LykkeColorex;assembly=LykkeColorex"
+             xmlns:customPages="clr-namespace:LykkeColorex.CustomPages;assembly=LykkeColorex"
              x:Class="LykkeColorex.Pages.LoginPage"
              BackgroundColor="White">
   
-</lykkeColorex:ContentPageEx>
+</customPages:ContentPageEx>
