@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
+using LykkeColorex.CustomPages;
 using Xamarin.Forms;
 
 namespace LykkeColorex.CustomViews.RegistrationSteps
@@ -12,7 +14,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
     {
         private AbsoluteLayout _layout;
         private LabelEx _label;
-        private EntryCx _entry;
+        private EntryPrefixedCx _entry;
         private StickyButton _button;
 
 
@@ -25,13 +27,14 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
 
             _layout = new AbsoluteLayout();
 
-            _entry = new EntryCx
+            _entry = new EntryPrefixedCx
             {
                 HorizontalOptions = LayoutOptions.Fill,
                 FontSize = 17,
                 TextColor = Color.FromRgb(63, 77, 96),
                 PlaceholderUpperSize = 14,
-                PlaceholderText = "Email"
+                PlaceholderText = "Your phone",
+                Prefix = "asdf!"
             };
 
             _entry.Entry.TextChanged += EntryOnTextChanged;
@@ -66,6 +69,42 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             if (!_blocked)
             {
                 _blocked = true;
+
+                _entry.Unfocus();
+
+                await Task.Delay(200);
+
+                var p = Parent.Parent as ContentPageEx;
+
+
+                var list = new List<Tuple<string, string>>()
+                {
+                    Tuple.Create("asdf", "Dog"),
+                    Tuple.Create("a", "Cat"),
+                    Tuple.Create("d", "Mouse"),
+                    Tuple.Create("e", "Rat"),
+                    Tuple.Create("r", "Hamster"),
+                    Tuple.Create("2", "Elephant"),
+                    Tuple.Create("344", "Lion"),
+                    Tuple.Create("ascv", "Tiger"),
+                    Tuple.Create("vv", "Buffalo"),
+                };
+                try
+                {
+                    var selected = await p.PopupSelect("Select a pet", list, s => s, true, list[5]);
+
+                    if (selected == null)
+                        Debug.WriteLine("Sorry, no value was selected");
+                    else
+                        Debug.WriteLine(selected.Item2);
+                }
+                catch (Exception e)
+                {
+                    var a =234;
+                }
+
+                _entry.Focus();
+
                 if (_button.State == StickyButtonState.Next)
                 {
                     if (await Validate())

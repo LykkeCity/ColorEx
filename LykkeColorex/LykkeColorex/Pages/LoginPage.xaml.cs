@@ -101,14 +101,14 @@ namespace LykkeColorex.Pages
 
                 await Task.WhenAll(animation1, animation2, animation3, animation4, animation5, animation6, animation7, animation9, animation10, animation11, animation12,
                     animation13, animation15, animation16);
-                
+
 
             }
             if (CameBackFromSignInWLWPage)
             {
                 var animation1 = _singInButton.TranslateTo(0, 0, 400, Easing.CubicOut);
                 var animation2 = _singInButton.FadeTo(1, 400, Easing.CubicOut);
-                
+
                 var animation3 = _sinInWLWButton.TranslateTo(0, 0, 400, Easing.CubicOut);
                 var animation4 = _signUpLabel.TranslateTo(0, 0, 400, Easing.CubicOut);
 
@@ -142,15 +142,15 @@ namespace LykkeColorex.Pages
 
                 await Task.WhenAll(animation1, animation2, animation3, animation4, animation5, animation6, animation7, animation8, animation9, animation10, animation11, animation12,
                     animation13, animation14, animation15, animation16, animation17, animation18);
-                
+
             }
-            
+
         }
-        
+
         public LoginPage()
         {
 
-            NavigationPage.SetHasNavigationBar(this, false);        
+            NavigationPage.SetHasNavigationBar(this, false);
 
             BackgroundColor = Color.White;
 
@@ -226,6 +226,7 @@ namespace LykkeColorex.Pages
                 AbsoluteLayoutFlags.XProportional);
             _sinInWLWButton.Clicked += async delegate
             {
+                /*
                 var list = new List<Tuple<string, string>>()
                 {
                     Tuple.Create("asdf", "Dog"),
@@ -238,20 +239,21 @@ namespace LykkeColorex.Pages
                     Tuple.Create("ascv", "Tiger"),
                     Tuple.Create("vv", "Buffalo"),
                 };
-                var selected = await PopupSelect("Select a pet", list, s => Tuple.Create(s.Item1, s.Item2), true, list[5]);
+                var selected = await PopupSelect("Select a pet", list, s => s, true, list[5]);
 
-                if(selected == null)
+                if (selected == null)
                     Debug.WriteLine("Sorry, no value was selected");
                 else
                     Debug.WriteLine(selected.Item2);
-                /*
+                    */
+                
                 _forgotPasswordLabel.IsVisible = true;
                 await SignInWLWLowerAnimation();
                 await
                     Navigation.PushAsync(new SignInWLWPage(_sinInWLWButton.GetRealPosition(), _signInLabel.GetRealPosition(),
                         _forgotPasswordLabel.GetRealPosition(), _emailEntryLine.GetRealPosition(), _passwordEntryLine.GetRealPosition(),
                         _infoLabelWLW.GetRealPosition()), false);
-                    */
+                    
             };
 
             // Sign in button positioning
@@ -333,7 +335,7 @@ namespace LykkeColorex.Pages
 
             _emailLabel = new LabelEx { Text = "Email", FontSize = 17, TextColor = Color.FromHex("#8C94A0"), Opacity = 0 };
             _mainLayout.Children.Add(_emailLabel, new Rectangle(5 + 22, 35.5 + 185 + 100, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
-            
+
             _emailEntryLine = new BoxView
             {
                 BackgroundColor = Color.FromRgb(222, 225, 228),
@@ -383,7 +385,7 @@ namespace LykkeColorex.Pages
                 Opacity = 0
             };
             _mainLayout.Children.Add(_infoLabelWLW, new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.InfoLabelFromTop, App.Dimensions.Width - 2 * SignInWLWPageLayout.Padding, AbsoluteLayout.AutoSize));
-            
+
             Content = _mainLayout;
         }
 
@@ -421,7 +423,7 @@ namespace LykkeColorex.Pages
 
             var animation6 = _logoColorex.TranslateTo(0, -60, 400, Easing.CubicOut);
             var animation7 = _logoColorex.FadeTo(0, 400, Easing.CubicOut);
-            
+
             var animation9 = _signInLabel.TranslateTo(0, -90, 400, Easing.CubicOut);
             var animation10 = _signInLabel.FadeTo(1, 300, Easing.CubicOut);
 
@@ -474,7 +476,7 @@ namespace LykkeColorex.Pages
             var animation1 = _singInButton.TranslateTo(0, -20, 400, Easing.CubicOut);
 
             var animation111 = _singInButton.FadeTo(0, 400, Easing.CubicOut);
-            
+
             var animation2 = _sinInWLWButton.TranslateTo(0, lower, 400, Easing.CubicOut);
 
             var animation3 = _signUpLabel.TranslateTo(0, lower + 30, 400, Easing.CubicOut);
@@ -490,7 +492,7 @@ namespace LykkeColorex.Pages
             var animation9 = _signInLabel.TranslateTo(0, -90, 400, Easing.CubicOut);
 
             var animation10 = _signInLabel.FadeTo(1, 300, Easing.CubicOut);
-            
+
             var animation11 = _forgotPasswordLabel.TranslateTo(0, -100, 400, Easing.CubicOut);
             var animation12 = _forgotPasswordLabel.FadeTo(1, 300);
 

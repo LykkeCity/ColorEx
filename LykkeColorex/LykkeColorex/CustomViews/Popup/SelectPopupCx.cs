@@ -152,13 +152,19 @@ namespace LykkeColorex.CustomViews.Popup
                 FontName = "Karla-Bold"
             };
 
-            al.Children.Add(new RoundedBoxView() { Color = Color.White, CornerRadius = 8 }, new Rectangle(1, 1, 1, 1), AbsoluteLayoutFlags.All);
-            al.Children.Add(_listView, new Rectangle(16, 56, App.Dimensions.Width - 16 * 2, 1), AbsoluteLayoutFlags.HeightProportional);
+            var bg = new RoundedBoxView() { Color = Color.White, CornerRadius = 8 };
+
+            al.Children.Add(bg, new Rectangle(1, 1, 1, 0), AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.WidthProportional);
+            al.Children.Add(_listView, new Rectangle(16, 56, App.Dimensions.Width - 16 * 2, 0));
             al.Children.Add(label, new Rectangle(0, 16, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
 
             Content = al;
 
-            Content.SizeChanged += delegate { Debug.WriteLine("Size changed to " + Content.Height); };
+            Content.SizeChanged += delegate
+            {
+                _listView.Layout(new Rectangle(16, 56, App.Dimensions.Width - 16 * 2, Content.Height - 56));
+                bg.Layout(new Rectangle(0, 0, bg.Bounds.Width, Content.Height + 50));
+            };
         }
 
         public SelectPopupCx(string title, List<T> objects, Func<T, Tuple<string, string>> selector, bool hasDefault, T defaultObject = default(T))
@@ -222,11 +228,19 @@ namespace LykkeColorex.CustomViews.Popup
                 FontName = "Karla-Bold"
             };
 
-            al.Children.Add(new RoundedBoxView() { Color = Color.White, CornerRadius = 8 }, new Rectangle(1, 1, 1, 1), AbsoluteLayoutFlags.All);
-            al.Children.Add(_listView, new Rectangle(16, 56, App.Dimensions.Width - 16 * 2, 1), AbsoluteLayoutFlags.HeightProportional);
+            var bg = new RoundedBoxView() {Color = Color.White, CornerRadius = 8};
+
+            al.Children.Add(bg, new Rectangle(1, 1, 1, 0), AbsoluteLayoutFlags.PositionProportional|AbsoluteLayoutFlags.WidthProportional);
+            al.Children.Add(_listView, new Rectangle(16, 56, App.Dimensions.Width - 16 * 2, 0));
             al.Children.Add(label, new Rectangle(0, 16, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
 
             Content = al;
+
+            Content.SizeChanged += delegate
+            {
+                _listView.Layout(new Rectangle(16, 56, App.Dimensions.Width - 16 * 2, Content.Height - 56));
+                bg.Layout(new Rectangle(0, 0, bg.Bounds.Width, Content.Height + 50));
+            };
 
         }
 

@@ -60,7 +60,7 @@ namespace LykkeColorex.CustomPages
                 var shader = new BoxView { Color = Color.FromRgb(36, 50, 67), Opacity = 0 };
 
                 al.Children.Add(shader, new Rectangle(-1, -1, Content.Width + 1, Content.Height + 1));
-                al.Children.Add(popup, new Rectangle(0, Content.Height, Content.Width, 0));
+                al.Children.Add(popup, new Rectangle(0, Content.Height, Content.Width, Content.Height - Content.Height / 3));
 
                 var tcs = new TaskCompletionSource<T>();
 
@@ -84,7 +84,7 @@ namespace LykkeColorex.CustomPages
                 var a1 = shader.FadeTo(0.2, 300);
                 var a2 =
                     popup.LayoutTo(
-                        new Rectangle(0, Content.Height / 3, Content.Width, Content.Height - Content.Height / 3 - 25), 300,
+                        new Rectangle(0, Content.Height / 3, Content.Width, Content.Height - Content.Height / 3), 300,
                         Easing.SpringOut);
 
 
@@ -113,7 +113,7 @@ namespace LykkeColorex.CustomPages
                 var shader = new BoxView { Color = Color.FromRgb(36, 50, 67), Opacity = 0 };
 
                 al.Children.Add(shader, new Rectangle(-1, -1, Content.Width + 1, Content.Height + 1));
-                al.Children.Add(popup, new Rectangle(0, Content.Height, Content.Width, 0));
+                al.Children.Add(popup, new Rectangle(0, Content.Height, Content.Width, Content.Height - Content.Height / 3));
 
                 var tcs = new TaskCompletionSource<T>();
 

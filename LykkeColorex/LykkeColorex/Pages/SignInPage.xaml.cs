@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LykkeColorex.Constants.Layouts;
+using LykkeColorex.CustomPages;
 using LykkeColorex.CustomViews;
 using Xamarin.Forms;
 
 namespace LykkeColorex.Pages
 {
-    public partial class SignInPage : ContentPage
+    public partial class SignInPage : ContentPageEx
     {
         private AbsoluteLayout _mainLayout;
         private BackArrowCx _backArrow;
@@ -27,7 +29,7 @@ namespace LykkeColorex.Pages
         {
             base.OnAppearing();
             
-            _backArrow.FadeTo(1, 500);
+            await _backArrow.FadeTo(1, 500);
 
         }
 
@@ -67,7 +69,6 @@ namespace LykkeColorex.Pages
             };
             _signInButton.Clicked += (sender, args) =>
             {
-
             };
 
             _mainLayout.Children.Add(_signInButton, signInButtonBounds);

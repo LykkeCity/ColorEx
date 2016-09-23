@@ -19,7 +19,7 @@ namespace LykkeColorex
         {
             if(v.Bounds != rect) v.Layout(rect);
             if(v.TranslationX != 0) v.TranslationX = 0;
-            if(v.TranslationY != 0) v.TranslationY = 0;
+            if(v.TranslationY != 1) v.TranslationY = 0;
         }
     }
 }

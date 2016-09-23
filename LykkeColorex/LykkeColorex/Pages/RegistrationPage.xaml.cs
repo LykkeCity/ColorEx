@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using LykkeColorex.Constants.Layouts;
+using LykkeColorex.CustomPages;
 using LykkeColorex.CustomViews;
 using LykkeColorex.CustomViews.RegistrationSteps;
 using Xamarin.Forms;
 
 namespace LykkeColorex.Pages
 {
-    public partial class RegistrationPage : ContentPage
+    public partial class RegistrationPage : ContentPageEx
     {
         private StickyButton _button;
         private RegistrationProgressBar _registrationBar;
@@ -45,7 +46,7 @@ namespace LykkeColorex.Pages
                 _button.TranslationY = App.Dimensions.Height;
                 
 
-                _currentRegStep = new EmailConfirmStep(_button);
+                _currentRegStep = new EmailStep(_button);
                 _layout.Children.Add(_currentRegStep, new Rectangle(23, 127 -25, App.Dimensions.Width - 2*23, AbsoluteLayout.AutoSize));
                 _currentRegStep.TranslationY = App.Dimensions.Height;
 
