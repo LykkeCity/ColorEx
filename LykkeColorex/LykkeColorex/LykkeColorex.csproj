@@ -36,7 +36,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="ClassInterface.cs" />
+    <Compile Include="CustomViews\RegistrationSteps\RegistrationManager.cs" />
+    <Compile Include="INativeControls.cs" />
     <Compile Include="Constants\Layouts\LoginPageLayout.cs" />
     <Compile Include="CustomPages\ContentPageEx.cs" />
     <Compile Include="CustomPages\IPopupPage.cs" />

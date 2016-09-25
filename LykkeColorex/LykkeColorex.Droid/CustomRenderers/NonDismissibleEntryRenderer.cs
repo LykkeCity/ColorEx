@@ -80,6 +80,7 @@ namespace LykkeColorex.Droid.CustomRenderers
                     _textView.SetRawInputType(InputTypes.ClassNumber | InputTypes.NumberVariationPassword);
                     _textView.ImeOptions = ImeAction.ImeMaskAction;
                     _textView.ImeOptions = ImeAction.None;
+                    _textView.SetSingleLine(true);
                 }
                 //_textView.OnKeyboardBackPressed += (sender, args) => _textView.ClearFocus();
                 SetNativeControl(_textView);
@@ -87,6 +88,7 @@ namespace LykkeColorex.Droid.CustomRenderers
 
             _textView.Hint = Element.Placeholder;
             _textView.Text = Element.Text;
+
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -16,9 +16,9 @@ using Xamarin.Forms.Platform.Android;
 [assembly: Xamarin.Forms.Dependency(typeof(Class1))]
 namespace LykkeColorex.Droid
 {
-    public class Class1 : ClassInterface
+    public class Class1 : INativeControls
     {
-        public void SetRect(Rectangle? rect)
+        public void SetAreaEntrySafe(Rectangle? rect)
         {
             MainActivityInstance.Instance.InsensitiveArea = rect;
         }

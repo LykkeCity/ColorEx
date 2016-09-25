@@ -142,9 +142,7 @@ namespace LykkeColorex.Pages
 
                 await Task.WhenAll(animation1, animation2, animation3, animation4, animation5, animation6, animation7, animation8, animation9, animation10, animation11, animation12,
                     animation13, animation14, animation15, animation16, animation17, animation18);
-
             }
-
         }
 
         public LoginPage()
@@ -224,6 +222,7 @@ namespace LykkeColorex.Pages
                               App.Dimensions.Width - 2 * LoginPageLayout.Padding,
                               AbsoluteLayout.AutoSize),
                 AbsoluteLayoutFlags.XProportional);
+
             _sinInWLWButton.Clicked += async delegate
             {
                 
@@ -239,13 +238,9 @@ namespace LykkeColorex.Pages
                     Tuple.Create("ascv", "Tiger"),
                     Tuple.Create("vv", "Buffalo"),
                 };
-                var selected = await PopupSelect("Select a pet", list, s => s, true, list[5]);
+                var selected = await PopupSelect("Select a pet", list, s => s.Item2, true, list[5]);
 
-                if (selected == null)
-                    Debug.WriteLine("Sorry, no value was selected");
-                else
-                    Debug.WriteLine(selected.Item2);
-                
+                Debug.WriteLine(selected == null ? "Sorry, no value was selected" : selected.Item2);
                 
                 _forgotPasswordLabel.IsVisible = true;
                 await SignInWLWLowerAnimation();
@@ -253,8 +248,6 @@ namespace LykkeColorex.Pages
                     Navigation.PushAsync(new SignInWLWPage(_sinInWLWButton.GetRealPosition(), _signInLabel.GetRealPosition(),
                         _forgotPasswordLabel.GetRealPosition(), _emailEntryLine.GetRealPosition(), _passwordEntryLine.GetRealPosition(),
                         _infoLabelWLW.GetRealPosition()), false);
-                        
-                    
             };
 
             // Sign in button positioning

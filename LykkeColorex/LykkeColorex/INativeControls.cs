@@ -7,9 +7,9 @@ using Xamarin.Forms;
 
 namespace LykkeColorex
 {
-    public interface ClassInterface
+    public interface INativeControls
     {
-        void SetRect(Rectangle? rect);
+        void SetAreaEntrySafe(Rectangle? rect);
         void SetRects(List<Rectangle> list);
         void SetAdjustResize(bool v);
     }

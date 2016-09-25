@@ -105,6 +105,8 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
                     if (await Validate())
                     {
                         _button.SetState(StickyButtonState.Success, true);
+                        await Task.Delay(300);
+                        OnStepCompleted();
                     }
                     else
                     {
@@ -159,6 +161,13 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             _entryPass1.TranslateTo(0, 0, 150, Easing.CubicOut);
             _entryPass2.TranslateTo(0, 0, 150, Easing.CubicOut);
             _entryHint.TranslateTo(0, 0, 150, Easing.CubicOut);
+        }
+
+        public override event EventHandler StepCompleted;
+
+        protected virtual void OnStepCompleted()
+        {
+            StepCompleted?.Invoke(this, EventArgs.Empty);
         }
     }
 }

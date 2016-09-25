@@ -16,6 +16,8 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
         private EntryCxPin _entry;
         private StickyButton _button;
 
+        
+
 
         public EmailConfirmStep(StickyButton button)
         {
@@ -99,10 +101,14 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
                 if (await Validate())
                 {
                     _button.SetState(StickyButtonState.Success, true);
+                    Cleanup();
+                    await Task.Delay(300);
+                    //OnStepCompleted();
                 }
                 else
                 {
                     _button.SetState(StickyButtonState.Error, true);
+                    _entry.Entry.TextChanged += ResetButton;
                 }
                 _blocked = false;
                 _entry.IsEditable = true;
@@ -111,6 +117,12 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
 
 
 
+        private async void ResetButton(object sender, TextChangedEventArgs textChangedEventArgs)
+        {
+            _entry.Entry.TextChanged -= ResetButton;
+            await _button.Hide();
+            _button.SetState(StickyButtonState.Next, false);
+        }
 
         public override async Task<bool> Validate()
         {
@@ -128,7 +140,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
 
         public override void Cleanup()
         {
-            _entry.Entry.TextChanged -= EntryOnTextChanged;
+            //_entry.Entry.TextChanged -= EntryOnTextChanged;
             _entry.Completed -= EntryOnCompleted;
         }
 
@@ -140,6 +152,13 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
 
         public override void Maximize()
         {
+        }
+
+        public override event EventHandler StepCompleted;
+
+        protected virtual void OnStepCompleted()
+        {
+            StepCompleted?.Invoke(this, EventArgs.Empty);
         }
     }
 }

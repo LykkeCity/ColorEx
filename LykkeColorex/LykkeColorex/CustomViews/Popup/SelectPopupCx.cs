@@ -135,9 +135,17 @@ namespace LykkeColorex.CustomViews.Popup
                 if (_listView.SelectedItem != null)
                     Device.BeginInvokeOnMainThread(() => _listView.SelectedItem = null);
             };
-            _listView.ItemTapped += (sender, args) =>
+
+            bool tapProcessing = false;
+            _listView.ItemTapped += async (sender, args) =>
             {
-                OnItemSelected(_objects[_objects.Select(selector).ToList().IndexOf((args.Item as SingleSelectItemModel).Title)]);
+                if (!tapProcessing)
+                {
+                    tapProcessing = true;
+                    await Task.Delay(150);
+                    OnItemSelected(
+                        _objects[_objects.Select(selector).ToList().IndexOf((args.Item as SingleSelectItemModel).Title)]);
+                }
             };
 
             var al = new AbsoluteLayout();

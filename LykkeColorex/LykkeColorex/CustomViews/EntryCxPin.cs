@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -118,51 +119,58 @@ namespace LykkeColorex.CustomViews
 
         private void EntryOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
         {
-            if (textChangedEventArgs.NewTextValue != textChangedEventArgs.OldTextValue)
+            Debug.WriteLine("entered. old: " + textChangedEventArgs.OldTextValue + ", new: " + textChangedEventArgs.NewTextValue);
+            if (textChangedEventArgs.NewTextValue == textChangedEventArgs.OldTextValue)
             {
-                if (IsEditable)
+                return;
+            }
+            if (!IsEditable)
+            {
+                if(textChangedEventArgs.NewTextValue.Length < textChangedEventArgs.OldTextValue.Length)
+                _entry.Text = textChangedEventArgs.OldTextValue;
+                return;
+            }
+
+            if (string.IsNullOrEmpty(textChangedEventArgs.OldTextValue) ||
+                textChangedEventArgs.NewTextValue.Length > textChangedEventArgs.OldTextValue.Length)
+            {
+                if (_numSymbols != _size)
                 {
-                    if (string.IsNullOrEmpty(textChangedEventArgs.OldTextValue) ||
-                        textChangedEventArgs.NewTextValue.Length > textChangedEventArgs.OldTextValue.Length)
+                    int n;
+                    if (int.TryParse(textChangedEventArgs.NewTextValue[textChangedEventArgs.NewTextValue.Length - 1].ToString(), out n))
                     {
-                        if (_numSymbols != _size)
+                        _dots[_numSymbols].Opacity = 0;
+                        var label = new LabelEx
                         {
-                            int n;
-                            if (int.TryParse(textChangedEventArgs.NewTextValue[textChangedEventArgs.NewTextValue.Length - 1].ToString(), out n))
-                            {
-                                _dots[_numSymbols].Opacity = 0;
-                                var label = new LabelEx
-                                {
-                                    Text =
-                                        textChangedEventArgs.NewTextValue[textChangedEventArgs.NewTextValue.Length - 1]
-                                            .ToString
-                                            (),
-                                    //BackgroundColor = Color.Red,
-                                    FontSize = 25,
-                                    HorizontalOptions = LayoutOptions.Fill,
-                                    HorizontalTextAlignment = TextAlignment.Center,
-                                    TextColor = Color.FromRgb(63, 77, 96)
-                                };
-                                _labels.Add(label);
-                                _al.Children.Add(label, new Rectangle(5 + _numSymbols*32, 30, 32, 30));
-                                _numSymbols++;
-                                if (_numSymbols == _size)
-                                {
-                                    OnCompleted();
-                                }
-                            }
+                            Text =
+                                textChangedEventArgs.NewTextValue[textChangedEventArgs.NewTextValue.Length - 1]
+                                    .ToString
+                                    (),
+                            //BackgroundColor = Color.Red,
+                            FontSize = 25,
+                            HorizontalOptions = LayoutOptions.Fill,
+                            HorizontalTextAlignment = TextAlignment.Center,
+                            TextColor = Color.FromRgb(63, 77, 96)
+                        };
+                        _labels.Add(label);
+                        _al.Children.Add(label, new Rectangle(5 + _numSymbols * 32, 30, 32, 30));
+                        _numSymbols++;
+                        if (_numSymbols == _size)
+                        {
+                            Debug.WriteLine("Completed!!");
+                            OnCompleted();
                         }
                     }
-                    else
-                    {
-                        if (_numSymbols > 0)
-                        {
-                            _dots[_numSymbols - 1].Opacity = 1;
-                            _al.Children.Remove(_labels[_labels.Count - 1]);
-                            _labels.RemoveAt(_labels.Count - 1);
-                            _numSymbols--;
-                        }
-                    }
+                }
+            }
+            else
+            {
+                if (_numSymbols > 0)
+                {
+                    _dots[_numSymbols - 1].Opacity = 1;
+                    _al.Children.Remove(_labels[_labels.Count - 1]);
+                    _labels.RemoveAt(_labels.Count - 1);
+                    _numSymbols--;
                 }
             }
         }

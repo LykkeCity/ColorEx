@@ -62,7 +62,6 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
         }
 
         private bool _blocked = false;
-
         private async void ButtonOnClicked(object sender, EventArgs eventArgs)
         {
             if (!_blocked)
@@ -93,6 +92,8 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
                     if (await Validate())
                     {
                         _button.SetState(StickyButtonState.Success, true);
+                        await Task.Delay(300);
+                        OnStepCompleted();
                     }
                     else
                     {
@@ -135,6 +136,13 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
         public override void Maximize()
         {
 
+        }
+
+        public override event EventHandler StepCompleted;
+
+        protected virtual void OnStepCompleted()
+        {
+            StepCompleted?.Invoke(this, EventArgs.Empty);
         }
     }
 }

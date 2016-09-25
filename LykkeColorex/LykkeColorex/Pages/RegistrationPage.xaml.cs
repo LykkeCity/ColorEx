@@ -13,7 +13,7 @@ namespace LykkeColorex.Pages
         private StickyButton _button;
         private RegistrationProgressBar _registrationBar;
         private AbsoluteLayout _layout;
-        private ClassInterface instance = DependencyService.Get<ClassInterface>();
+        private INativeControls _nativeControls = DependencyService.Get<INativeControls>();
         private LabelCx _loginSignUpLabel;
         private ButtonOld _loginSignInWLWButton;
         private ButtonCx _loginSignInButton;
@@ -46,7 +46,7 @@ namespace LykkeColorex.Pages
                 _button.TranslationY = App.Dimensions.Height;
                 
 
-                _currentRegStep = new EmailConfirmStep(_button);
+                _currentRegStep = new PasswordStep(_button);
                 _layout.Children.Add(_currentRegStep, new Rectangle(23, 127 -25, App.Dimensions.Width - 2*23, AbsoluteLayout.AutoSize));
                 _currentRegStep.TranslationY = App.Dimensions.Height;
 
@@ -116,7 +116,7 @@ namespace LykkeColorex.Pages
                 Device.StartTimer(TimeSpan.FromMilliseconds(300), () =>
                 {
                     //Debug.WriteLine(_button.Bounds.Y + " " + _button.TranslationY);
-                    Debug.WriteLine(Content.Height);
+                    //Debug.WriteLine(Content.Height);
                     return true;
                 });
             }
@@ -128,7 +128,7 @@ namespace LykkeColorex.Pages
 
         private void ContentOnSizeChanged(object sender, EventArgs eventArgs)
         {
-            if (Content.Height < 340)
+            if (Content.Height < 380) // 380
             {
                 foreach (var child in _layout.Children)
                 {
@@ -149,15 +149,15 @@ namespace LykkeColorex.Pages
             }
             _button.Layout(new Rectangle(_button.Bounds.X, Content.Height - 64, _button.Bounds.Width, _button.Bounds.Height));
             if(_currentRegStep.IsDismissible)
-                DependencyService.Get<ClassInterface>().SetRect(_button.Bounds);
+                _nativeControls.SetAreaEntrySafe(_button.Bounds);
             else
-                DependencyService.Get<ClassInterface>().SetRect(new Rectangle(0,0,Content.Width, Content.Height));
+                _nativeControls.SetAreaEntrySafe(new Rectangle(0,0,Content.Width, Content.Height));
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            DependencyService.Get<ClassInterface>().SetAdjustResize(true);
+            _nativeControls.SetAdjustResize(true);
             try
             {
                 _loginSignUpLabel.TranslateTo(0, 0, 500, Easing.CubicOut);
@@ -181,8 +181,8 @@ namespace LykkeColorex.Pages
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            DependencyService.Get<ClassInterface>().SetRect(null);
-            DependencyService.Get<ClassInterface>().SetAdjustResize(false);
+            _nativeControls.SetAreaEntrySafe(null);
+            _nativeControls.SetAdjustResize(false);
         }
     }
 }

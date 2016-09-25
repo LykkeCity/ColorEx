@@ -14,5 +14,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
         public abstract bool IsDismissible { get; }
         public abstract void Minimize();
         public abstract void Maximize();
+
+        public abstract event EventHandler StepCompleted;
     }
 }

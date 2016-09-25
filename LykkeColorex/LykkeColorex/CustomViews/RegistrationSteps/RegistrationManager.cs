@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace LykkeColorex.CustomViews.RegistrationSteps
 {
-    public class Registration
+    public class RegistrationManager
     {
-        public static readonly Type[] Steps = {typeof(EmailStep), typeof(EmailConfirmStep)};
+
     }
 }
