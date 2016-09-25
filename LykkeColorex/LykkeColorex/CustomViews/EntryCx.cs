@@ -188,10 +188,11 @@ namespace LykkeColorex.CustomViews
         {
             _label.TextColor = _labelFocusColor;
             //_underline.Color = Color.FromRgb(63, 142, 253);
+            _underlineBlue.LayoutTo(new Rectangle(_underlineBlue.X, _underlineBlue.Y, _underline.Width, 2), 100, Easing.CubicOut);
             if (!_isRaised)
             {
                 //_underline.Layout(new Rectangle(_underline.Bounds.X, _underline.Bounds.Y - 1, _underline.Bounds.Width, 2));
-                _underlineBlue.LayoutTo(new Rectangle(_underlineBlue.X, _underlineBlue.Y, _underline.Width, 2), 100, Easing.CubicOut);
+                //_underlineBlue.LayoutTo(new Rectangle(_underlineBlue.X, _underlineBlue.Y, _underline.Width, 2), 100, Easing.CubicOut);
                 _label.ScaleTo((double)_labelUpperFontSize / (double)_fontSize, 100, Easing.SinInOut);
                 _label.TranslateTo(0, - (_spacing + 10 + _fontSize), 100, Easing.SinInOut);
                 _isRaised = true;
@@ -204,12 +205,12 @@ namespace LykkeColorex.CustomViews
             if (string.IsNullOrEmpty(_entry.Text))
             {
                 //_underline.Layout(new Rectangle(_underline.Bounds.X, _underline.Bounds.Y + 1, _underline.Bounds.Width, 2));
-                _underlineBlue.LayoutTo(new Rectangle(_underlineBlue.X, _underlineBlue.Y, 0, 2), 100, Easing.CubicOut);
                 _underline.HeightRequest = 2;
                 _label.ScaleTo(1, 100, Easing.SinInOut);
                 _label.TranslateTo(0, 0, 100, Easing.SinInOut);
                 _isRaised = false;
             }
+            _underlineBlue.LayoutTo(new Rectangle(_underlineBlue.X, _underlineBlue.Y, 0, 2), 100, Easing.CubicOut);
         }
     }
 }

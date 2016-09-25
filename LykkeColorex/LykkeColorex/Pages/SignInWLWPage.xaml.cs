@@ -50,7 +50,6 @@ namespace LykkeColorex.Pages
             BackgroundColor = Color.White;
 
             NavigationPage.SetHasNavigationBar(this, false);
-
             BackgroundColor = Color.White;
 
             _mainLayout = new AbsoluteLayout { HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Fill };
@@ -65,7 +64,7 @@ namespace LykkeColorex.Pages
             };
             _mainLayout.Children.Add(
                 _backArrow,
-                new Rectangle(24, Device.OnPlatform(Android: 43 + 5 - 25, iOS: 43, WinPhone: 43), 20, 15));
+                new Rectangle(24, Device.OnPlatform(Android: 43 + 5 - 25, iOS: 43, WinPhone: 43), 28, 35));
 
 
             _infoWLWLabel = new LabelCx

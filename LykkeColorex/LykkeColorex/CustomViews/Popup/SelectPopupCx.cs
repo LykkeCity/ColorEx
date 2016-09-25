@@ -149,7 +149,7 @@ namespace LykkeColorex.CustomViews.Popup
                 FontSize = 19,
                 TextColor = Color.FromRgb(51, 51, 51),
                 HorizontalTextAlignment = TextAlignment.Center,
-                FontName = "Karla-Bold"
+                FontName = "Lato-Bold"
             };
 
             var bg = new RoundedBoxView() { Color = Color.White, CornerRadius = 8 };
@@ -225,7 +225,7 @@ namespace LykkeColorex.CustomViews.Popup
                 FontSize = 19,
                 TextColor = Color.FromRgb(51, 51, 51),
                 HorizontalTextAlignment = TextAlignment.Center,
-                FontName = "Karla-Bold"
+                FontName = "Lato-Bold"
             };
 
             var bg = new RoundedBoxView() {Color = Color.White, CornerRadius = 8};

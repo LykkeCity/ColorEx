@@ -31,7 +31,7 @@ namespace LykkeColorex.CustomViews
         private Image _loadingCircle;
         private Color _blue = Color.FromRgb(63, 142, 253);
         private Color _red = Color.FromRgb(255, 62, 46);
-        private Color _green = Color.FromRgb(19, 183, 42);
+        private Color _green = Color.FromRgb(30, 215, 97);
 
         public event EventHandler Clicked;
 
@@ -40,13 +40,13 @@ namespace LykkeColorex.CustomViews
             _layout = new AbsoluteLayout();
             //_layout.BackgroundColor = Color.Aqua;
             _boxView = new BoxView { Color = _blue };
-            _centralText = new LabelEx { InputTransparent = true, IsEnabled = false, TextColor = Color.White, FontName = "Karla-Bold", FontSize = 17, WidthRequest = 200, HorizontalTextAlignment = TextAlignment.Center };
-            _secondaryText = new LabelEx { InputTransparent = true, IsEnabled = false, TextColor = Color.White, FontName = "Karla-Regular", FontSize = 15, WidthRequest = 200, HorizontalTextAlignment = TextAlignment.Center };
+            _centralText = new LabelEx { InputTransparent = true, IsEnabled = false, TextColor = Color.White, FontName = "Lato-Bold", FontSize = 17, WidthRequest = 200, HorizontalTextAlignment = TextAlignment.Center };
+            _secondaryText = new LabelEx { InputTransparent = true, IsEnabled = false, TextColor = Color.White, FontName = "Lato-Regular", FontSize = 15, WidthRequest = 200, HorizontalTextAlignment = TextAlignment.Center };
             _loadingCircle = new Image { InputTransparent = true, IsEnabled = false, Source = ImageSource.FromFile("loaderSticky.png"), WidthRequest = 30, Aspect = Aspect.AspectFit };
             RotateElement(_loadingCircle);
             _layout.Children.Add(_boxView, new Rectangle(0, 14, 1, 50), AbsoluteLayoutFlags.WidthProportional);
             _layout.Children.Add(_loadingCircle, new Rectangle(0.5, 14 + 8.5, 30, 30), AbsoluteLayoutFlags.XProportional);
-            _layout.Children.Add(_centralText, new Rectangle(0.5, 30, 200, 30), AbsoluteLayoutFlags.XProportional);
+            _layout.Children.Add(_centralText, new Rectangle(0.5, 28, 200, 30), AbsoluteLayoutFlags.XProportional);
             _layout.Children.Add(_secondaryText, new Rectangle(0.5, 11, 200, 30), AbsoluteLayoutFlags.XProportional);
             SetState(StickyButtonState.Loading, false);
             Content = _layout;

@@ -12,6 +12,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
         private AbsoluteLayout _layout;
         private LabelEx _labelPrimary;
         private LabelEx _labelSecondary;
+        private LabelCx _labelCodeRecovery;
         private EntryCxPin _entry;
         private StickyButton _button;
 
@@ -43,6 +44,15 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
                     //        BackgroundColor = Color.Lime
                 };
 
+                _labelCodeRecovery = new LabelCx
+                {
+                    Text = "Haven't received the code?",
+                    ClickableSpanIndex = 0,
+                    TextColor = Color.FromRgb(63, 142, 253),
+                    FontSize = 14,
+                    HorizontalTextAlignment = TextAlignment.End
+                };
+
                 _entry = new EntryCxPin(4)
                 {
                     HorizontalOptions = LayoutOptions.Fill,
@@ -59,6 +69,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
                     AbsoluteLayoutFlags.WidthProportional);
                 _layout.Children.Add(_entry, new Rectangle(0, 32 + 53, 1, AbsoluteLayout.AutoSize),
                     AbsoluteLayoutFlags.WidthProportional);
+                _layout.Children.Add(_labelCodeRecovery, new Rectangle(0, 32 + 53 + 80 + 22, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
 
 
                 Content = _layout;
@@ -81,6 +92,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             if (!_blocked)
             {
                 _blocked = true;
+                _entry.IsEditable = false;
                 _button.SetState(StickyButtonState.Loading, false);
                 await _button.Show();
 
@@ -93,12 +105,16 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
                     _button.SetState(StickyButtonState.Error, true);
                 }
                 _blocked = false;
+                _entry.IsEditable = true;
             }
         }
 
+
+
+
         public override async Task<bool> Validate()
         {
-            if (Int32.Parse(_entry.Text) == 1234)
+            if (int.Parse(_entry.Text) == 1234)
             {
                 await Task.Delay(1500);
                 return true;
@@ -116,7 +132,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             _entry.Completed -= EntryOnCompleted;
         }
 
-        public override bool IsDismissible { get { return false; } set { throw new NotImplementedException(); } }
+        public override bool IsDismissible => false;
 
         public override void Minimize()
         {

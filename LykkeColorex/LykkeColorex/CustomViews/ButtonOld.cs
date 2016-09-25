@@ -9,7 +9,7 @@ namespace LykkeColorex.CustomViews
 {
     public class ButtonOld : Button
     {
-        public static readonly BindableProperty FontNameProperty = BindableProperty.Create("FontName", typeof(string), typeof(ButtonOld), "Karla-Bold");
+        public static readonly BindableProperty FontNameProperty = BindableProperty.Create("FontName", typeof(string), typeof(ButtonOld), "Lato-Bold");
         public string FontName
         {
             get { return (string)GetValue(FontNameProperty); }

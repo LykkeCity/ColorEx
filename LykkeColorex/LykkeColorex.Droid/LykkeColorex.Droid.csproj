@@ -144,14 +144,13 @@
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\Karla-Bold.ttf" />
-    <AndroidAsset Include="Assets\Karla-BoldItalic.ttf" />
-    <AndroidAsset Include="Assets\Karla-Italic.ttf" />
-    <AndroidAsset Include="Assets\Karla-Regular.ttf" />
     <None Include="app.config" />
+    <AndroidAsset Include="Assets\Lato-BlackItalic.ttf" />
+    <AndroidAsset Include="Assets\Lato-Bold.ttf" />
+    <AndroidAsset Include="Assets\Lato-Italic.ttf" />
+    <AndroidAsset Include="Assets\Lato-Regular.ttf" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
-    <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -207,30 +206,6 @@
     <AndroidResource Include="Resources\drawable\logoColorex.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\backScreenHoverIcn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\backScreenHoverIcn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\backScreenHoverIcn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\backScreenHoverIcn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\backScreenIcn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\backScreenIcn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\backScreenIcn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\backScreenIcn.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\loaderSticky.png" />
   </ItemGroup>
   <ItemGroup>
@@ -277,6 +252,18 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\greenArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\backScreenIcn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\backScreenIcn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\backScreenIcn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\backScreenIcn.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

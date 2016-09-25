@@ -46,7 +46,7 @@ namespace LykkeColorex.Pages
                 _button.TranslationY = App.Dimensions.Height;
                 
 
-                _currentRegStep = new EmailStep(_button);
+                _currentRegStep = new EmailConfirmStep(_button);
                 _layout.Children.Add(_currentRegStep, new Rectangle(23, 127 -25, App.Dimensions.Width - 2*23, AbsoluteLayout.AutoSize));
                 _currentRegStep.TranslationY = App.Dimensions.Height;
 

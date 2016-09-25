@@ -226,7 +226,7 @@ namespace LykkeColorex.Pages
                 AbsoluteLayoutFlags.XProportional);
             _sinInWLWButton.Clicked += async delegate
             {
-                /*
+                
                 var list = new List<Tuple<string, string>>()
                 {
                     Tuple.Create("asdf", "Dog"),
@@ -245,7 +245,7 @@ namespace LykkeColorex.Pages
                     Debug.WriteLine("Sorry, no value was selected");
                 else
                     Debug.WriteLine(selected.Item2);
-                    */
+                
                 
                 _forgotPasswordLabel.IsVisible = true;
                 await SignInWLWLowerAnimation();
@@ -253,6 +253,7 @@ namespace LykkeColorex.Pages
                     Navigation.PushAsync(new SignInWLWPage(_sinInWLWButton.GetRealPosition(), _signInLabel.GetRealPosition(),
                         _forgotPasswordLabel.GetRealPosition(), _emailEntryLine.GetRealPosition(), _passwordEntryLine.GetRealPosition(),
                         _infoLabelWLW.GetRealPosition()), false);
+                        
                     
             };
 
@@ -310,7 +311,7 @@ namespace LykkeColorex.Pages
                 Text = "Sign In",
                 Opacity = 0
             };
-            _mainLayout.Children.Add(_signInLabel, new Rectangle(SignInPageLayout.Padding - 1, SignInPageLayout.SignInLabelFromTop + 90, 90, 32));
+            _mainLayout.Children.Add(_signInLabel, new Rectangle(SignInPageLayout.Padding - 1, SignInPageLayout.SignInLabelFromTop + 90, 90, 50));
 
             _forgotPasswordLabel = new LabelCx
             {
@@ -331,7 +332,7 @@ namespace LykkeColorex.Pages
                 Opacity = 0,
                 IsVisible = false
             };
-            _mainLayout.Children.Add(_forgotPasswordLabel, new Rectangle(App.Dimensions.Width - SignInPageLayout.Padding - 146, SignInPageLayout.ForgotPasswordFromTop + 100, AbsoluteLayout.AutoSize, 17));
+            _mainLayout.Children.Add(_forgotPasswordLabel, new Rectangle(App.Dimensions.Width - SignInPageLayout.Padding - 146, SignInPageLayout.ForgotPasswordFromTop + 100, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
 
             _emailLabel = new LabelEx { Text = "Email", FontSize = 17, TextColor = Color.FromHex("#8C94A0"), Opacity = 0 };
             _mainLayout.Children.Add(_emailLabel, new Rectangle(5 + 22, 35.5 + 185 + 100, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
@@ -397,7 +398,7 @@ namespace LykkeColorex.Pages
             _oldInfoLabelBounds = _infoLabel.Bounds;
             _oldLogoBounds = _logoColorex.Bounds;
 
-            _oldSignInLabelBounds = new Rectangle(SignInPageLayout.Padding - 1, SignInPageLayout.SignInLabelFromTop + 90, 90, 32);
+            _oldSignInLabelBounds = new Rectangle(SignInPageLayout.Padding - 1, SignInPageLayout.SignInLabelFromTop + 90, 90, 50);
             _oldForgotPasswordLabelBounds = new Rectangle(App.Dimensions.Width - SignInPageLayout.Padding - 146, SignInPageLayout.ForgotPasswordFromTop + 100, _forgotPasswordLabel.Width, 17);
             _oldEmailEntryLineBounds = new Rectangle(SignInPageLayout.Padding, SignInPageLayout.EmailEntryLineFromTop + 100, App.Dimensions.Width - SignInPageLayout.Padding * 2, 0.5);
             _oldPasswordEntryLineBounds = new Rectangle(SignInPageLayout.Padding, SignInPageLayout.PasswordEntryLineFromTop + 150, App.Dimensions.Width - SignInPageLayout.Padding * 2, 0.5);

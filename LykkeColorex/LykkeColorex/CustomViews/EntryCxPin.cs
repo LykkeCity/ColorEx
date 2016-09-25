@@ -56,6 +56,8 @@ namespace LykkeColorex.CustomViews
             set { _entry.TextColor = value; }
         }
 
+        public bool IsEditable { get; set; }
+
         public int ItemHeight { set; get; }
 
         private void Redraw()
@@ -116,38 +118,51 @@ namespace LykkeColorex.CustomViews
 
         private void EntryOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
         {
-            if (string.IsNullOrEmpty(textChangedEventArgs.OldTextValue) || textChangedEventArgs.NewTextValue.Length > textChangedEventArgs.OldTextValue.Length)
+            if (textChangedEventArgs.NewTextValue != textChangedEventArgs.OldTextValue)
             {
-                if (_numSymbols != _size)
+                if (IsEditable)
                 {
-                    _dots[_numSymbols].Opacity = 0;
-                    var label = new LabelEx
+                    if (string.IsNullOrEmpty(textChangedEventArgs.OldTextValue) ||
+                        textChangedEventArgs.NewTextValue.Length > textChangedEventArgs.OldTextValue.Length)
                     {
-                        Text =
-                            textChangedEventArgs.NewTextValue[textChangedEventArgs.NewTextValue.Length - 1].ToString(),
-                        //BackgroundColor = Color.Red,
-                        FontSize = 25,
-                        HorizontalOptions = LayoutOptions.Fill,
-                        HorizontalTextAlignment = TextAlignment.Center,
-                        TextColor = Color.FromRgb(63, 77, 96)
-                    };
-                    _labels.Add(label);
-                    _al.Children.Add(label, new Rectangle(5 + _numSymbols * 32, 30, 32, 25));
-                    _numSymbols++;
-                    if (_numSymbols == _size)
-                    {
-                        OnCompleted();
+                        if (_numSymbols != _size)
+                        {
+                            int n;
+                            if (int.TryParse(textChangedEventArgs.NewTextValue[textChangedEventArgs.NewTextValue.Length - 1].ToString(), out n))
+                            {
+                                _dots[_numSymbols].Opacity = 0;
+                                var label = new LabelEx
+                                {
+                                    Text =
+                                        textChangedEventArgs.NewTextValue[textChangedEventArgs.NewTextValue.Length - 1]
+                                            .ToString
+                                            (),
+                                    //BackgroundColor = Color.Red,
+                                    FontSize = 25,
+                                    HorizontalOptions = LayoutOptions.Fill,
+                                    HorizontalTextAlignment = TextAlignment.Center,
+                                    TextColor = Color.FromRgb(63, 77, 96)
+                                };
+                                _labels.Add(label);
+                                _al.Children.Add(label, new Rectangle(5 + _numSymbols*32, 30, 32, 30));
+                                _numSymbols++;
+                                if (_numSymbols == _size)
+                                {
+                                    OnCompleted();
+                                }
+                            }
+                        }
                     }
-                }
-            }
-            else
-            {
-                if (_numSymbols > 0)
-                {
-                    _dots[_numSymbols - 1].Opacity = 1;
-                    _al.Children.Remove(_labels[_labels.Count - 1]);
-                    _labels.RemoveAt(_labels.Count - 1);
-                    _numSymbols--;
+                    else
+                    {
+                        if (_numSymbols > 0)
+                        {
+                            _dots[_numSymbols - 1].Opacity = 1;
+                            _al.Children.Remove(_labels[_labels.Count - 1]);
+                            _labels.RemoveAt(_labels.Count - 1);
+                            _numSymbols--;
+                        }
+                    }
                 }
             }
         }
@@ -169,6 +184,7 @@ namespace LykkeColorex.CustomViews
             _entryIndent = -2;
             ItemHeight = 80;
             State = EntryCxState.Normal;
+            IsEditable = true;
             Redraw();
         }
 

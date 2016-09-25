@@ -14,7 +14,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
     {
         private AbsoluteLayout _layout;
         private LabelEx _label;
-        private EntryPrefixedCx _entry;
+        private EntryCx _entry;
         private StickyButton _button;
 
 
@@ -27,14 +27,13 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
 
             _layout = new AbsoluteLayout();
 
-            _entry = new EntryPrefixedCx
+            _entry = new EntryCx
             {
                 HorizontalOptions = LayoutOptions.Fill,
                 FontSize = 17,
                 TextColor = Color.FromRgb(63, 77, 96),
                 PlaceholderUpperSize = 14,
-                PlaceholderText = "Your phone",
-                Prefix = "asdf!"
+                PlaceholderText = "Email",
             };
 
             _entry.Entry.TextChanged += EntryOnTextChanged;
@@ -70,13 +69,6 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             {
                 _blocked = true;
 
-                _entry.Unfocus();
-
-                await Task.Delay(200);
-
-                var p = Parent.Parent as ContentPageEx;
-
-
                 var list = new List<Tuple<string, string>>()
                 {
                     Tuple.Create("asdf", "Dog"),
@@ -89,21 +81,12 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
                     Tuple.Create("ascv", "Tiger"),
                     Tuple.Create("vv", "Buffalo"),
                 };
-                try
-                {
-                    var selected = await p.PopupSelect("Select a pet", list, s => s, true, list[5]);
+                var selected = await ((ContentPageEx)Parent.Parent).PopupSelect("Select a pet", list, s => s, true, list[5]);
 
-                    if (selected == null)
-                        Debug.WriteLine("Sorry, no value was selected");
-                    else
-                        Debug.WriteLine(selected.Item2);
-                }
-                catch (Exception e)
-                {
-                    var a =234;
-                }
-
-                _entry.Focus();
+                if (selected == null)
+                    Debug.WriteLine("Sorry, no value was selected");
+                else
+                    Debug.WriteLine(selected.Item2);
 
                 if (_button.State == StickyButtonState.Next)
                 {
@@ -142,7 +125,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             _button.Clicked -= ButtonOnClicked;
         }
 
-        public override bool IsDismissible { get { return true; } set {throw new NotImplementedException();} }
+        public override bool IsDismissible => true;
 
         public override void Minimize()
         {

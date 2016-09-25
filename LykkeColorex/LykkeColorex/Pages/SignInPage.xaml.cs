@@ -56,7 +56,7 @@ namespace LykkeColorex.Pages
             };
             _mainLayout.Children.Add(
                 _backArrow, 
-                new Rectangle(24, Device.OnPlatform(Android: 43 + 5 - 25, iOS:43, WinPhone:43), 20, 15));
+                new Rectangle(24, Device.OnPlatform(Android: 43 + 5 - 25, iOS:43, WinPhone:43), 28, 35));
             
 
             _signInButton = new ButtonCx
@@ -76,9 +76,9 @@ namespace LykkeColorex.Pages
             _signInLabel = new LabelCx {
                 FontSize = 27,
                 Text = "Sign In",
-                TextColor = Color.FromRgb(51, 51, 51)
+                TextColor = Color.FromRgb(51, 51, 51),
             };
-            _mainLayout.Children.Add(_signInLabel, signInLabelBounds);
+            _mainLayout.Children.Add(_signInLabel, new Rectangle(signInLabelBounds.X, signInLabelBounds.Y, signInLabelBounds.Width, AbsoluteLayout.AutoSize));
 
             _emailEntry = new EntryCx
             {

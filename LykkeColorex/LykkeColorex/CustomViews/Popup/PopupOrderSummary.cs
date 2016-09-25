@@ -26,7 +26,7 @@ namespace LykkeColorex.CustomViews.Popup
                     Text = "Order Summary",
                     TextColor = Color.FromRgb(51, 51, 51),
                     FontSize = 20,
-                    FontName = "Karla-Bold"
+                    FontName = "Lato-Bold"
                     //BackgroundColor = Color.Red
                 };
 

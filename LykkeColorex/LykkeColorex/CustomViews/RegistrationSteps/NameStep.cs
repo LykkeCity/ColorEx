@@ -113,7 +113,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             _button.Clicked -= ButtonOnClicked;
         }
 
-        public override bool IsDismissible { get { return true; } set { throw new NotImplementedException(); } }
+        public override bool IsDismissible => true;
 
         public override void Minimize()
         {

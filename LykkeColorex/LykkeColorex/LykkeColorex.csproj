@@ -48,7 +48,6 @@
     <Compile Include="CustomViews\EntryEx.cs" />
     <Compile Include="CustomViews\EntryPrefixedCx.cs" />
     <Compile Include="CustomViews\LabelCx.cs" />
-    <Compile Include="CustomViews\LabelCxSimple.cs" />
     <Compile Include="CustomViews\LabelEx.cs" />
     <Compile Include="CustomViews\NonDismissibleEntry.cs" />
     <Compile Include="CustomViews\Popup\IPopupDataItem.cs" />

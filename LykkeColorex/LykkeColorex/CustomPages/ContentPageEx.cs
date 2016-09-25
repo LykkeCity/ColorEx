@@ -143,9 +143,9 @@ namespace LykkeColorex.CustomPages
                 };
 
 
-                var a1 = shader.FadeTo(0.2, 300);
-                var a2 = popup.LayoutTo( new Rectangle(0, Content.Height / 3, Content.Width, Content.Height - Content.Height / 3), 300, Easing.SpringOut);
-                //var a2 = selectPopup.TranslateTo(0, - Content.Height + Content.Height/3 - 25, 5000, Easing.SpringOut);
+                var a1 = shader.FadeTo(0.2, 400);
+                var a2 = popup.LayoutTo( new Rectangle(0, Content.Height / 3, popup.Bounds.Width, popup.Bounds.Height), 400, Easing.SpringOut);
+                //var a2 = popup.TranslateTo(0, - Content.Height + Content.Height/3, 300, Easing.CubicOut);
 
                 await Task.WhenAll(a1, a2);
 
