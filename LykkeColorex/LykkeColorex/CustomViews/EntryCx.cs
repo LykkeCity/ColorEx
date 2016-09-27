@@ -18,6 +18,7 @@ namespace LykkeColorex.CustomViews
         private EntryEx _entry;
         private LabelEx _label;
         private BoxView _underline;
+        private BoxView _errorUnderline;
         private BoxView _underlineBlue;
         private int _fontSize;
         private int _labelUpperFontSize;
@@ -47,10 +48,16 @@ namespace LykkeColorex.CustomViews
             }
         }
 
+        public bool IsError => _errorUnderline.IsVisible;
+
+        public void SetNormal()
+        {
+            _errorUnderline.IsVisible = false;
+        }
+
         public void SetError()
         {
-            _underline.Color = _underlineErrorColor;
-            _underline.Layout(new Rectangle(_underline.Bounds.X, _underline.Bounds.Y, _underline.Bounds.Width, 2));
+            _errorUnderline.IsVisible = true;
         }
 
         public Keyboard Keyboard
@@ -160,13 +167,19 @@ namespace LykkeColorex.CustomViews
                 };
                 _label.AnchorX = 0;
 
+                _errorUnderline = new BoxView { Color = _underlineErrorColor, IsVisible = false };
+
                 _underlineBlue = new BoxView {HeightRequest = 2, Color = Color.FromRgb(63, 142, 253) };
                 _underline = new BoxView {HeightRequest = 0.5, Color = State == EntryCxState.Normal ? Color.FromRgb(222, 225, 228) : ( State == EntryCxState.Active ? Color.FromRgb(63, 142, 253) : Color.FromRgb(255, 62, 46)), HorizontalOptions = LayoutOptions.Fill};
                 al.Children.Add(_entry, new Rectangle(_entryIndent, 0 + 16 + _fontSize, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
                 al.Children.Add(_label, new Rectangle(2, 10 + 16 + _fontSize, 1, AbsoluteLayout.AutoSize), AbsoluteLayoutFlags.WidthProportional);
                 al.Children.Add(_underline, new Rectangle(0, 80 - 1, 1, 0.5), AbsoluteLayoutFlags.WidthProportional);
                 al.Children.Add(_underlineBlue, new Rectangle(0, 80 - 1, 0, 1.5));
+                al.Children.Add(_errorUnderline, new Rectangle(0, 80 - 2, 1, 3), AbsoluteLayoutFlags.WidthProportional);
+
                 Content = al;
+
+                 
             }
             catch (Exception ex)
             {

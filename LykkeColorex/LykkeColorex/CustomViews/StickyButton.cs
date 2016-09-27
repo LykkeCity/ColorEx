@@ -53,11 +53,24 @@ namespace LykkeColorex.CustomViews
 
             var tapGestureRecognizer = new TapGestureRecognizer();
 
-            tapGestureRecognizer.Tapped += (s, e) => {
+            tapGestureRecognizer.Tapped += (s, e) =>
+            {
                 Clicked?.Invoke(this, new EventArgs());
             };
 
+            
+
             _boxView.GestureRecognizers.Add(tapGestureRecognizer);
+
+            PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == "Y")
+                {
+                    Debug.WriteLine("Y poperty changed!!");
+                    Layout(new Rectangle(Bounds.X, ((AbsoluteLayout)Parent).Height - 64, Bounds.Width, Bounds.Height));
+                }
+            };
+
         }
 
         private async Task RotateElement(VisualElement element)

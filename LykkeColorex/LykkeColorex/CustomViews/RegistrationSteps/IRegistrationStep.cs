@@ -15,6 +15,10 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
 
         bool IsDismissible { get; }
 
+        Entry FirstFocusEntry { get; }
+
+        void ResetState();
+
         void Minimize();
 
         void Maximize();

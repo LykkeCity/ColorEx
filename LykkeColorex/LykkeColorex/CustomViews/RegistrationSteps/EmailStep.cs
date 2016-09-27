@@ -36,7 +36,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
                 PlaceholderText = "Email",
             };
 
-            _entry.Entry.TextChanged += EntryOnTextChanged;
+            //_entry.Entry.TextChanged += EntryOnTextChanged;
 
             _label = new LabelEx
             {
@@ -53,39 +53,12 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             Content = _layout;
         }
 
-        private void EntryOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
-        {
-            if (_button.State == StickyButtonState.Error)
-            {
-                _button.SetState(StickyButtonState.Next, true);
-            }
-        }
-
         private bool _blocked = false;
         private async void ButtonOnClicked(object sender, EventArgs eventArgs)
         {
             if (!_blocked)
             {
                 _blocked = true;
-
-                var list = new List<Tuple<string, string>>()
-                {
-                    Tuple.Create("asdf", "Dog"),
-                    Tuple.Create("a", "Cat"),
-                    Tuple.Create("d", "Mouse"),
-                    Tuple.Create("e", "Rat"),
-                    Tuple.Create("r", "Hamster"),
-                    Tuple.Create("2", "Elephant"),
-                    Tuple.Create("344", "Lion"),
-                    Tuple.Create("ascv", "Tiger"),
-                    Tuple.Create("vv", "Buffalo"),
-                };
-                var selected = await ((ContentPageEx)Parent.Parent).PopupSelect("Select a pet", list, s => s, true, list[5]);
-
-                if (selected == null)
-                    Debug.WriteLine("Sorry, no value was selected");
-                else
-                    Debug.WriteLine(selected.Item2);
 
                 if (_button.State == StickyButtonState.Next)
                 {
@@ -116,9 +89,19 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             {
                 _button.SetState(StickyButtonState.Loading, true);
                 await Task.Delay(1500);
+                _entry.Entry.TextChanged += EntryOnTextChanged;
                 _entry.SetError();
+                //var al = Parent as Layout;
+                //_button.Layout(new Rectangle(_button.Bounds.X, al.Height - 64, _button.Bounds.Width, _button.Bounds.Height)); // dirty, dirty, dirty hack
                 return false;
             }
+        }
+
+        private void EntryOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
+        {
+            _entry.Entry.TextChanged -= EntryOnTextChanged;
+            _entry.SetNormal();
+            ResetState();
         }
 
         public override void Cleanup()
@@ -127,6 +110,13 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
         }
 
         public override bool IsDismissible => true;
+        public override Entry FirstFocusEntry => _entry.Entry;
+
+        public override void ResetState()
+        {
+            //_entry.IsError = false;
+            _button.SetState(StickyButtonState.Next, true);
+        }
 
         public override void Minimize()
         {

@@ -105,7 +105,6 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             {
                 _button.SetState(StickyButtonState.Loading, true);
                 await Task.Delay(1500);
-                _entryName.SetError();
                 return false;
             }
         }
@@ -116,6 +115,12 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
         }
 
         public override bool IsDismissible => true;
+        public override Entry FirstFocusEntry => _entryName.Entry;
+
+        public override void ResetState()
+        {
+            throw new NotImplementedException();
+        }
 
         public override void Minimize()
         {

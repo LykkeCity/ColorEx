@@ -146,6 +146,13 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
 
         public override bool IsDismissible => false;
 
+        public override Entry FirstFocusEntry => _entry.Entry;
+
+        public override void ResetState()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Minimize()
         {
         }
