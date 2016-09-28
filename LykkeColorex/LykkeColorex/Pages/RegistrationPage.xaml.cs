@@ -27,11 +27,8 @@ namespace LykkeColorex.Pages
         private Image _loginLogoColorex;
         protected override bool OnBackButtonPressed()
         {
-            Task.Run(async () =>
-            {
-                await AnimateBack();
-                await Navigation.PopAsync(false);
-            });
+            Task.Run(async () => await AnimateBack())
+                .ContinueWith(task => Device.BeginInvokeOnMainThread(async () => await Navigation.PopAsync(false)));
             return true;
         }
 
