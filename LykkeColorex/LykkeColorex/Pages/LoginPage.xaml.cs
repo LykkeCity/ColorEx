@@ -195,7 +195,7 @@ namespace LykkeColorex.Pages
             };
             _signUpLabel.SpanClicked += async (sender, args) =>
             {
-                await Navigation.PushAsync(new RegistrationPage(_logoColorex.Bounds, _singInButton.Bounds, _sinInWLWButton.Bounds, _signUpLabel.Bounds), false);
+                await Navigation.PushAsync(new RegistrationPage(_logoColorex.Bounds, _singInButton.Bounds, _sinInWLWButton.Bounds, _signUpLabel.Bounds, _infoLabel.Bounds), false);
             };
             _mainLayout.Children.Add(
                 _signUpLabel,

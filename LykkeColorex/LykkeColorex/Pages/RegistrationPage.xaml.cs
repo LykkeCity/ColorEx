@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using LykkeColorex.Constants.Layouts;
 using LykkeColorex.CustomPages;
 using LykkeColorex.CustomViews;
@@ -16,15 +17,45 @@ namespace LykkeColorex.Pages
         private AbsoluteLayout _layout;
         private INativeControls _nativeControls = DependencyService.Get<INativeControls>();
         private LabelCx _loginSignUpLabel;
+        private LabelCx _infoLabel;
         private ButtonOld _loginSignInWLWButton;
         private ButtonCx _loginSignInButton;
         private RegistrationStep _currentRegStep;
         private LabelCx _notNowLabel;
         private BackArrowCx _backArrow;
-        
-        private Image _loginLogoColorex;
 
-        public RegistrationPage(Rectangle logoBounds, Rectangle signInButtonBounds, Rectangle signInWLWButtonBounds, Rectangle signUpLabelBounds)
+        private Image _loginLogoColorex;
+        protected override bool OnBackButtonPressed()
+        {
+            Task.Run(async () =>
+            {
+                await AnimateBack();
+                await Navigation.PopAsync(false);
+            });
+            return true;
+        }
+
+        private Task AnimateBack()
+        {
+            var a1 = _loginSignUpLabel.TranslateTo(0, App.Dimensions.Height, 500, Easing.CubicOut);
+            var a2 = _loginSignInButton.TranslateTo(0, App.Dimensions.Height, 500, Easing.CubicOut);
+            var a3 = _loginSignInWLWButton.TranslateTo(0, App.Dimensions.Height, 500, Easing.CubicOut);
+            var a4 = _loginLogoColorex.TranslateTo(0, App.Dimensions.Height, 500, Easing.CubicOut);
+            var a5 = _backArrow.TranslateTo(0, App.Dimensions.Height, 500, Easing.CubicOut);
+            var a6 = _notNowLabel.TranslateTo(0, App.Dimensions.Height, 500, Easing.CubicOut);
+
+            var a7 = _button.TranslateTo(0, App.Dimensions.Height, 500, Easing.CubicOut);
+
+            var a8 = _currentRegStep.TranslateTo(0, App.Dimensions.Height, 500, Easing.CubicOut);
+            var a9 = _registrationBar.TranslateTo(0, App.Dimensions.Height, 500, Easing.CubicOut);
+
+            var a10 = _infoLabel.TranslateTo(0, App.Dimensions.Height, 500, Easing.CubicOut);
+
+            return Task.WhenAll(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+
+        }
+
+        public RegistrationPage(Rectangle logoBounds, Rectangle signInButtonBounds, Rectangle signInWLWButtonBounds, Rectangle signUpLabelBounds, Rectangle infoLabelBounds)
         {
             try
             {
@@ -38,6 +69,11 @@ namespace LykkeColorex.Pages
 
 
                 _backArrow = new BackArrowCx(false);
+                _backArrow.Clicked += async delegate
+                {
+                    await AnimateBack();
+                    await Navigation.PopAsync(false);
+                };
 
                 _layout.Children.Add(_backArrow, new Rectangle(24, Device.OnPlatform(Android: 43 + 5 - 25, iOS: 43, WinPhone: 43), 28, 35));
 
@@ -48,7 +84,7 @@ namespace LykkeColorex.Pages
                     Text = "Not now",
                     TextColor = Color.FromRgb(140, 148, 160),
                     FontSize = 16
-                
+
                 };
 
                 _layout.Children.Add(_notNowLabel, new Rectangle(App.Dimensions.Width - 24 - 62, 32 - 25 + 5 + 9, AbsoluteLayout.AutoSize, 35));
@@ -82,6 +118,18 @@ namespace LykkeColorex.Pages
                 };
                 _layout.Children.Add(_loginLogoColorex, new Rectangle(logoBounds.X, logoBounds.Y - App.Dimensions.Height, logoBounds.Width, logoBounds.Height));
                 _loginLogoColorex.TranslationY = App.Dimensions.Height;
+
+                _infoLabel = new LabelCx
+                {
+                    TextColor = Color.FromRgb(140, 148, 160),
+                    Text = "If you already have a login and password, log in to Colorex",
+                    FontSize = 15,
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    LineSpacing = 12
+                };
+                _layout.Children.Add(_infoLabel, new Rectangle(infoLabelBounds.X, infoLabelBounds.Y - App.Dimensions.Height, infoLabelBounds.Width, infoLabelBounds.Height));
+                _infoLabel.TranslationY = App.Dimensions.Height;
+
 
 
                 _loginSignUpLabel = new LabelCx
@@ -195,9 +243,10 @@ namespace LykkeColorex.Pages
                 _loginSignInButton.TranslateTo(0, 0, 500, Easing.CubicOut);
                 _loginSignInWLWButton.TranslateTo(0, 0, 500, Easing.CubicOut);
                 _loginLogoColorex.TranslateTo(0, 0, 500, Easing.CubicOut);
+                _infoLabel.TranslateTo(0, 0, 500, Easing.CubicOut);
+
                 _backArrow.TranslateTo(0, 0, 500, Easing.CubicOut);
                 _notNowLabel.TranslateTo(0, 0, 500, Easing.CubicOut);
-
                 _button.TranslateTo(0, 0, 500, Easing.CubicOut);
                 _currentRegStep.TranslateTo(0, 0, 500, Easing.CubicOut);
                 _registrationBar.TranslateTo(0, 0, 500, Easing.CubicOut);

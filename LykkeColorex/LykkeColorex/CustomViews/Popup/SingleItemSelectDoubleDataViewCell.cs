@@ -74,3 +74,7 @@ namespace LykkeColorex.CustomViews.Popup
         
     }
 }
+
+
+
+// var list = .Next()
