@@ -18,7 +18,8 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
         private StickyButton _button;
 
 
-        public PasswordStep(StickyButton button)
+        public PasswordStep(StickyButton button, RegistrationContext context) 
+            : base(context)
         {
             _button = button;
             _button.SetState(StickyButtonState.Next, true);

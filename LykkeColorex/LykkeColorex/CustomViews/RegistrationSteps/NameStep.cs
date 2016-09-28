@@ -16,7 +16,8 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
         private StickyButton _button;
 
 
-        public NameStep(StickyButton button)
+        public NameStep(StickyButton button, RegistrationContext context)
+            : base(context)
         {
             _button = button;
             _button.SetState(StickyButtonState.Next, true);
@@ -39,8 +40,8 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
                 HorizontalOptions = LayoutOptions.Fill,
                 FontSize = 17,
                 TextColor = Color.FromRgb(63, 77, 96),
-                PlaceholderUpperSize = 14,
                 PlaceholderText = "Name",
+                PlaceholderUpperSize = 14,
                 IsPassword = true
             };
 

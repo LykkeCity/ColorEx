@@ -238,9 +238,14 @@ namespace LykkeColorex.Pages
                     Tuple.Create("ascv", "Tiger"),
                     Tuple.Create("vv", "Buffalo"),
                 };
-                var selected = await PopupSelect("Select a pet", list, s => s.Item2, true, list[5]);
+                var selected = await PopupSelect(true, "Select a pet", list, s => s.Item2, true, list[5]);
 
-                Debug.WriteLine(selected == null ? "Sorry, no value was selected" : selected.Item2);
+                Debug.WriteLine("Selected values were: ");
+                foreach (var item in selected)
+                {
+                    Debug.WriteLine(" - " + item.Item2);
+                }
+
                 
                 _forgotPasswordLabel.IsVisible = true;
                 await SignInWLWLowerAnimation();
@@ -449,7 +454,7 @@ namespace LykkeColorex.Pages
             _oldInfoLabelBounds = _infoLabel.Bounds;
             _oldLogoBounds = _logoColorex.Bounds;
 
-            _oldSignInLabelBounds = new Rectangle(SignInWLWPageLayout.Padding - 1, SignInWLWPageLayout.SignInLabelFromTop + 90, 90, 32); ;
+            _oldSignInLabelBounds = new Rectangle(SignInWLWPageLayout.Padding - 1, SignInWLWPageLayout.SignInLabelFromTop + 90, 90, 35);
             _oldForgotPasswordLabelBounds = new Rectangle(App.Dimensions.Width - SignInWLWPageLayout.Padding - 146, SignInWLWPageLayout.ForgotPasswordFromTop + 100, _forgotPasswordLabel.Width, 17);
             _oldEmailEntryLineBounds = new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.EmailEntryLineFromTop + 100 - 1, App.Dimensions.Width - SignInWLWPageLayout.Padding * 2, 0.5);
             _oldPasswordEntryLineBounds = new Rectangle(SignInWLWPageLayout.Padding, SignInWLWPageLayout.PasswordEntryLineFromTop + 150 - 1, App.Dimensions.Width - SignInWLWPageLayout.Padding * 2, 0.5);

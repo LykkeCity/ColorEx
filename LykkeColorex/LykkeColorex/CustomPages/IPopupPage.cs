@@ -8,7 +8,8 @@ namespace LykkeColorex.CustomPages
 {
     public interface IPopupPage
     {
-        Task<T> PopupSelect<T>(string title, List<T> objects, Func<T, string> selector, bool hasDefault, T defaultObject = default(T));
-        Task<T> PopupSelect<T>(string title, List<T> objects, Func<T, Tuple<string, string>> selector, bool hasDefault, T defaultObject = default(T));
+        Task<List<T>> PopupSelect<T>(bool allowMultiple, string title, List<T> objects, Func<T, string> selector, bool hasDefault, T defaultObject = default(T));
+        Task<List<T>> PopupSelect<T>(bool allowMultiple, string title, List<T> objects, Func<T, Tuple<string, string>> selector, bool hasDefault, T defaultObject = default(T));
+
     }
 }

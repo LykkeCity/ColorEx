@@ -17,9 +17,9 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
         private StickyButton _button;
 
         
-
-
-        public EmailConfirmStep(StickyButton button)
+        
+        public EmailConfirmStep(StickyButton button, RegistrationContext context)
+            : base(context)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
                 _labelSecondary = new LabelEx
                 {
                     TextColor = Color.FromRgb(51, 51, 51),
-                    Text = "Code was sent to email grebenev.v@gmail.com",
+                    Text = $"Code was sent to email {Context.Email}",
                     FontSize = 15,
                     HorizontalOptions = LayoutOptions.Fill,
                     //        BackgroundColor = Color.Lime
@@ -62,7 +62,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
                     TextColor = Color.FromRgb(63, 77, 96),
                     IsPassword = true
                 };
-                _entry.Entry.TextChanged += EntryOnTextChanged;
+                //_entry.Entry.TextChanged += EntryOnTextChanged;
                 _entry.Completed += EntryOnCompleted;
 
                 _layout.Children.Add(_labelPrimary, new Rectangle(0, 0, 1, AbsoluteLayout.AutoSize),
@@ -120,8 +120,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
         private async void ResetButton(object sender, TextChangedEventArgs textChangedEventArgs)
         {
             _entry.Entry.TextChanged -= ResetButton;
-            await _button.Hide();
-            _button.SetState(StickyButtonState.Next, false);
+            ResetState();
         }
 
         public override async Task<bool> Validate()
@@ -148,9 +147,10 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
 
         public override Entry FirstFocusEntry => _entry.Entry;
 
-        public override void ResetState()
+        public override async void ResetState()
         {
-            throw new NotImplementedException();
+            await _button.Hide();
+            _button.SetState(StickyButtonState.Next, false);
         }
 
         public override void Minimize()

@@ -18,7 +18,8 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
         private StickyButton _button;
 
 
-        public EmailStep(StickyButton button)
+        public EmailStep(StickyButton button, RegistrationContext context)
+            : base(context)
         {
             _button = button;
             _button.SetState(StickyButtonState.Next, true);
@@ -100,7 +101,6 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
         private void EntryOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
         {
             _entry.Entry.TextChanged -= EntryOnTextChanged;
-            _entry.SetNormal();
             ResetState();
         }
 
@@ -114,7 +114,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
 
         public override void ResetState()
         {
-            //_entry.IsError = false;
+            _entry.SetNormal();
             _button.SetState(StickyButtonState.Next, true);
         }
 

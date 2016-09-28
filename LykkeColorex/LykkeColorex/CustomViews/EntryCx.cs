@@ -52,12 +52,12 @@ namespace LykkeColorex.CustomViews
 
         public void SetNormal()
         {
-            _errorUnderline.IsVisible = false;
+            _errorUnderline.Opacity = 0;
         }
 
         public void SetError()
         {
-            _errorUnderline.IsVisible = true;
+            _errorUnderline.Opacity = 1;
         }
 
         public Keyboard Keyboard
@@ -167,7 +167,7 @@ namespace LykkeColorex.CustomViews
                 };
                 _label.AnchorX = 0;
 
-                _errorUnderline = new BoxView { Color = _underlineErrorColor, IsVisible = false };
+                _errorUnderline = new BoxView { Color = _underlineErrorColor, Opacity = 0};
 
                 _underlineBlue = new BoxView {HeightRequest = 2, Color = Color.FromRgb(63, 142, 253) };
                 _underline = new BoxView {HeightRequest = 0.5, Color = State == EntryCxState.Normal ? Color.FromRgb(222, 225, 228) : ( State == EntryCxState.Active ? Color.FromRgb(63, 142, 253) : Color.FromRgb(255, 62, 46)), HorizontalOptions = LayoutOptions.Fill};
@@ -178,6 +178,8 @@ namespace LykkeColorex.CustomViews
                 al.Children.Add(_errorUnderline, new Rectangle(0, 80 - 2, 1, 3), AbsoluteLayoutFlags.WidthProportional);
 
                 Content = al;
+
+                Debug.WriteLine("redrawn...");
 
                  
             }
@@ -224,6 +226,7 @@ namespace LykkeColorex.CustomViews
                 _isRaised = false;
             }
             _underlineBlue.LayoutTo(new Rectangle(_underlineBlue.X, _underlineBlue.Y, 0, 2), 100, Easing.CubicOut);
+            Debug.WriteLine("unfocused...");
         }
     }
 }

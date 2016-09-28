@@ -36,6 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="CustomViews\Popup\MutipleItemSelectDoubleDataViewCell.cs" />
+    <Compile Include="CustomViews\Popup\MultipleItemSelectViewCell.cs" />
+    <Compile Include="CustomViews\RegistrationSteps\IRegistrationContext.cs" />
+    <Compile Include="CustomViews\RegistrationSteps\RegistrationContext.cs" />
     <Compile Include="CustomViews\RegistrationSteps\RegistrationManager.cs" />
     <Compile Include="INativeControls.cs" />
     <Compile Include="Constants\Layouts\LoginPageLayout.cs" />

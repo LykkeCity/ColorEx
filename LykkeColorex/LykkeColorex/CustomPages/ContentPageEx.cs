@@ -47,30 +47,29 @@ namespace LykkeColorex.CustomPages
             }
         }
 
-        public async Task<T> PopupSelect<T>(string title, List<T> objects, Func<T, string> selector, bool hasDefault, T defaultObject = default(T))
+        public async Task<List<T>> PopupSelect<T>(bool allowMultiple, string title, List<T> objects, Func<T, string> selector, bool hasDefault, T defaultObject = default(T))
         {
             try
             {
                 var al = Content as AbsoluteLayout;
 
                 if (al == null)
-                    return await Task.Run(() => default(T));
+                    return await Task.FromResult<List<T>>(null);
 
-                var popup = new SelectPopupCx<T>(title, objects, selector, hasDefault, defaultObject);
+                var popup = new SelectPopupCx<T>(allowMultiple, title, objects, selector, hasDefault, defaultObject);
                 var shader = new BoxView { Color = Color.FromRgb(36, 50, 67), Opacity = 0 };
 
                 al.Children.Add(shader, new Rectangle(-1, -1, Content.Width + 1, Content.Height + 1));
                 al.Children.Add(popup, new Rectangle(0, Content.Height, Content.Width, Content.Height - Content.Height / 3));
 
-                var tcs = new TaskCompletionSource<T>();
+                var tcs = new TaskCompletionSource<List<T>>();
 
 
                 var tapGestureRecognizer = new TapGestureRecognizer();
                 tapGestureRecognizer.Tapped += async (sender, e) =>
                 {
                     await HidePopup(popup, shader);
-                    var a = default(T);
-                    tcs.SetResult(a);
+                    tcs.SetResult(popup.GetSelectedItems());
                 };
                 shader.GestureRecognizers.Add(tapGestureRecognizer);
 
@@ -97,25 +96,25 @@ namespace LykkeColorex.CustomPages
             {
                 var a = 234;
             }
-            return await Task.Run(() => default(T));
+            return await Task.FromResult<List<T>>(null);
         }
 
-        public async Task<T> PopupSelect<T>(string title, List<T> objects, Func<T, Tuple<string, string>> selector, bool hasDefault, T defaultObject = default(T))
+        public async Task<List<T>> PopupSelect<T>(bool allowMultiple, string title, List<T> objects, Func<T, Tuple<string, string>> selector, bool hasDefault, T defaultObject = default(T))
         {
             try
             {
                 var al = Content as AbsoluteLayout;
 
                 if (al == null)
-                    return await Task.Run(() => default(T));
+                    return await Task.FromResult<List<T>>(null);
 
-                var popup = new SelectPopupCx<T>(title, objects, selector, hasDefault, defaultObject);
+                var popup = new SelectPopupCx<T>(allowMultiple, title, objects, selector, hasDefault, defaultObject);
                 var shader = new BoxView { Color = Color.FromRgb(36, 50, 67), Opacity = 0 };
 
                 al.Children.Add(shader, new Rectangle(-1, -1, Content.Width + 1, Content.Height + 1));
                 al.Children.Add(popup, new Rectangle(0, Content.Height, Content.Width, Content.Height - Content.Height / 3));
 
-                var tcs = new TaskCompletionSource<T>();
+                var tcs = new TaskCompletionSource<List<T>>();
 
                 bool dismissionBegan = false;
                 var tapGestureRecognizer = new TapGestureRecognizer();
@@ -126,7 +125,7 @@ namespace LykkeColorex.CustomPages
                         dismissionBegan = true;
 
                         await HidePopup(popup, shader);
-                        tcs.SetResult(default(T));
+                        tcs.SetResult(popup.GetSelectedItems());
                     }
                 };
                 shader.GestureRecognizers.Add(tapGestureRecognizer);
@@ -156,7 +155,12 @@ namespace LykkeColorex.CustomPages
             {
                 var a = 234;
             }
-            return await Task.Run(() => default(T));
+            return await Task.FromResult<List<T>>(null);
+        }
+
+        public Task<List<T>> PopupSelectMultiple<T>(string title, List<T> objects, Func<T, string> selector, List<T> defaultObjects = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }

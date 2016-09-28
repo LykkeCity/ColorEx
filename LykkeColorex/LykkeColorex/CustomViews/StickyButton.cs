@@ -57,9 +57,7 @@ namespace LykkeColorex.CustomViews
             {
                 Clicked?.Invoke(this, new EventArgs());
             };
-
             
-
             _boxView.GestureRecognizers.Add(tapGestureRecognizer);
 
             PropertyChanged += (sender, args) =>

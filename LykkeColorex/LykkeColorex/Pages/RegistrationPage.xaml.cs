@@ -12,15 +12,18 @@ namespace LykkeColorex.Pages
     {
         private StickyButton _button;
         private RegistrationProgressBar _registrationBar;
+        private RegistrationContext _registrationContext;
         private AbsoluteLayout _layout;
         private INativeControls _nativeControls = DependencyService.Get<INativeControls>();
         private LabelCx _loginSignUpLabel;
         private ButtonOld _loginSignInWLWButton;
         private ButtonCx _loginSignInButton;
         private RegistrationStep _currentRegStep;
-
-        private Image _loginLogoColorex;
+        private LabelCx _notNowLabel;
+        private BackArrowCx _backArrow;
         
+        private Image _loginLogoColorex;
+
         public RegistrationPage(Rectangle logoBounds, Rectangle signInButtonBounds, Rectangle signInWLWButtonBounds, Rectangle signUpLabelBounds)
         {
             try
@@ -29,7 +32,28 @@ namespace LykkeColorex.Pages
 
                 BackgroundColor = Color.White;
 
+                _registrationContext = new RegistrationContext();
+
                 _layout = new AbsoluteLayout() { HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Fill };
+
+
+                _backArrow = new BackArrowCx(false);
+
+                _layout.Children.Add(_backArrow, new Rectangle(24, Device.OnPlatform(Android: 43 + 5 - 25, iOS: 43, WinPhone: 43), 28, 35));
+
+                _backArrow.TranslationY = App.Dimensions.Height;
+
+                _notNowLabel = new LabelCx
+                {
+                    Text = "Not now",
+                    TextColor = Color.FromRgb(140, 148, 160),
+                    FontSize = 16
+                
+                };
+
+                _layout.Children.Add(_notNowLabel, new Rectangle(App.Dimensions.Width - 24 - 62, 32 - 25 + 5 + 9, AbsoluteLayout.AutoSize, 35));
+
+                _notNowLabel.TranslationY = App.Dimensions.Height;
 
                 _registrationBar = new RegistrationProgressBar((int)(App.Dimensions.Width - 2 * LoginPageLayout.Padding), Registration.Steps.Length, 0);
 
@@ -42,12 +66,12 @@ namespace LykkeColorex.Pages
                 {
                     InputTransparent = false
                 };
-                 _button.SetState(StickyButtonState.Next, false);
+                _button.SetState(StickyButtonState.Next, false);
                 _button.TranslationY = App.Dimensions.Height;
-                
 
-                _currentRegStep = new EmailStep(_button);
-                _layout.Children.Add(_currentRegStep, new Rectangle(23, 127 -25, App.Dimensions.Width - 2*23, AbsoluteLayout.AutoSize));
+
+                _currentRegStep = new EmailStep(_button, _registrationContext);
+                _layout.Children.Add(_currentRegStep, new Rectangle(23, 127 - 25, App.Dimensions.Width - 2 * 23, AbsoluteLayout.AutoSize));
                 _currentRegStep.TranslationY = App.Dimensions.Height;
 
 
@@ -123,9 +147,9 @@ namespace LykkeColorex.Pages
                 this.MeasureInvalidated += (sender, args) =>
                 {
                     Debug.WriteLine("Invalidated!!");
-                    
+
                 };
-                
+
             }
             catch (Exception ex)
             {
@@ -155,10 +179,10 @@ namespace LykkeColorex.Pages
                 _currentRegStep.Maximize();
             }
             _button.Layout(new Rectangle(_button.Bounds.X, Content.Height - 64, _button.Bounds.Width, _button.Bounds.Height));
-            if(_currentRegStep.IsDismissible)
+            if (_currentRegStep.IsDismissible)
                 _nativeControls.SetAreaEntrySafe(_button.Bounds);
             else
-                _nativeControls.SetAreaEntrySafe(new Rectangle(0,0,Content.Width, Content.Height));
+                _nativeControls.SetAreaEntrySafe(new Rectangle(0, 0, Content.Width, Content.Height));
         }
 
         protected override void OnAppearing()
@@ -171,12 +195,14 @@ namespace LykkeColorex.Pages
                 _loginSignInButton.TranslateTo(0, 0, 500, Easing.CubicOut);
                 _loginSignInWLWButton.TranslateTo(0, 0, 500, Easing.CubicOut);
                 _loginLogoColorex.TranslateTo(0, 0, 500, Easing.CubicOut);
+                _backArrow.TranslateTo(0, 0, 500, Easing.CubicOut);
+                _notNowLabel.TranslateTo(0, 0, 500, Easing.CubicOut);
 
                 _button.TranslateTo(0, 0, 500, Easing.CubicOut);
                 _currentRegStep.TranslateTo(0, 0, 500, Easing.CubicOut);
                 _registrationBar.TranslateTo(0, 0, 500, Easing.CubicOut);
 
-                
+
             }
             catch (Exception ex)
             {
