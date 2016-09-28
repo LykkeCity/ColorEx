@@ -225,28 +225,6 @@ namespace LykkeColorex.Pages
 
             _sinInWLWButton.Clicked += async delegate
             {
-                
-                var list = new List<Tuple<string, string>>()
-                {
-                    Tuple.Create("asdf", "Dog"),
-                    Tuple.Create("a", "Cat"),
-                    Tuple.Create("d", "Mouse"),
-                    Tuple.Create("e", "Rat"),
-                    Tuple.Create("r", "Hamster"),
-                    Tuple.Create("2", "Elephant"),
-                    Tuple.Create("344", "Lion"),
-                    Tuple.Create("ascv", "Tiger"),
-                    Tuple.Create("vv", "Buffalo"),
-                };
-                var selected = await PopupSelect(true, "Select a pet", list, s => s.Item2, true, list[5]);
-
-                Debug.WriteLine("Selected values were: ");
-                foreach (var item in selected)
-                {
-                    Debug.WriteLine(" - " + item.Item2);
-                }
-
-                
                 _forgotPasswordLabel.IsVisible = true;
                 await SignInWLWLowerAnimation();
                 await
