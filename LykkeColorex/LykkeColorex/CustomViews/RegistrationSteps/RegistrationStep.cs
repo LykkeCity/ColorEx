@@ -9,21 +9,22 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
 {
     public abstract class RegistrationStep : ContentView, IRegistrationStep
     {
-        public RegistrationStep(RegistrationContext context)
+        public RegistrationStep(IRegistrationContext context)
         {
             _context = context;
         }
 
-        private RegistrationContext _context;
-        public RegistrationContext Context => _context;
+        private IRegistrationContext _context;
+        public IRegistrationContext Context => _context;
 
         public abstract Task<bool> Validate();
+        public abstract void Initalize();
         public abstract void Cleanup();
         public abstract bool IsDismissible { get; }
         public abstract Entry FirstFocusEntry { get; }
         public abstract void ResetState();
-        public abstract void Minimize();
-        public abstract void Maximize();
+        public abstract Task Minimize();
+        public abstract Task Maximize();
 
         public abstract event EventHandler StepCompleted;
     }

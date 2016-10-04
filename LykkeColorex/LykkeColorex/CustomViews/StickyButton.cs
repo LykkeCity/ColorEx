@@ -14,13 +14,17 @@ namespace LykkeColorex.CustomViews
         Loading, Next, Success, Error
     }
 
-
-    public class Entry2 : Entry
+    public interface IStickyButton
     {
+        StickyButtonState State { get; }
+        Task Hide();
+        Task Show();
+        Task SetState(StickyButtonState newState, bool animate, string centralText = null, string secondaryText = null);
 
+        event EventHandler Clicked;
     }
 
-    public class StickyButton : ContentView
+    public class StickyButton : ContentView, IStickyButton
     {
         public StickyButtonState State { private set; get; }
 
@@ -57,7 +61,7 @@ namespace LykkeColorex.CustomViews
             {
                 Clicked?.Invoke(this, new EventArgs());
             };
-            
+
             _boxView.GestureRecognizers.Add(tapGestureRecognizer);
 
             PropertyChanged += (sender, args) =>
@@ -81,7 +85,7 @@ namespace LykkeColorex.CustomViews
             }
         }
 
-        public void SetState(StickyButtonState newState, bool animate)
+        public Task SetState(StickyButtonState newState, bool animate, string centralText = null, string secondaryText = null)
         {
             if (newState != State)
             {
@@ -99,7 +103,7 @@ namespace LykkeColorex.CustomViews
                     if (newState == StickyButtonState.Next)
                     {
                         _boxView.Layout(new Rectangle(0, 14, _boxView.Bounds.Width, 50));
-                        _centralText.Text = "Next";
+                        _centralText.Text = string.IsNullOrEmpty(centralText) ? "Next" : centralText;
                         _centralText.Layout(new Rectangle(_centralText.Bounds.X, 15 + 14, _centralText.Bounds.Width, _centralText.Bounds.Height));
                         _boxView.Color = _blue;
                         _centralText.Opacity = 1;
@@ -110,7 +114,7 @@ namespace LykkeColorex.CustomViews
                     if (newState == StickyButtonState.Success)
                     {
                         _boxView.Layout(new Rectangle(0, 14, _boxView.Bounds.Width, 50));
-                        _centralText.Text = "Great!";
+                        _centralText.Text = string.IsNullOrEmpty(centralText) ? "Great!" : centralText;
                         _centralText.Layout(new Rectangle(_centralText.Bounds.X, 15 + 14, _centralText.Bounds.Width, _centralText.Bounds.Height));
                         _boxView.Color = _green;
                         _centralText.Opacity = 1;
@@ -123,8 +127,8 @@ namespace LykkeColorex.CustomViews
                         _boxView.Layout(new Rectangle(0, 0, _boxView.Bounds.Width, 64));
                         _boxView.Color = _red;
                         _secondaryText.Opacity = 1;
-                        _secondaryText.Text = "Invalid code";
-                        _centralText.Text = "Resend";
+                        _secondaryText.Text = string.IsNullOrEmpty(secondaryText) ? "Error" : secondaryText;
+                        _centralText.Text = string.IsNullOrEmpty(centralText) ? "Error" : centralText;
                         _centralText.Opacity = 1;
                         _centralText.Layout(new Rectangle(_centralText.Bounds.X, 16 + 14, _centralText.Bounds.Width, _centralText.Bounds.Height));
                         _loadingCircle.Opacity = 0;
@@ -137,49 +141,58 @@ namespace LykkeColorex.CustomViews
 
                     if (newState == StickyButtonState.Loading)
                     {
-                        _boxView.LayoutTo(new Rectangle(0, 14, _boxView.Bounds.Width, 50), 100);
+                        var a1 = _boxView.LayoutTo(new Rectangle(0, 14, _boxView.Bounds.Width, 50), 100);
                         _boxView.Color = _blue;
-                        _centralText.FadeTo(0, 200);
-                        _secondaryText.FadeTo(0, 200);
-                        _loadingCircle.FadeTo(1, 200);
+                        var a2 = _centralText.FadeTo(0, 200);
+                        var a3 = _secondaryText.FadeTo(0, 200);
+                        var a4 = _loadingCircle.FadeTo(1, 200);
+
+                        return Task.WhenAll(a1, a2, a3, a4);
                     }
                     if (newState == StickyButtonState.Next)
                     {
-                        _boxView.LayoutTo(new Rectangle(0, 14, _boxView.Bounds.Width, 50), 100);
-                        _centralText.Text = "Next";
-                        _centralText.LayoutTo(new Rectangle(_centralText.Bounds.X, 15 + 14, _centralText.Bounds.Width, _centralText.Bounds.Height), 100);
+                        var a1 = _boxView.LayoutTo(new Rectangle(0, 14, _boxView.Bounds.Width, 50), 100);
+                        _centralText.Text = string.IsNullOrEmpty(centralText) ? "Next" : centralText;
+                        var a3 = _centralText.LayoutTo(new Rectangle(_centralText.Bounds.X, 15 + 14, _centralText.Bounds.Width, _centralText.Bounds.Height), 100);
                         _boxView.Color = _blue;
-                        _centralText.FadeTo(1, 200);
-                        _secondaryText.FadeTo(0, 200);
-                        _loadingCircle.FadeTo(0, 200);
+                        var a4 = _centralText.FadeTo(1, 200);
+                        var a5 = _secondaryText.FadeTo(0, 200);
+                        var a6 = _loadingCircle.FadeTo(0, 200);
+
+                        return Task.WhenAll(a1, a3, a4, a5, a6);
                     }
 
                     if (newState == StickyButtonState.Success)
                     {
-                        _boxView.LayoutTo(new Rectangle(0, 14, _boxView.Bounds.Width, 50), 100);
-                        _centralText.Text = "Great!";
-                        _centralText.LayoutTo(new Rectangle(_centralText.Bounds.X, 15 + 14, _centralText.Bounds.Width, _centralText.Bounds.Height), 100);
+                        var a1 = _boxView.LayoutTo(new Rectangle(0, 14, _boxView.Bounds.Width, 50), 100);
+                        _centralText.Text = string.IsNullOrEmpty(centralText) ? "Great!" : centralText;
+                        var a2 = _centralText.LayoutTo(new Rectangle(_centralText.Bounds.X, 15 + 14, _centralText.Bounds.Width, _centralText.Bounds.Height), 100);
                         _boxView.Color = _green;
-                        _centralText.FadeTo(1, 200);
-                        _secondaryText.FadeTo(0, 200);
-                        _loadingCircle.FadeTo(0, 200);
+                        var a3 = _centralText.FadeTo(1, 200);
+                        var a4 = _secondaryText.FadeTo(0, 200);
+                        var a5 = _loadingCircle.FadeTo(0, 200);
+
+                        return Task.WhenAll(a1, a2, a3, a4, a5);
                     }
 
                     if (newState == StickyButtonState.Error)
                     {
-                        _boxView.LayoutTo(new Rectangle(0, 0, _boxView.Bounds.Width, 64), 100);
+                        var a1 = _boxView.LayoutTo(new Rectangle(0, 0, _boxView.Bounds.Width, 64), 100);
                         _boxView.Color = _red;
-                        _secondaryText.FadeTo(1, 200);
+                        var a2 = _secondaryText.FadeTo(1, 200);
                         _secondaryText.Layout(new Rectangle(_centralText.Bounds.X, 16, _centralText.Bounds.Width, _centralText.Bounds.Height));
-                        _secondaryText.LayoutTo(new Rectangle(_centralText.Bounds.X, 11, _centralText.Bounds.Width, _centralText.Bounds.Height), 200);
-                        _secondaryText.Text = "Invalid code";
-                        _centralText.Text = "Resend";
-                        _centralText.FadeTo(1, 200);
-                        _centralText.LayoutTo(new Rectangle(_centralText.Bounds.X, 16 + 14, _centralText.Bounds.Width, _centralText.Bounds.Height), 100);
-                        _loadingCircle.FadeTo(0, 200);
+                        var a3 = _secondaryText.LayoutTo(new Rectangle(_centralText.Bounds.X, 11, _centralText.Bounds.Width, _centralText.Bounds.Height), 200);
+                        _secondaryText.Text = string.IsNullOrEmpty(secondaryText) ? "Error" : secondaryText;
+                        _centralText.Text = string.IsNullOrEmpty(centralText) ? "Error" : centralText;
+                        var a4 = _centralText.FadeTo(1, 200);
+                        var a5 = _centralText.LayoutTo(new Rectangle(_centralText.Bounds.X, 16 + 14, _centralText.Bounds.Width, _centralText.Bounds.Height), 100);
+                        var a6 = _loadingCircle.FadeTo(0, 200);
+
+                        return Task.WhenAll(a1, a2, a3, a4, a5, a6);
                     }
                 }
             }
+            return new Task(delegate { });
         }
 
         public Task Hide()

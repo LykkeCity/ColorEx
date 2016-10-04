@@ -15,17 +15,14 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
         private AbsoluteLayout _layout;
         private LabelEx _label;
         private EntryCx _entry;
-        private StickyButton _button;
+        private IStickyButton _button;
 
 
-        public EmailStep(StickyButton button, RegistrationContext context)
+        public EmailStep(IStickyButton button, IRegistrationContext context)
             : base(context)
         {
             _button = button;
-            _button.SetState(StickyButtonState.Next, true);
-
-            _button.Clicked += ButtonOnClicked;
-
+            
             _layout = new AbsoluteLayout();
 
             _entry = new EntryCx
@@ -66,7 +63,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
                     if (await Validate())
                     {
                         _button.SetState(StickyButtonState.Success, true);
-                        await Task.Delay(300);
+                        await Task.Delay(1000);
                         OnStepCompleted();
                     }
                     else
@@ -80,22 +77,24 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
 
         public override async Task<bool> Validate()
         {
+            _button.SetState(StickyButtonState.Loading, true);
+            await Task.Delay(1500);
             if (_entry.Text != null && _entry.Text.Length > 5)
             {
-                _button.SetState(StickyButtonState.Loading, true);
-                await Task.Delay(1500);
                 return true;
             }
             else
             {
-                _button.SetState(StickyButtonState.Loading, true);
-                await Task.Delay(1500);
                 _entry.Entry.TextChanged += EntryOnTextChanged;
                 _entry.SetError();
-                //var al = Parent as Layout;
-                //_button.Layout(new Rectangle(_button.Bounds.X, al.Height - 64, _button.Bounds.Width, _button.Bounds.Height)); // dirty, dirty, dirty hack
                 return false;
             }
+        }
+
+        public override void Initalize()
+        {
+            _button.Clicked += ButtonOnClicked;
+            _button.SetState(StickyButtonState.Next, true);
         }
 
         private void EntryOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
@@ -118,15 +117,19 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             _button.SetState(StickyButtonState.Next, true);
         }
 
-        public override void Minimize()
+        public override Task Minimize()
         {
-
+            _isMinimized = true;
+            return Task.Run(() => { });
         }
 
-        public override void Maximize()
+        public override Task Maximize()
         {
-
+            _isMinimized = false;
+            return Task.Run(() => { });
         }
+
+        private bool _isMinimized = false;
 
         public override event EventHandler StepCompleted;
 

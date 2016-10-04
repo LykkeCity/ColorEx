@@ -22,6 +22,18 @@ namespace LykkeColorex.Pages
         private BoxView _passwordEntryLine;
         private LabelCx _forgotLabel;
 
+        protected override bool OnBackButtonPressed()
+        {
+            Task.Run(
+                () =>
+                    ((LoginPage)Navigation.NavigationStack[Navigation.NavigationStack.Count - 2])
+                        .CameBackFromSignInWLWPage =
+                        true)
+                .ContinueWith(task => Device.BeginInvokeOnMainThread(async () => await Navigation.PopAsync(false)));
+            return true;
+
+        }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -35,12 +47,6 @@ namespace LykkeColorex.Pages
                     true;
             
             await Navigation.PopAsync(false);
-        }
-
-        protected override bool OnBackButtonPressed()
-        {
-            ((LoginPage)Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]).CameBackFromSignInWLWPage = true;
-            return base.OnBackButtonPressed();
         }
 
         public SignInWLWPage(Rectangle signInWLWButtonBounds, Rectangle signInLabelBounds, Rectangle forgotPasswordLabelBounds, Rectangle emailEntryLineBounds, Rectangle passwordEntryLineBounds, Rectangle infoWLWLabelBounds)

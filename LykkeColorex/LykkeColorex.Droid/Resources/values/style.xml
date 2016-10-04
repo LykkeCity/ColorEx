@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+
+  <color name="white_opaque">#FFFFFFFF</color>
+  <color name="pitch_black">#FF000000</color>
+  
+  <style name="CodeFont">
+    <item name="android:colorAccent">#3F8EFD</item>
+
+  </style>
+</resources>

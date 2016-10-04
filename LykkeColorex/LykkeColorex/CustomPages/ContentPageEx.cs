@@ -47,7 +47,7 @@ namespace LykkeColorex.CustomPages
             }
         }
 
-        public async Task<List<T>> PopupSelect<T>(bool allowMultiple, string title, List<T> objects, Func<T, string> selector, bool hasDefault, T defaultObject = default(T))
+        public async Task<List<T>> PopupSelect<T>(bool allowMultiple, string title, List<T> objects, Func<T, string> selector, List<T> defaultObjects)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace LykkeColorex.CustomPages
                 if (al == null)
                     return await Task.FromResult<List<T>>(null);
 
-                var popup = new SelectPopupCx<T>(allowMultiple, title, objects, selector, hasDefault, defaultObject);
+                var popup = new SelectPopupCx<T>(allowMultiple, title, objects, selector, defaultObjects);
                 var shader = new BoxView { Color = Color.FromRgb(36, 50, 67), Opacity = 0 };
 
                 al.Children.Add(shader, new Rectangle(-1, -1, Content.Width + 1, Content.Height + 1));
@@ -75,6 +75,7 @@ namespace LykkeColorex.CustomPages
 
                 popup.ItemSelected += async (sender, e) =>
                 {
+                    await Task.Delay(150);
                     await HidePopup(popup, shader);
                     tcs.SetResult(e);
                 };
@@ -99,7 +100,7 @@ namespace LykkeColorex.CustomPages
             return await Task.FromResult<List<T>>(null);
         }
 
-        public async Task<List<T>> PopupSelect<T>(bool allowMultiple, string title, List<T> objects, Func<T, Tuple<string, string>> selector, bool hasDefault, T defaultObject = default(T))
+        public async Task<List<T>> PopupSelect<T>(bool allowMultiple, string title, List<T> objects, Func<T, Tuple<string, string>> selector, List<T> defaultObjects)
         {
             try
             {
@@ -108,7 +109,7 @@ namespace LykkeColorex.CustomPages
                 if (al == null)
                     return await Task.FromResult<List<T>>(null);
 
-                var popup = new SelectPopupCx<T>(allowMultiple, title, objects, selector, hasDefault, defaultObject);
+                var popup = new SelectPopupCx<T>(allowMultiple, title, objects, selector, defaultObjects);
                 var shader = new BoxView { Color = Color.FromRgb(36, 50, 67), Opacity = 0 };
 
                 al.Children.Add(shader, new Rectangle(-1, -1, Content.Width + 1, Content.Height + 1));

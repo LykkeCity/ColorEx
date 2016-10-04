@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using LykkeColorex.Constants.Layouts;
@@ -9,7 +10,7 @@ using Xamarin.Forms;
 
 namespace LykkeColorex.Pages
 {
-    public partial class RegistrationPage : ContentPageEx
+    public partial class RegistrationPage : ContentPageEx, IRegistrationHostPage
     {
         private StickyButton _button;
         private RegistrationProgressBar _registrationBar;
@@ -20,9 +21,11 @@ namespace LykkeColorex.Pages
         private LabelCx _infoLabel;
         private ButtonOld _loginSignInWLWButton;
         private ButtonCx _loginSignInButton;
+        private List<RegistrationStep> _steps;
         private RegistrationStep _currentRegStep;
         private LabelCx _notNowLabel;
         private BackArrowCx _backArrow;
+        private RegistrationManager _registrationManager;
 
         private Image _loginLogoColorex;
         protected override bool OnBackButtonPressed()
@@ -102,11 +105,13 @@ namespace LykkeColorex.Pages
                 _button.SetState(StickyButtonState.Next, false);
                 _button.TranslationY = App.Dimensions.Height;
 
+                _registrationManager = new RegistrationManager(typeof(EmailStep), this, _button, _registrationBar, _registrationContext);
 
-                _currentRegStep = new EmailStep(_button, _registrationContext);
-                _layout.Children.Add(_currentRegStep, new Rectangle(23, 127 - 25, App.Dimensions.Width - 2 * 23, AbsoluteLayout.AutoSize));
-                _currentRegStep.TranslationY = App.Dimensions.Height;
+                foreach (var step in _steps)
+                {
+                    step.TranslationY = App.Dimensions.Height;
 
+                }
 
                 _loginLogoColorex = new Image
                 {
@@ -175,24 +180,23 @@ namespace LykkeColorex.Pages
 
 
 
-                _layout.Children.Add(_button, new Rectangle(0, App.Dimensions.Height - 64, App.Dimensions.Width + 1, 64));
+                _layout.Children.Add(_button, new Rectangle(0, 0, App.Dimensions.Width + 1, 64));
 
                 Content = _layout;
 
                 Content.SizeChanged += ContentOnSizeChanged;
 
 
-                Device.StartTimer(TimeSpan.FromMilliseconds(300), () =>
+                Device.StartTimer(TimeSpan.FromMilliseconds(10), () =>
                 {
-                    //Debug.WriteLine(_button.Bounds.Y + " " + _button.TranslationY);
-                    //Debug.WriteLine(Content.Height);
+                    //Debug.WriteLine(App.Dimensions.Height);
+                    //Debug.WriteLine(_minified);
                     return true;
                 });
 
                 this.MeasureInvalidated += (sender, args) =>
                 {
                     Debug.WriteLine("Invalidated!!");
-
                 };
 
             }
@@ -202,32 +206,59 @@ namespace LykkeColorex.Pages
             }
         }
 
+        private bool _minified = false;
         private void ContentOnSizeChanged(object sender, EventArgs eventArgs)
         {
-            if (Content.Height < 380) // 380
-            {
-                foreach (var child in _layout.Children)
-                {
-                    if (child != _button)
-                        child.TranslateTo(0, -40, 100, Easing.CubicOut);
-                }
-                _currentRegStep.Minimize();
-            }
-            else
+            try
             {
 
-                foreach (var child in _layout.Children)
+                HeightChanged?.Invoke(this, Content.Height);
+                /*
+                if (Content.Height < 380) // 380
                 {
-                    if (child != _button)
-                        child.TranslateTo(0, 0, 100, Easing.CubicOut);
+                    
+                    if (!_minified)
+                    {
+                        Debug.WriteLine("minifying");
+                        _minified = true;
+                        foreach (var child in _layout.Children)
+                        {
+                            if (child != _button)
+                                child.LayoutTo(new Rectangle(child.Bounds.X, child.Bounds.Y - 40, child.Bounds.Width, child.Bounds.Height), 100, Easing.CubicOut);//child.TranslateTo(0, -40, 100, Easing.CubicOut);
+                        }
+                    }
+                    //_currentRegStep?.Minimize();
                 }
-                _currentRegStep.Maximize();
+                else
+                {
+                    
+                    if (_minified)
+                    {
+                        Debug.WriteLine("maximizing");
+                        _minified = false;
+                        foreach (var child in _layout.Children)
+                        {
+                            if (child != _button)
+                                child.LayoutTo(new Rectangle(child.Bounds.X, child.Bounds.Y + 40, child.Bounds.Width, child.Bounds.Height), 100, Easing.CubicOut);//child.TranslateTo(0, 0, 100, Easing.CubicOut);
+                        }
+                    }
+                    
+                    //_currentRegStep?.Maximize();
+
+                    _currentRegStep?.Maximize();
+                }
+                */
+                _button.Layout(new Rectangle(_button.Bounds.X, Content.Height - 64, _button.Bounds.Width,
+                    _button.Bounds.Height));
+                if (_currentRegStep != null && _currentRegStep.IsDismissible)
+                    _nativeControls.SetAreaEntrySafe(_button.Bounds);
+                else
+                    _nativeControls.SetAreaEntrySafe(new Rectangle(0, 0, Content.Width, Content.Height));
             }
-            _button.Layout(new Rectangle(_button.Bounds.X, Content.Height - 64, _button.Bounds.Width, _button.Bounds.Height));
-            if (_currentRegStep.IsDismissible)
-                _nativeControls.SetAreaEntrySafe(_button.Bounds);
-            else
-                _nativeControls.SetAreaEntrySafe(new Rectangle(0, 0, Content.Width, Content.Height));
+            catch (Exception ex)
+            {
+                var a = 234;
+            }
         }
 
         protected override void OnAppearing()
@@ -241,11 +272,13 @@ namespace LykkeColorex.Pages
                 _loginSignInWLWButton.TranslateTo(0, 0, 500, Easing.CubicOut);
                 _loginLogoColorex.TranslateTo(0, 0, 500, Easing.CubicOut);
                 _infoLabel.TranslateTo(0, 0, 500, Easing.CubicOut);
-
+                foreach (var step in _steps)
+                {
+                    step.TranslateTo(0, 0, 500, Easing.CubicOut);
+                }
                 _backArrow.TranslateTo(0, 0, 500, Easing.CubicOut);
                 _notNowLabel.TranslateTo(0, 0, 500, Easing.CubicOut);
                 _button.TranslateTo(0, 0, 500, Easing.CubicOut);
-                _currentRegStep.TranslateTo(0, 0, 500, Easing.CubicOut);
                 _registrationBar.TranslateTo(0, 0, 500, Easing.CubicOut);
 
 
@@ -262,6 +295,39 @@ namespace LykkeColorex.Pages
             base.OnDisappearing();
             _nativeControls.SetAreaEntrySafe(null);
             _nativeControls.SetAdjustResize(false);
+        }
+
+        public void SetSteps(List<RegistrationStep> steps, int currentStepIndex)
+        {
+            _steps = steps;
+            for (int i = 0; i < steps.Count; i++)
+            {
+                _currentRegStep = steps[currentStepIndex];
+                _layout.Children.Add(steps[i], new Rectangle(23 + (i - currentStepIndex) * App.Dimensions.Width, 127 - 25, App.Dimensions.Width - 2 * 23, AbsoluteLayout.AutoSize));
+                _currentRegStep.TranslationY = App.Dimensions.Height;
+            }
+        }
+
+        public event EventHandler<double> HeightChanged;
+
+        public Task MoveCurrentStepBy(int steps)
+        {
+            var animations = new List<Task<bool>>();
+            foreach (var step in _steps)
+            {
+                var oldTranslationX = step.TranslationX;
+                var oldTranslationY = step.TranslationY;
+                animations.Add(step.TranslateTo(oldTranslationX - App.Dimensions.Width * steps, oldTranslationY, 200, Easing.CubicOut));
+            }
+            _currentRegStep = _steps[_steps.IndexOf(_currentRegStep) + 1];
+
+            if (_currentRegStep != null && _currentRegStep.IsDismissible)
+                _nativeControls.SetAreaEntrySafe(_button.Bounds);
+            else
+                _nativeControls.SetAreaEntrySafe(new Rectangle(0, 0, Content.Width, Content.Height));
+
+            return Task.WhenAll(animations);
+
         }
     }
 }

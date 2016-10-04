@@ -13,16 +13,14 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
         private LabelEx _labelPrimary;
         private EntryCx _entryName;
         private EntryCx _entrySurname;
-        private StickyButton _button;
+        private IStickyButton _button;
 
 
-        public NameStep(StickyButton button, RegistrationContext context)
+        public NameStep(IStickyButton button, IRegistrationContext context)
             : base(context)
         {
             _button = button;
-            _button.SetState(StickyButtonState.Next, true);
 
-            _button.Clicked += ButtonOnClicked;
 
             _layout = new AbsoluteLayout();
 
@@ -110,6 +108,12 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             }
         }
 
+        public override void Initalize()
+        {
+            _button.Clicked += ButtonOnClicked;
+            _button.SetState(StickyButtonState.Next, true);
+        }
+
         public override void Cleanup()
         {
             _button.Clicked -= ButtonOnClicked;
@@ -123,16 +127,19 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             throw new NotImplementedException();
         }
 
-        public override void Minimize()
+        public override Task Minimize()
         {
-
+            _isMinimized = true;
+            return Task.Run(() => {});
         }
 
-        public override void Maximize()
+        public override Task Maximize()
         {
-
+            _isMinimized = false;
+            return Task.Run(() => { });
         }
 
+        private bool _isMinimized = false;
         public override event EventHandler StepCompleted;
 
         protected virtual void OnStepCompleted()

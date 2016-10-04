@@ -25,10 +25,9 @@ namespace LykkeColorex.Droid
     }
 
 
-    [Activity(Label = "LykkeColorex", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "LykkeColorex", Theme = "@style/CodeFont", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsApplicationActivity
     {
-        public bool CreepySolution { set; get; }
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -51,10 +50,9 @@ namespace LykkeColorex.Droid
                 DisplayMetrics displayMetrics = Resources.DisplayMetrics;
                 App.Dimensions.Height = displayMetrics.HeightPixels/displayMetrics.Density - 25;
                 App.Dimensions.Width = displayMetrics.WidthPixels/displayMetrics.Density;
-
+                
                 LoadApplication(new App());
-
-                CreepySolution = false;
+                
             }
             catch (Exception ex)
             {

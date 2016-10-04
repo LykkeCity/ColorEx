@@ -123,7 +123,6 @@ namespace LykkeColorex.CustomViews.Popup
                 }
                 else
                 {
-                    Debug.WriteLine(casted1.Title + " - " + (casted1.IsSelected ? "selected" : ""));
                     if (casted1.IsSelected)
                         result.Add(_objects[i]);
                 }
@@ -134,7 +133,7 @@ namespace LykkeColorex.CustomViews.Popup
             return result;
         } 
 
-        public SelectPopupCx(bool allowMultiple, string title, List<T> objects, Func<T, string> selector, bool hasDefault, T defaultObject = default(T))
+        public SelectPopupCx(bool allowMultiple, string title, List<T> objects, Func<T, string> selector, List<T> defaultObjects)
         {
             _listView = new ListView(ListViewCachingStrategy.RecycleElement);
 
@@ -147,7 +146,7 @@ namespace LykkeColorex.CustomViews.Popup
                             new SelectItemModel
                             {
                                 Title = @t.s,
-                                IsSelected = hasDefault && @t.item.Equals(defaultObject)
+                                IsSelected = defaultObjects != null && defaultObjects.Contains(@t.item)
                             }).ToList();
 
             _listView.ItemsSource = l;
@@ -221,7 +220,7 @@ namespace LykkeColorex.CustomViews.Popup
             };
         }
 
-        public SelectPopupCx(bool allowMultiple, string title, List<T> objects, Func<T, Tuple<string, string>> selector, bool hasDefault, T defaultObject = default(T))
+        public SelectPopupCx(bool allowMultiple, string title, List<T> objects, Func<T, Tuple<string, string>> selector, List<T> defaultObjects)
         {
             _listView = new ListView(ListViewCachingStrategy.RecycleElement);
 
@@ -229,7 +228,7 @@ namespace LykkeColorex.CustomViews.Popup
 
             var l = objects.Select(item => new SelectDoubleDataItemModel
             {
-                IsSelected = hasDefault && item.Equals(defaultObject),
+                IsSelected = defaultObjects != null && defaultObjects.Contains(item),
                 SecondaryTitle = selector(item).Item2,
                 Title = selector(item).Item1,
             }).ToList();
@@ -249,7 +248,7 @@ namespace LykkeColorex.CustomViews.Popup
             };
 
             bool tapProcessing = false;
-            _listView.ItemTapped += async (sender, args) =>
+            _listView.ItemTapped += (sender, args) =>
             {
                 if (!tapProcessing)
                 {
@@ -269,8 +268,6 @@ namespace LykkeColorex.CustomViews.Popup
                         }
                         castedItem.IsSelected = true;
 
-                        await Task.Delay(150);
-                        
                         OnItemSelected(GetSelectedItems());
                     }
 

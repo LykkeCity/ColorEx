@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LykkeColorex.CustomViews;
 using Xamarin.Forms;
 
-namespace LykkeColorex.CustomViews
+namespace LykkeColorex.CustomViews.RegistrationSteps
 {
-    public class RegistrationProgressBar : ContentView
+    public class RegistrationProgressBar : ContentView, IRegistrationProgressBar
     {
         private AbsoluteLayout _al;
         private int _steps;
@@ -32,7 +34,7 @@ namespace LykkeColorex.CustomViews
             Draw();
         }
 
-        public async void Next()
+        public async Task Next()
         {
 
             if (_atStep + 1 < _steps)
@@ -54,7 +56,7 @@ namespace LykkeColorex.CustomViews
             }
         }
 
-        public async void Previous()
+        public async Task Previous()
         {
             if (_atStep >= 1)
             {
@@ -64,41 +66,67 @@ namespace LykkeColorex.CustomViews
                     CornerRadius = 2,
                     Opacity = 1
                 };
-                
 
-                
+
+
                 _al.Children.Add(animatable, new Rectangle(_boxes[_atStep].X, _boxes[_atStep].Y, _boxes[_atStep].Width, _boxes[_atStep].Height));
                 _boxes[_atStep].Color = Color.FromRgb(235, 237, 239);
                 await animatable.FadeTo(0, 200);
                 //await animatable.LayoutTo(_boxes[_atStep].Bounds, 200, Easing.CubicOut);
 
                 _al.Children.Remove(animatable);
-                
+
                 _atStep--;
             }
         }
 
-        public void Draw()
+        private void Draw()
         {
-            _al = new AbsoluteLayout();
+            while (_al.Children.Count > 0)
+                _al.Children.RemoveAt(0);
+
             //_al.BackgroundColor = Color.Red;
             _al.HeightRequest = _height;
             _al.WidthRequest = _width;
 
+            _boxes = new RoundedBoxView[_steps];
+
             for (int i = 0; i < _steps; i++)
             {
-                var b = new RoundedBoxView
+                try
                 {
-                    Color = i <= _atStep ? Color.FromRgb(63, 142, 253) : Color.FromRgb(235, 237, 239),
-                    CornerRadius = 2,
+                    var b = new RoundedBoxView
+                    {
+                        Color = i <= _atStep ? Color.FromRgb(63, 142, 253) : Color.FromRgb(235, 237, 239),
+                        CornerRadius = 2,
 
-                };
-                _boxes[i] = b;
-                _al.Children.Add(b, new Rectangle((_spacing + _widthOfItem) * i, 0, _widthOfItem, _height));
+                    };
+                    _boxes[i] = b;
+                    _al.Children.Add(b, new Rectangle((_spacing + _widthOfItem) * i, 0, _widthOfItem, _height));
+                }
+                catch (Exception e)
+                {
+                    var a = 234;
+                }
             }
 
             Content = _al;
         }
 
+        public Task MoveCurrentStepBy(int steps)
+        {
+            if (steps > 0)
+                return Next();
+            else
+                return Previous();
+        }
+
+        public void Setup(int count, int currentStepIndex)
+        {
+            Debug.WriteLine($"Redrawing Stepper with # of steps {count} starting at step {currentStepIndex}");
+            _steps = count;
+            _atStep = currentStepIndex;
+            Draw();
+        }
     }
 }

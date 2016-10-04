@@ -11,6 +11,8 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
     {
         Task<bool> Validate();
 
+        void Initalize();
+
         void Cleanup();
 
         bool IsDismissible { get; }
@@ -19,9 +21,9 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
 
         void ResetState();
 
-        void Minimize();
+        Task Minimize();
 
-        void Maximize();
+        Task Maximize();
 
         event EventHandler StepCompleted;
     }

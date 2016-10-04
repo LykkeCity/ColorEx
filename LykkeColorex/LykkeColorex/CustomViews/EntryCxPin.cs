@@ -119,7 +119,6 @@ namespace LykkeColorex.CustomViews
 
         private void EntryOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
         {
-            Debug.WriteLine("entered. old: " + textChangedEventArgs.OldTextValue + ", new: " + textChangedEventArgs.NewTextValue);
             if (textChangedEventArgs.NewTextValue == textChangedEventArgs.OldTextValue)
             {
                 return;

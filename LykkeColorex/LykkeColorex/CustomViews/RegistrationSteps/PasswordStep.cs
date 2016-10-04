@@ -15,16 +15,14 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
         private EntryCx _entryPass1;
         private EntryCx _entryPass2;
         private EntryCx _entryHint;
-        private StickyButton _button;
+        private IStickyButton _button;
 
 
-        public PasswordStep(StickyButton button, RegistrationContext context) 
+        public PasswordStep(IStickyButton button, IRegistrationContext context) 
             : base(context)
         {
             _button = button;
-            _button.SetState(StickyButtonState.Next, true);
 
-            _button.Clicked += ButtonOnClicked;
 
             _layout = new AbsoluteLayout();
 
@@ -106,7 +104,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
                     if (await Validate())
                     {
                         _button.SetState(StickyButtonState.Success, true);
-                        await Task.Delay(300);
+                        await Task.Delay(1000);
                         OnStepCompleted();
                     }
                     else
@@ -134,6 +132,12 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             }
         }
 
+        public override void Initalize()
+        {
+            _button.Clicked += ButtonOnClicked;
+            _button.SetState(StickyButtonState.Next, true);
+        }
+
         public override void Cleanup()
         {
             _button.Clicked -= ButtonOnClicked;
@@ -147,27 +151,42 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             throw new NotImplementedException();
         }
 
-        public override void Minimize()
+        public override Task Minimize()
         {
-            _labelSecondary.TranslateTo(0, -(32 + 53), 150, Easing.CubicOut);
-            _labelSecondary.FadeTo(0, 150, Easing.CubicOut);
-            _labelPrimary.TranslateTo(0, -(32 + 53), 150, Easing.CubicOut);
-            _labelPrimary.FadeTo(0, 150, Easing.CubicOut);
-            _entryPass1.TranslateTo(0, -(32 + 53) - 15, 150, Easing.CubicOut);
-            _entryPass2.TranslateTo(0, -(32 + 53) - 15, 150, Easing.CubicOut);
-            _entryHint.TranslateTo(0, -(32 + 53) - 15, 150, Easing.CubicOut);
+            if (!_isMinimized)
+            {
+                _isMinimized = true;
+                return Task.WhenAll(
+                    _labelSecondary.TranslateTo(0, -(32 + 53), 150, Easing.CubicOut),
+                    _labelSecondary.FadeTo(0, 150, Easing.CubicOut),
+                    _labelPrimary.TranslateTo(0, -(32 + 53), 150, Easing.CubicOut),
+                    _labelPrimary.FadeTo(0, 150, Easing.CubicOut),
+                    _entryPass1.TranslateTo(0, -(32 + 53) - 15, 150, Easing.CubicOut),
+                    _entryPass2.TranslateTo(0, -(32 + 53) - 15, 150, Easing.CubicOut),
+                    _entryHint.TranslateTo(0, -(32 + 53) - 15, 150, Easing.CubicOut));
+            }
+            return Task.Run(() => { });
         }
 
-        public override void Maximize()
+        public override Task Maximize()
         {
-            _labelSecondary.TranslateTo(0, 0, 150, Easing.CubicOut);
-            _labelSecondary.FadeTo(1, 150, Easing.CubicOut);
-            _labelPrimary.TranslateTo(0, 0, 150, Easing.CubicOut);
-            _labelPrimary.FadeTo(1, 150, Easing.CubicOut);
-            _entryPass1.TranslateTo(0, 0, 150, Easing.CubicOut);
-            _entryPass2.TranslateTo(0, 0, 150, Easing.CubicOut);
-            _entryHint.TranslateTo(0, 0, 150, Easing.CubicOut);
+            if (_isMinimized)
+            {
+                _isMinimized = false;
+                return Task.WhenAll(
+                _labelSecondary.TranslateTo(0, 0, 150, Easing.CubicOut),
+                _labelSecondary.FadeTo(1, 150, Easing.CubicOut),
+                _labelPrimary.TranslateTo(0, 0, 150, Easing.CubicOut),
+                _labelPrimary.FadeTo(1, 150, Easing.CubicOut),
+                _entryPass1.TranslateTo(0, 0, 150, Easing.CubicOut),
+                _entryPass2.TranslateTo(0, 0, 150, Easing.CubicOut),
+                _entryHint.TranslateTo(0, 0, 150, Easing.CubicOut));
+            }
+            return Task.Run(() => {});
         }
+
+
+        private bool _isMinimized = false;
 
         public override event EventHandler StepCompleted;
 

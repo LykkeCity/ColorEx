@@ -21,27 +21,6 @@ using View = Android.Views.View;
 [assembly: ExportRenderer(typeof(EntryEx), typeof(EntryExRenderer))]
 namespace LykkeColorex.Droid.CustomRenderers
 {
-    public class ClickListener : View.IOnClickListener
-    {
-        private EditText control;
-
-        public ClickListener()
-        {
-            //control = c;
-        }
-
-        public void Dispose()
-        {
-            
-        }
-
-        public IntPtr Handle { get; }
-        public void OnClick(View v)
-        {
-            //control.SetSelection(control.Text.Length);
-        }
-    }
-    
     public class EntryExRenderer : EntryRenderer
     {
         // Override the OnElementChanged method so we can tweak this renderer post-initial setup

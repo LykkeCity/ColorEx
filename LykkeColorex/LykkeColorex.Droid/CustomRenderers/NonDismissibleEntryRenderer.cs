@@ -18,6 +18,7 @@ using LykkeColorex.Droid.CustomRenderers;
 using LykkeColorex.Droid.CustomViews;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using View = Android.Views.View;
 
 
 [assembly: ExportRenderer(typeof(NonDismissibleEntry), typeof(NonDismissibleEntryRenderer))]
@@ -42,7 +43,7 @@ namespace LykkeColorex.Droid.CustomRenderers
         {
 
         }
-
+        
         public void OnTextChanged(ICharSequence s, int start, int before, int count)
         {
             if (string.IsNullOrEmpty(Element.Text) && s.Length() == 0)
@@ -68,6 +69,8 @@ namespace LykkeColorex.Droid.CustomRenderers
         {
             base.OnElementChanged(e);
 
+            //HandleKeyboardOnFocus = true;
+
             if (e.OldElement == null)
             {
                 _textView = new NonDismissibleEditText(Context);
@@ -81,15 +84,34 @@ namespace LykkeColorex.Droid.CustomRenderers
                     _textView.ImeOptions = ImeAction.ImeMaskAction;
                     _textView.ImeOptions = ImeAction.None;
                     _textView.SetSingleLine(true);
+                    _textView.LongClickable = false;
                 }
                 //_textView.OnKeyboardBackPressed += (sender, args) => _textView.ClearFocus();
                 SetNativeControl(_textView);
             }
 
             _textView.Hint = Element.Placeholder;
+            _textView.ShowSoftInputOnFocus = true;
             _textView.Text = Element.Text;
 
+            _textView.FocusChange += delegate(object sender, FocusChangeEventArgs args)
+            {
+
+                if (args.HasFocus)
+                {
+                    ShowKeyboard(_textView);
+                }
+                else
+                {
+                    //HideKeyboard(_textView);
+                    //Control.ClearFocus();
+                }
+
+            };
+
         }
+
+        
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -99,7 +121,40 @@ namespace LykkeColorex.Droid.CustomRenderers
             base.OnElementPropertyChanged(sender, e);
         }
 
-        
 
+        internal static void HideKeyboard(NonDismissibleEditText inputView, bool overrideValidation = false)
+        {
+            if (Forms.Context == null)
+                throw new InvalidOperationException("Call Forms.Init() before HideKeyboard");
+
+            using (var inputMethodManager = (InputMethodManager)Forms.Context.GetSystemService(Context.InputMethodService))
+            {
+                IBinder windowToken = null;
+
+                if (!overrideValidation && !(inputView is NonDismissibleEditText || inputView is TextView || inputView is SearchView))
+                    throw new ArgumentException("inputView should be of type EditText, SearchView, or TextView");
+
+                windowToken = inputView.WindowToken;
+                if (windowToken != null)
+                    inputMethodManager.HideSoftInputFromWindow(windowToken, HideSoftInputFlags.None);
+            }
+        }
+
+        internal static void ShowKeyboard(NonDismissibleEditText inputView)
+        {
+            if (Forms.Context == null)
+                throw new InvalidOperationException("Call Forms.Init() before ShowKeyboard");
+
+            using (var inputMethodManager = (InputMethodManager)Forms.Context.GetSystemService(Context.InputMethodService))
+            {
+                if (inputView is NonDismissibleEditText || inputView is TextView || inputView is SearchView)
+                {
+                    inputMethodManager.ShowSoftInput(inputView, ShowFlags.Forced);
+                    inputMethodManager.ToggleSoftInput(ShowFlags.Forced, HideSoftInputFlags.ImplicitOnly);
+                }
+                else
+                    throw new ArgumentException("inputView should be of type EditText, SearchView, or TextView");
+            }
+        }
     }
 }

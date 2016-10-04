@@ -23,6 +23,17 @@ namespace LykkeColorex.Pages
         private BoxView _passwordEntryLine;
         private LabelCx _forgotLabel;
 
+        protected override bool OnBackButtonPressed()
+        {
+            Task.Run(
+                () =>
+                    ((LoginPage) Navigation.NavigationStack[Navigation.NavigationStack.Count - 2])
+                        .CameBackFromSignInPage =
+                        true)
+                .ContinueWith(task => Device.BeginInvokeOnMainThread(async () => await Navigation.PopAsync(false)));
+            return true;
+
+        }
 
 
         protected override async void OnAppearing()

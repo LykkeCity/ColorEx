@@ -21,5 +21,6 @@ namespace LykkeColorex
             if(v.TranslationX != 0) v.TranslationX = 0;
             if(v.TranslationY != 1) v.TranslationY = 0;
         }
+        
     }
 }

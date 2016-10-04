@@ -39,6 +39,8 @@
     <Compile Include="CustomViews\Popup\MutipleItemSelectDoubleDataViewCell.cs" />
     <Compile Include="CustomViews\Popup\MultipleItemSelectViewCell.cs" />
     <Compile Include="CustomViews\RegistrationSteps\IRegistrationContext.cs" />
+    <Compile Include="CustomViews\RegistrationSteps\IRegistrationHostPage.cs" />
+    <Compile Include="CustomViews\RegistrationSteps\IRegistrationProgressBar.cs" />
     <Compile Include="CustomViews\RegistrationSteps\RegistrationContext.cs" />
     <Compile Include="CustomViews\RegistrationSteps\RegistrationManager.cs" />
     <Compile Include="INativeControls.cs" />
@@ -62,7 +64,7 @@
     <Compile Include="CustomViews\Popup\PopupOrderSummary.cs" />
     <Compile Include="CustomViews\Popup\SingleItemSelectDoubleDataViewCell.cs" />
     <Compile Include="CustomViews\Popup\SingleItemSelectViewCell.cs" />
-    <Compile Include="CustomViews\RegistrationProgressBar.cs" />
+    <Compile Include="CustomViews\RegistrationSteps\RegistrationProgressBar.cs" />
     <Compile Include="CustomViews\RegistrationSteps\EmailConfirmStep.cs" />
     <Compile Include="CustomViews\RegistrationSteps\EmailStep.cs" />
     <Compile Include="CustomViews\RegistrationSteps\IRegistrationStep.cs" />
@@ -75,6 +77,7 @@
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Page1.cs" />
     <Compile Include="Pages\RegistrationPage.xaml.cs">
       <DependentUpon>RegistrationPage.xaml</DependentUpon>
     </Compile>
