@@ -277,7 +277,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\popupMultipleSelected.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <AndroidResource Include="Resources\values\style.xml" />
   </ItemGroup>

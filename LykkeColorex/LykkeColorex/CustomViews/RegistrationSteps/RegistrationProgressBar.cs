@@ -82,10 +82,9 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
 
         private void Draw()
         {
-            while (_al.Children.Count > 0)
-                _al.Children.RemoveAt(0);
 
-            //_al.BackgroundColor = Color.Red;
+            Device.BeginInvokeOnMainThread(() => _al.Children.Clear());
+
             _al.HeightRequest = _height;
             _al.WidthRequest = _width;
 
@@ -102,7 +101,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
 
                     };
                     _boxes[i] = b;
-                    _al.Children.Add(b, new Rectangle((_spacing + _widthOfItem) * i, 0, _widthOfItem, _height));
+                    Device.BeginInvokeOnMainThread(() => _al.Children.Add(b, new Rectangle((_spacing + _widthOfItem) * i, 0, _widthOfItem, _height)));
                 }
                 catch (Exception e)
                 {

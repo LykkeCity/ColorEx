@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using LykkeColorex.Constants.Layouts;
 using LykkeColorex.CustomPages;
@@ -91,12 +92,15 @@ namespace LykkeColorex.Pages
 
                 _notNowLabel.TranslationY = App.Dimensions.Height;
 
-                _registrationBar = new RegistrationProgressBar((int)(App.Dimensions.Width - 2 * LoginPageLayout.Padding), Registration.Steps.Length, 0);
+                _registrationBar = new RegistrationProgressBar((int)(App.Dimensions.Width - 2 * LoginPageLayout.Padding), 4, 0);
+
+                _registrationBar.Setup(5, 0);
 
                 _layout.Children.Add(_registrationBar,
                     new Rectangle(LoginPageLayout.Padding, RegistrationPageLayout.RegistrationProgressBarFromTop,
                         AbsoluteLayout.AutoSize, 3));
                 _registrationBar.TranslationY = App.Dimensions.Height;
+
 
                 _button = new StickyButton
                 {
@@ -133,18 +137,17 @@ namespace LykkeColorex.Pages
                 _infoLabel.TranslationY = App.Dimensions.Height;
 
 
-
                 _loginSignUpLabel = new LabelCx
                 {
                     FormattedText = new FormattedString
                     {
                         Spans = {
-                        new Span {
-                            Text = "Don't have an account?  ",
-                            ForegroundColor = Color.FromRgb(63, 77, 96)
-                        },
-                        new Span { Text = "Sign Up",
-                            ForegroundColor = Color.FromRgb(63, 142, 253)
+                            new Span {
+                                Text = "Don't have an account?  ",
+                                ForegroundColor = Color.FromRgb(63, 77, 96)
+                            },
+                            new Span { Text = "Sign Up",
+                                ForegroundColor = Color.FromRgb(63, 142, 253)
                         }
                     }
                     },
@@ -261,26 +264,28 @@ namespace LykkeColorex.Pages
             }
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
             _nativeControls.SetAdjustResize(true);
             try
             {
-                _loginSignUpLabel.TranslateTo(0, 0, 500, Easing.CubicOut);
-                _loginSignInButton.TranslateTo(0, 0, 500, Easing.CubicOut);
-                _loginSignInWLWButton.TranslateTo(0, 0, 500, Easing.CubicOut);
-                _loginLogoColorex.TranslateTo(0, 0, 500, Easing.CubicOut);
-                _infoLabel.TranslateTo(0, 0, 500, Easing.CubicOut);
-                foreach (var step in _steps)
-                {
-                    step.TranslateTo(0, 0, 500, Easing.CubicOut);
-                }
-                _backArrow.TranslateTo(0, 0, 500, Easing.CubicOut);
-                _notNowLabel.TranslateTo(0, 0, 500, Easing.CubicOut);
-                _button.TranslateTo(0, 0, 500, Easing.CubicOut);
-                _registrationBar.TranslateTo(0, 0, 500, Easing.CubicOut);
+                var animations = new List<Task<bool>>();
 
+                animations.Add(_loginSignUpLabel.TranslateTo(0, 0, 500, Easing.CubicOut));
+                animations.Add(_loginSignInButton.TranslateTo(0, 0, 500, Easing.CubicOut));
+                animations.Add(_loginSignInWLWButton.TranslateTo(0, 0, 500, Easing.CubicOut));
+                animations.Add(_loginLogoColorex.TranslateTo(0, 0, 500, Easing.CubicOut));
+                animations.Add(_infoLabel.TranslateTo(0, 0, 500, Easing.CubicOut));
+                animations.AddRange(_steps.Select(step => step.TranslateTo(0, 0, 500, Easing.CubicOut)));
+                animations.Add(_backArrow.TranslateTo(0, 0, 500, Easing.CubicOut));
+                animations.Add(_notNowLabel.TranslateTo(0, 0, 500, Easing.CubicOut));
+                animations.Add(_button.TranslateTo(0, 0, 500, Easing.CubicOut));
+                animations.Add(_registrationBar.TranslateTo(0, 0, 500, Easing.CubicOut));
+
+                await Task.WhenAll(animations);
+
+                _currentRegStep?.FirstFocusEntry.Focus();
 
             }
             catch (Exception ex)

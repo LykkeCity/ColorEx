@@ -34,9 +34,9 @@ namespace LykkeColorex.Droid.CustomRenderers
                 {
                     var entr = (EntryEx) e.NewElement;
                     Control.SetBackgroundResource(Resource.Drawable.entry_bg);
-                    IntPtr IntPtrtextViewClass = JNIEnv.FindClass(typeof (TextView));
+                    /*IntPtr IntPtrtextViewClass = JNIEnv.FindClass(typeof (TextView));
                     IntPtr mCursorDrawableResProperty = JNIEnv.GetFieldID(IntPtrtextViewClass, "mCursorDrawableRes", "I");
-                    JNIEnv.SetField(Control.Handle, mCursorDrawableResProperty, Resource.Drawable.custom_cursor);
+                    JNIEnv.SetField(Control.Handle, mCursorDrawableResProperty, Resource.Drawable.custom_cursor);*/
                         // replace 0 with a Resource.Drawable.my_cursor*/
                     Typeface font = Typeface.CreateFromAsset(Forms.Context.Assets, $"{entr.FontName}.ttf");
                     Control.Typeface = font;

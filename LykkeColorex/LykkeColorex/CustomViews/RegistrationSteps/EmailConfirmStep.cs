@@ -39,7 +39,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
                 _labelSecondary = new LabelEx
                 {
                     TextColor = Color.FromRgb(51, 51, 51),
-                    Text = $"Code was sent to email {Context.Email ?? ""}",
+                    Text = $"Code was sent to email { Context.Email ?? "" }",
                     FontSize = 15,
                     HorizontalOptions = LayoutOptions.Fill,
                     //        BackgroundColor = Color.Lime
@@ -94,7 +94,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
                 {
                     _button.SetState(StickyButtonState.Success, true);
                     Cleanup();
-                    await Task.Delay(300);
+                    await Task.Delay(1000);
                     OnStepCompleted();
                 }
                 else
