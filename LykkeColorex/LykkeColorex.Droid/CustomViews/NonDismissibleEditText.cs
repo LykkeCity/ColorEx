@@ -43,14 +43,12 @@ namespace LykkeColorex.Droid.CustomViews
         
         public override bool OnKeyPreIme(Keycode keyCode, KeyEvent e)
         {
-            if (e.KeyCode == Keycode.Back)
+            if (e.KeyCode == Keycode.Back || e.KeyCode == Keycode.Enter)
             {
                 DispatchKeyEvent(e);
                 return true;
             }
             return base.OnKeyPreIme(keyCode, e);
         }
-        
-
     }
 }

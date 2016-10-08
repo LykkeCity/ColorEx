@@ -109,12 +109,11 @@ namespace LykkeColorex.Pages
                 _button.SetState(StickyButtonState.Next, false);
                 _button.TranslationY = App.Dimensions.Height;
 
-                _registrationManager = new RegistrationManager(typeof(EmailStep), this, _button, _registrationBar, _registrationContext);
+                _registrationManager = new RegistrationManager(typeof(EmailConfirmStep), this, _button, _registrationBar, _registrationContext);
 
                 foreach (var step in _steps)
                 {
                     step.TranslationY = App.Dimensions.Height;
-
                 }
 
                 _loginLogoColorex = new Image

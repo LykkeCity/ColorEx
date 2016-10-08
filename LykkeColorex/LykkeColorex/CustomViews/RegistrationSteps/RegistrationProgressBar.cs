@@ -125,6 +125,7 @@ namespace LykkeColorex.CustomViews.RegistrationSteps
             Debug.WriteLine($"Redrawing Stepper with # of steps {count} starting at step {currentStepIndex}");
             _steps = count;
             _atStep = currentStepIndex;
+            _widthOfItem = (_width - (_spacing * (_steps - 1))) / (double)_steps;
             Draw();
         }
     }

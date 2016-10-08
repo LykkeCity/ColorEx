@@ -50,7 +50,7 @@ namespace LykkeColorex.CustomViews
             RotateElement(_loadingCircle);
             _layout.Children.Add(_boxView, new Rectangle(0, 14, 1, 50), AbsoluteLayoutFlags.WidthProportional);
             _layout.Children.Add(_loadingCircle, new Rectangle(0.5, 14 + 8.5, 30, 30), AbsoluteLayoutFlags.XProportional);
-            _layout.Children.Add(_centralText, new Rectangle(0.5, 25, 200, 30), AbsoluteLayoutFlags.XProportional);
+            _layout.Children.Add(_centralText, new Rectangle(0.5, 20, 200, 30), AbsoluteLayoutFlags.XProportional);
             _layout.Children.Add(_secondaryText, new Rectangle(0.5, 11, 200, 30), AbsoluteLayoutFlags.XProportional);
             SetState(StickyButtonState.Loading, false);
             Content = _layout;
